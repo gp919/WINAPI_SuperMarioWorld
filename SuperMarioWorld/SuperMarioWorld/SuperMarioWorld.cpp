@@ -4,6 +4,7 @@
 #include "pch.h"
 #include "framework.h"
 #include "SuperMarioWorld.h"
+#include "Define.h"
 
 #define MAX_LOADSTRING 100
 
@@ -11,6 +12,7 @@
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
+HWND g_hWnd;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -23,6 +25,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+    // 메모리 누수 디버깅 코드
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -42,14 +47,36 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_SUPERMARIOWORLD));
 
     MSG msg;
+    msg.message = WM_NULL;
 
-    // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    //이하 메인게임 생성 후 초기화
+
+    DWORD   dwTime = GetTickCount();
+    // PeekMessage
+    while (true)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (WM_QUIT == msg.message)
+                break;
+
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+        }
+
+        else
+        {
+            // 프레임 조절
+            if (dwTime + 10 < GetTickCount())
+            {
+                //MainGame.Update();
+                  //MainGame.Late_Update();
+                 //MainGame.Render();
+                dwTime = GetTickCount();
+            }
         }
     }
 
@@ -77,7 +104,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SUPERMARIOWORLD));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_SUPERMARIOWORLD);
+    wcex.lpszMenuName = NULL;//MAKEINTRESOURCEW(IDC_SUPERMARIOWORLD);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -96,15 +123,28 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
+    RECT rc{ 0, 0, WINCX, WINCY };
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
+   AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+   HWND hWnd = CreateWindowW(szWindowClass, // 클래스 이름(실행 파일 이름)
+       szTitle, // 창 위에 띄울 문자열
+       WS_OVERLAPPEDWINDOW, // 윈도우 창 스타일 옵션(기본 창 모양)
+      CW_USEDEFAULT, 0, // 창 생성 위치(X, Y 좌표)
+       rc.right - rc.left,   // 창의 가로, 세로 사이즈
+       rc.bottom - rc.top,
+       nullptr, // 부모 윈도우 핸들
+       nullptr, // 윈도우에서 사용할 메뉴 핸들
+       hInstance,   // 윈도우를 만드는 주체
+       nullptr);    // 운영체제가 특수한 목적으로 사용
 
    if (!hWnd)
    {
       return FALSE;
    }
+
+   // 전역 변수로 핸들 전달
+   g_hWnd = hWnd;
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
