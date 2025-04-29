@@ -1,2 +1,6 @@
-﻿  SuperMarioWorld.cpp
+﻿  CObject.cpp
+  CPlayer.cpp
+  CSceneMgr.cpp
+  SuperMarioWorld.cpp
+  코드를 생성하고 있습니다...
   SuperMarioWorld.vcxproj -> C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\x64\Debug\SuperMarioWorld.exe
