@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="CMainGame.h" />
     <ClInclude Include="CObject.h" />
+    <ClInclude Include="CObjectMgr.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CSceneMgr.h" />
     <ClInclude Include="Define.h" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="CMainGame.cpp" />
     <ClCompile Include="CObject.cpp" />
+    <ClCompile Include="CObjectMgr.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneMgr.cpp" />

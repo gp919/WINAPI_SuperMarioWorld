@@ -1,3 +1,4 @@
+#pragma once
 #include "pch.h"
 #include "CSceneMgr.h"
 
@@ -14,6 +15,7 @@ CSceneMgr::~CSceneMgr()
 
 void CSceneMgr::Initialize()
 {
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_PLAYER, new CPlayer);
 	m_pCurrentScene = new CLogo;
 }
 
@@ -32,6 +34,7 @@ void CSceneMgr::Render(HDC hDC)
 
 void CSceneMgr::Release()
 {
+	CObjectMgr::Get_Instance()->Delete_Object(OBJ_PLAYER);
 	Safe_Delete(m_pCurrentScene);
 }
 

@@ -1,13 +1,12 @@
 #pragma once
 #include "pch.h"
-#include "Define.h"
 
 
 class CObject
 {
 public:
 	CObject();
-	~CObject();
+	virtual ~CObject();
 
 public:
 	virtual void Initialize()PURE;
@@ -16,10 +15,15 @@ public:
 	virtual void Render(HDC)PURE;
 	virtual void Release()PURE;
 
-private:
+protected:
+	void		Update_Rect();
+
+protected:
 	bool m_bDead = false;
-	bool m_bJump = false;
+	int m_iJump = 0;
 	float m_fSpeed = 1.f;
 	float m_fAspeed = 1.f;
 
+	INFO		m_tInfo;
+	RECT		m_tRect;
 };

@@ -1,6 +1,5 @@
 #pragma once
 #include "pch.h"
-#include "Define.h"
 #include "CObject.h"
 
 class CPlayer : public CObject
@@ -15,4 +14,8 @@ public:
 	void Late_Update()override;
 	void Render(HDC)override;
 	void Release()override;
+
+private:
+	void Key_Input();
+
 };

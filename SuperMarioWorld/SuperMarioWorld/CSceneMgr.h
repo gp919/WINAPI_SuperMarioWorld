@@ -1,10 +1,10 @@
 #pragma once
 
 #include "pch.h"
-#include "Define.h"
 #include "CScene.h"
 #include "CLogo.h"
-
+#include "CObjectMgr.h"
+#include "CPlayer.h"
 
 
 class CSceneMgr
