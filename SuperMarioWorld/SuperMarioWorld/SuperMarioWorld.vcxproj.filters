@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="00. MainGame">
+      <UniqueIdentifier>{6893e5b8-aea7-412b-984e-1be646764984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. SceneMgr">
+      <UniqueIdentifier>{c76a8178-1c88-4e3d-8864-8724a9ddcd2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene">
+      <UniqueIdentifier>{a4ffaaa5-6479-4078-9d7b-abb8032f7545}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. ObjectMgr">
+      <UniqueIdentifier>{d742a4fc-9122-43f8-b226-f44d7f85a45b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object">
+      <UniqueIdentifier>{e89b3b86-ac26-460a-8da9-91f5419721fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -33,6 +48,24 @@
     <ClInclude Include="Define.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="CMainGame.h">
+      <Filter>00. MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneMgr.h">
+      <Filter>01. SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CLogo.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CObject.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -40,6 +73,24 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CMainGame.cpp">
+      <Filter>00. MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>01. SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CLogo.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CObject.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>03. Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
