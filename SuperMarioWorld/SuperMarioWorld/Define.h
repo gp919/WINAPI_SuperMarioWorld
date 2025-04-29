@@ -19,6 +19,7 @@
 #define			DEAD		1
 
 enum SCENEID { SC_LOGO, SC_MENU, SC_WORLD, SC_STAGE_ONE, SC_STAGE_TWO, SC_STAGE_FINAL, SC_BOSS, SC_END };
+enum EOBJECTID { OBJ_PLAYER, OBJ_MONSTER, OBJ_END};
 
 template<typename T>
 void Safe_Delete(T& p)

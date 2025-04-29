@@ -1,6 +1,5 @@
 #pragma once
 #include "pch.h"
-#include "Define.h"
 #include "CScene.h"
 
 class CLogo : public CScene

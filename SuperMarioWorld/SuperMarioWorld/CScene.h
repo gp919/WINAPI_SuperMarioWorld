@@ -1,13 +1,12 @@
 #pragma once
 
 #include "pch.h"
-#include "Define.h"
 
-class CScene abstract
+class CScene
 {
 public:
 	CScene();
-	~CScene();
+	virtual ~CScene();
 
 public:
 	virtual void Initialize()PURE;
