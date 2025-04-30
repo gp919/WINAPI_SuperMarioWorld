@@ -5,6 +5,7 @@
 #include "CLogo.h"
 #include "CObjectMgr.h"
 #include "CPlayer.h"
+#include "CTutorial.h"
 
 
 class CSceneMgr

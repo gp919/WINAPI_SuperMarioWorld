@@ -61,6 +61,14 @@ void CLineMgr::Initialize()
 	m_Linelist.push_back(new CLine(tPoint[2], tPoint[3]));
 	*/
 
+	LINEPOINT tBottom[2] =
+	{	// 타일 2개 + 0.5개분 높이 + 캐릭터 중심좌표에 따른 보정
+		{WINCX, (WINCY - ((TILECY * 2.f * SCALE_FACTOR) + (TILECY * 0.5f) + (SMALLY * 0.5f)))},
+		{0.f, (WINCY - ((TILECY * 2.f * SCALE_FACTOR) + (TILECY * 0.5f) + (SMALLY * 0.5f)))}
+	};
+
+	m_Linelist.push_back(new CLine(tBottom[0], tBottom[1]));
+
 	Load_Data();
 }
 

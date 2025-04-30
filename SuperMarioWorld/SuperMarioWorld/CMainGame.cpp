@@ -41,9 +41,16 @@ void CMainGame::Late_Update()
 
 void CMainGame::Render()
 {
-	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
+	HDC hMemDC = CreateCompatibleDC(m_hDC);
+	HBITMAP hBackBmp = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
+	HBITMAP hOldBmp = (HBITMAP)SelectObject(hMemDC, hBackBmp);
+	
+	HBRUSH hOldBrush = (HBRUSH)SelectObject(hMemDC, GetStockObject(WHITE_BRUSH));
+	Rectangle(hMemDC, 0, 0, WINCX, WINCY);
+	SelectObject(hMemDC, hOldBrush);
+
 	++m_iFPS;
-	if (m_dwTime + 000 < GetTickCount())
+	if (m_dwTime + 1000 < GetTickCount())
 	{
 		swprintf_s(m_szBuffer, 128, L"FPS : %d\tHeigt : %d\tX : %ld Y : %ld\t", m_iFPS, g_iHeight-25, m_lMouseX, m_lMouseY);
 		SetWindowText(g_hWnd, m_szBuffer);
@@ -52,13 +59,14 @@ void CMainGame::Render()
 		m_dwTime = GetTickCount();
 	}
 
-	HDC hBackDC = CBmpMgr::Get_Instance()->Find_Image(L"Back");
+	CSceneMgr::Get_Instance()->Render(hMemDC);
+	CObjectMgr::Get_Instance()->Render(hMemDC);
 
-	
-	//BitBlt(m_hDC, 0, 0, WINCX, WINCY, hBackDC, 0, 0, SRCCOPY);
-	//GdiTransparentBlt(m_hDC, 0, 0, WINCX, WINCY, hBackDC, 0, 0, WINCX, WINCY, RGB(255, 255, 255));
-	CSceneMgr::Get_Instance()->Render(m_hDC);
-	CObjectMgr::Get_Instance()->Render(m_hDC);
+	BitBlt(m_hDC, 0, 0, WINCX, WINCY, hMemDC, 0, 0, SRCCOPY);
+
+	SelectObject(hMemDC, hOldBmp);
+	DeleteObject(hBackBmp);
+	DeleteDC(hMemDC);
 }
 
 void CMainGame::Release()
@@ -68,4 +76,6 @@ void CMainGame::Release()
 	CBmpMgr::Destroy_Instance();
 	CKeyMgr::Destroy_Instance();
 	ReleaseDC(g_hWnd, m_hDC);
+
+
 }

@@ -16,25 +16,29 @@ CSceneMgr::~CSceneMgr()
 void CSceneMgr::Initialize()
 {
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_PLAYER, new CPlayer);
-	m_pCurrentScene = new CLogo;
+	m_pCurrentScene = new CTutorial;
+	m_pCurrentScene->Initialize();
 }
 
 int CSceneMgr::Update()
 {
-	//m_iHeight=
+	m_pCurrentScene->Update();
 	return NOEVENT;
 }
 
 void CSceneMgr::Late_Update()
 {
+	m_pCurrentScene->Late_Update();
 }
 
 void CSceneMgr::Render(HDC hDC)
 {
+	m_pCurrentScene->Render(hDC);
 }
 
 void CSceneMgr::Release()
 {
+	CLineMgr::Destroy_Instance();
 	CObjectMgr::Get_Instance()->Delete_Object(OBJ_PLAYER);
 	Safe_Delete(m_pCurrentScene);
 }
@@ -54,6 +58,9 @@ void CSceneMgr::Change_Scene(SCENEID _id)
 	// 이하 로고와 같은 방식으로 동작
 	case SC_MENU:
 		break;
+	case SC_TUTORIAL:
+		m_pCurrentScene = new CTutorial;
+		break;\
 	case SC_WORLD:
 		break;
 	case SC_STAGE_ONE:
