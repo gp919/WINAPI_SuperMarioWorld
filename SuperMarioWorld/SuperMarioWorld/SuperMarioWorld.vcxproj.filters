@@ -90,6 +90,9 @@
     <ClInclude Include="CMouse.h">
       <Filter>02. Object</Filter>
     </ClInclude>
+    <ClInclude Include="CTutorial.h">
+      <Filter>01. Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="CMouse.cpp">
       <Filter>02. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CTutorial.cpp">
+      <Filter>01. Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

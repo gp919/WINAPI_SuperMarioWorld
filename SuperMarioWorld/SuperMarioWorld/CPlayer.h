@@ -5,6 +5,7 @@
 #include "CObjectMgr.h"
 #include "CBmpMgr.h"
 #include "CKeyMgr.h"
+#include "CLineMgr.h"
 
 
 class CPlayer : public CObject
@@ -32,5 +33,6 @@ private:
 private:
 	PLAYERSTATE     m_eCurState;
 	PLAYERSTATE     m_ePreState;
+	bool m_bSpin = false;
 
 };

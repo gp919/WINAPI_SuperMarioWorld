@@ -12,6 +12,7 @@ CKeyMgr::~CKeyMgr()
 {
 }
 
+// 키누르는 상태
 bool CKeyMgr::Key_Pressing(int iKey)
 {
 	if (GetAsyncKeyState(iKey) & 0x8000)
@@ -32,6 +33,7 @@ bool CKeyMgr::Key_Down(int iKey)
 	return false;
 }
 
+// 
 bool CKeyMgr::Key_Up(int iKey)
 {
 	if ((m_bKeyState[iKey]) && !(GetAsyncKeyState(iKey) & 0x8000))
@@ -39,7 +41,6 @@ bool CKeyMgr::Key_Up(int iKey)
 		m_bKeyState[iKey] = !m_bKeyState[iKey];
 		return true;
 	}
-	return false;
 
 	return false;
 }
