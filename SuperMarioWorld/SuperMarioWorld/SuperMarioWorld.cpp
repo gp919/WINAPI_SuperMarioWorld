@@ -72,7 +72,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 프레임 조절
-            if (dwTime + 2.25f < GetTickCount())
+            if (dwTime + 10.f < GetTickCount())
             {
                MainGame.Update();
                MainGame.Late_Update();

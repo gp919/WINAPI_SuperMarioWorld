@@ -17,8 +17,10 @@ public:
 
 protected:
 	void		Update_Rect();
+	void		Move_Frame();
 
 protected:
+	
 	bool m_bDead = false;
 	int m_iJump = 0;
 	float m_fSpeed = 1.f;
@@ -26,4 +28,9 @@ protected:
 
 	INFO		m_tInfo;
 	RECT		m_tRect;
+	FRAME		m_tFrame;
+
+	const TCHAR* m_pFrameKey;
+
+	OBJECTDIR m_eDir;
 };

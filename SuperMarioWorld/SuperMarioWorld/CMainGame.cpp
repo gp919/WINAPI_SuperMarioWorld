@@ -15,7 +15,7 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
-	//CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/back.bmp", L"Back");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/back.bmp", L"Back");
 	CSceneMgr::Get_Instance()->Initialize();
 	CObjectMgr::Get_Instance()->Initialize();
 }
@@ -45,16 +45,19 @@ void CMainGame::Render()
 		m_dwTime = GetTickCount();
 	}
 
-	//HDC hBackDC = CBmpMgr::Get_Instance()->Find_Image(L"Back");
+	HDC hBackDC = CBmpMgr::Get_Instance()->Find_Image(L"Back");
 
+	
+	//BitBlt(m_hDC, 0, 0, WINCX, WINCY, hBackDC, 0, 0, SRCCOPY);
+	//GdiTransparentBlt(m_hDC, 0, 0, WINCX, WINCY, hBackDC, 0, 0, WINCX, WINCY, RGB(255, 255, 255));
 	CSceneMgr::Get_Instance()->Render(m_hDC);
 	CObjectMgr::Get_Instance()->Render(m_hDC);
-	//BitBlt(m_hDC, 0, 0, WINCX, WINCY, hBackDC, 0, 0, SRCCOPY);
 }
 
 void CMainGame::Release()
 {
 	CSceneMgr::Destroy_Instance();
 	CObjectMgr::Destroy_Instance();
+	CBmpMgr::Destroy_Instance();
 	ReleaseDC(g_hWnd, m_hDC);
 }

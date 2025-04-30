@@ -28,6 +28,9 @@
     <Filter Include="03. Object">
       <UniqueIdentifier>{e89b3b86-ac26-460a-8da9-91f5419721fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. BmpMgr">
+      <UniqueIdentifier>{739d26c1-2682-4589-9c5c-d5865632828e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -69,6 +72,12 @@
     <ClInclude Include="CObjectMgr.h">
       <Filter>04. ObjectMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CBmpMgr.h">
+      <Filter>05. BmpMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CMyBmp.h">
+      <Filter>05. BmpMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -97,6 +106,12 @@
     </ClCompile>
     <ClCompile Include="CObjectMgr.cpp">
       <Filter>04. ObjectMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CBmpMgr.cpp">
+      <Filter>05. BmpMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CMyBmp.cpp">
+      <Filter>05. BmpMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

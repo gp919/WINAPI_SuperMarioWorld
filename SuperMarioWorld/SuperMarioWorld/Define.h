@@ -3,11 +3,11 @@
 #define WINCX	960
 #define WINCY	540
 
-#define TILEX	60
-#define TILEY	33
+#define TILEX	19
+#define TILEY	10
 
-#define TILECX	16
-#define TILECY	16
+#define TILECX	50
+#define TILECY	50
 
 #define PI			3.141592f
 
@@ -20,6 +20,14 @@
 
 enum SCENEID { SC_LOGO, SC_MENU, SC_WORLD, SC_STAGE_ONE, SC_STAGE_TWO, SC_STAGE_FINAL, SC_BOSS, SC_END };
 enum EOBJECTID { OBJ_PLAYER, OBJ_MONSTER, OBJ_END};
+enum OBJECTDIR {
+	DIR_LEFT, DIR_RIGHT, DIR_END
+};
+enum PLAYERSTATE {
+	IDLE, WALK, RUN, JUMP, JUMP_ACCEL, STOMP, CROUCH, BRAKE, KICK,
+	HOLD_IDLE, HOLD_MOVE, PDEAD, END
+};
+
 
 template<typename T>
 void Safe_Delete(T& p)
