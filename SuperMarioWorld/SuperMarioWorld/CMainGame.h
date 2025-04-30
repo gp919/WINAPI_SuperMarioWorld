@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "CSceneMgr.h"
+#include "CKeyMgr.h"
 
 class CMainGame
 {
@@ -17,8 +18,11 @@ public:
 
 private:
 	HDC			m_hDC;
-
 	DWORD		m_dwTime;
 	int			m_iFPS;
-	TCHAR		m_szFPS[32];
+	LONG		m_lMouseX;
+	LONG		m_lMouseY;
+	TCHAR		m_szBuffer[128];
+	
+	
 };

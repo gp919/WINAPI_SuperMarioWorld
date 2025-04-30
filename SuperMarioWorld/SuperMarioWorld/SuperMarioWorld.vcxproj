@@ -136,7 +136,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CBmpMgr.h" />
+    <ClInclude Include="CKeyMgr.h" />
+    <ClInclude Include="CLine.h" />
+    <ClInclude Include="CLineMgr.h" />
     <ClInclude Include="CMainGame.h" />
+    <ClInclude Include="CMouse.h" />
     <ClInclude Include="CMyBmp.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CObjectMgr.h" />
@@ -153,7 +157,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBmpMgr.cpp" />
+    <ClCompile Include="CKeyMgr.cpp" />
+    <ClCompile Include="CLine.cpp" />
+    <ClCompile Include="CLineMgr.cpp" />
     <ClCompile Include="CMainGame.cpp" />
+    <ClCompile Include="CMouse.cpp" />
     <ClCompile Include="CMyBmp.cpp" />
     <ClCompile Include="CObject.cpp" />
     <ClCompile Include="CObjectMgr.cpp" />

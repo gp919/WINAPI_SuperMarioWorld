@@ -4,7 +4,7 @@
 
 CMainGame::CMainGame() : m_dwTime(GetTickCount()), m_iFPS(0), m_hDC(0)
 {
-	ZeroMemory(m_szFPS, sizeof(m_szFPS));
+	ZeroMemory(m_szBuffer, sizeof(m_szBuffer));
 }
 
 CMainGame::~CMainGame()
@@ -22,6 +22,13 @@ void CMainGame::Initialize()
 
 void CMainGame::Update()
 {
+	// 커서 좌표 표시
+	POINT pt{};
+	GetCursorPos(&pt);
+	ScreenToClient(g_hWnd, &pt);
+	m_lMouseX = pt.x;
+	m_lMouseY = pt.y;
+
 	CSceneMgr::Get_Instance()->Update();
 	CObjectMgr::Get_Instance()->Update();
 }
@@ -36,10 +43,10 @@ void CMainGame::Render()
 {
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 	++m_iFPS;
-	if (m_dwTime + 1000 < GetTickCount())
+	if (m_dwTime + 000 < GetTickCount())
 	{
-		swprintf_s(m_szFPS, L"FPS : %d", m_iFPS);
-		SetWindowText(g_hWnd, m_szFPS);
+		swprintf_s(m_szBuffer, 128, L"FPS : %d\tHeigt : %d\tX : %ld Y : %ld\t", m_iFPS, g_iHeight-25, m_lMouseX, m_lMouseY);
+		SetWindowText(g_hWnd, m_szBuffer);
 
 		m_iFPS = 0;
 		m_dwTime = GetTickCount();
@@ -59,5 +66,6 @@ void CMainGame::Release()
 	CSceneMgr::Destroy_Instance();
 	CObjectMgr::Destroy_Instance();
 	CBmpMgr::Destroy_Instance();
+	CKeyMgr::Destroy_Instance();
 	ReleaseDC(g_hWnd, m_hDC);
 }
