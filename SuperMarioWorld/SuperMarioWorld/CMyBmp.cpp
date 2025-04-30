@@ -22,7 +22,7 @@ void CMyBmp::Load_Bmp(const TCHAR* pFilePath)
 	m_hBitmap = (HBITMAP)LoadImage(NULL,		// 인스턴스 핸들(파일로부터 읽어올 것이기 때문에 null)
 		pFilePath,	// 파일의 경로
 		IMAGE_BITMAP, // 어떤 타입을 읽어올 것인가(이미지 파일)
-		500, 1000, // 이미지 가로, 세로 사이즈
+		0, 0, // 이미지 가로, 세로 사이즈
 		LR_LOADFROMFILE | LR_CREATEDIBSECTION); // LR_LOADFROMFILE : 파일로부터 이미지를 읽어들임, LR_CREATEDIBSECTION : 읽어온 파일을 dib 형태로 변환
 
 	m_hOldBmp = (HBITMAP)SelectObject(m_hMemDC, m_hBitmap);

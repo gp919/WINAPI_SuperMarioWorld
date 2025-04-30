@@ -31,6 +31,15 @@ void CBmpMgr::Insert_Bmp(const TCHAR* pFilePath, const TCHAR* pImgKey)
 		CMyBmp* pMyBmp = new CMyBmp;
 		pMyBmp->Load_Bmp(pFilePath);
 
+		//// 확인용 비트맵 사이즈 출력
+		//BITMAP bmpInfo;
+		//HBITMAP hBmp = (HBITMAP)GetCurrentObject(pMyBmp->Get_MemDC(), OBJ_BITMAP);
+		//GetObject(hBmp, sizeof(BITMAP), &bmpInfo);
+
+		//wchar_t szBuf[128];
+		//swprintf_s(szBuf, 128, L"%s: %d x %d", pImgKey, bmpInfo.bmWidth, bmpInfo.bmHeight);
+		//MessageBox(nullptr, szBuf, L"비트맵 로딩 확인", MB_OK);
+
 		m_mapBit.insert({ pImgKey, pMyBmp });
 	}
 }

@@ -1,14 +1,25 @@
 #pragma once
 
+// 화면 사이즈 : 게임 오리지널 사이즈(256 * 224)의 3배
 #define WINCX	768
 #define WINCY	672
 
-// TODO : 마리오 사이즈 16*24로 수정할것
-#define TILEX	14
-#define TILEY	10
+// 원본 타일 사이즈
+#define TILECX	16
+#define TILECY	16
 
-#define TILECX	50
-#define TILECY	50
+// 원본 작은마리오 사이즈
+#define SMALLX	16
+#define SMALLY	24
+
+// 원본 큰마리오 사이즈
+#define BIGX	16
+#define BIGY	32
+
+// 원본 > 화면 스케일 사이즈
+#define SCALE_FACTOR 3
+
+
 
 #define PI			3.141592f
 #define GRAVITY	0.45f
@@ -22,7 +33,7 @@
 // 임의 키 매핑
 #define VK_JUMP	'X'
 #define VK_SPIN VK_LSHIFT
-#define VK_DASH 'C'
+#define VK_RUN 'C'
 
 
 #define			NOEVENT		0
@@ -34,8 +45,8 @@ enum OBJECTDIR {
 	DIR_LEFT, DIR_RIGHT, DIR_END
 };
 enum PLAYERSTATE {
-	IDLE, WALK, RUN, JUMP, JUMP_ACCEL, STOMP, CROUCH, BRAKE, KICK,
-	HOLD_IDLE, HOLD_MOVE, PDEAD, END
+	IDLE, LOOK_UP, DUCK, WALK, RUN, SKID, PIPE, JUMP, FALL, RUN_JUMP, SPIN_JUMP, SLIDE, KICK, SWIM, VICTORY,
+	HOLD_IDLE, HOLD_LOOKUP, HOLD_DUCK, HOLD_WALK, HOLD_RUN, HOLD_JUMP, HOLD_SWIM, DEATH, END
 };
 
 

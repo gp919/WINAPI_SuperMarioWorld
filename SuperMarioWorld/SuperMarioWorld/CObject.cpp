@@ -25,8 +25,8 @@ void CObject::Update_Rect()
 // 작은마리오 40*30
 void CObject::Update_HitBox()
 {
-	float fWidth = 40.f;
-	float fHeight = 30.f;
+	float fWidth = 48.f;
+	float fHeight = 72.f;
 	m_tHitBox.left = LONG(m_tInfo.fX - (fWidth * 0.5f));
 	m_tHitBox.top = LONG(m_tInfo.fY - (fHeight * 0.5f));
 	m_tHitBox.right = LONG(m_tInfo.fX + (fWidth * 0.5f));
