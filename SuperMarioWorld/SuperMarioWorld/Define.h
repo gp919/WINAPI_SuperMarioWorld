@@ -1,19 +1,29 @@
 #pragma once
 
-#define WINCX	960
-#define WINCY	540
+#define WINCX	768
+#define WINCY	672
 
-#define TILEX	19
+// TODO : 마리오 사이즈 16*24로 수정할것
+#define TILEX	14
 #define TILEY	10
 
 #define TILECX	50
 #define TILECY	50
 
 #define PI			3.141592f
+#define GRAVITY	0.45f
+#define MAX_ACC 7.5f
 
 #define PURE		= 0
 
 #define VK_MAX		0xff
+
+
+// 임의 키 매핑
+#define VK_JUMP	'X'
+#define VK_SPIN VK_LSHIFT
+#define VK_DASH 'C'
+
 
 #define			NOEVENT		0
 #define			DEAD		1
@@ -119,3 +129,6 @@ struct tagDeleteMap
 
 
 extern HWND g_hWnd;
+
+extern int g_iHeight; 
+extern int g_iMaxHeight;

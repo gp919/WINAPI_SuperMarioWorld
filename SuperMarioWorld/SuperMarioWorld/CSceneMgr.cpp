@@ -21,6 +21,7 @@ void CSceneMgr::Initialize()
 
 int CSceneMgr::Update()
 {
+	//m_iHeight=
 	return NOEVENT;
 }
 

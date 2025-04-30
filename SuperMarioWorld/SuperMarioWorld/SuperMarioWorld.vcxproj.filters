@@ -16,20 +16,20 @@
     <Filter Include="00. MainGame">
       <UniqueIdentifier>{6893e5b8-aea7-412b-984e-1be646764984}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. SceneMgr">
-      <UniqueIdentifier>{c76a8178-1c88-4e3d-8864-8724a9ddcd2a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scene">
+    <Filter Include="01. Scene">
       <UniqueIdentifier>{a4ffaaa5-6479-4078-9d7b-abb8032f7545}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. ObjectMgr">
-      <UniqueIdentifier>{d742a4fc-9122-43f8-b226-f44d7f85a45b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Object">
+    <Filter Include="02. Object">
       <UniqueIdentifier>{e89b3b86-ac26-460a-8da9-91f5419721fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. BmpMgr">
+    <Filter Include="04. Line">
+      <UniqueIdentifier>{7b646167-feba-4a24-8049-5c9d892b7845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Bitmap">
       <UniqueIdentifier>{739d26c1-2682-4589-9c5c-d5865632828e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. KeyManager">
+      <UniqueIdentifier>{cb6dfe68-d5c0-4c31-88ae-267c213f54d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -54,29 +54,41 @@
     <ClInclude Include="CMainGame.h">
       <Filter>00. MainGame</Filter>
     </ClInclude>
-    <ClInclude Include="CSceneMgr.h">
-      <Filter>01. SceneMgr</Filter>
-    </ClInclude>
     <ClInclude Include="CScene.h">
-      <Filter>02. Scene</Filter>
+      <Filter>01. Scene</Filter>
     </ClInclude>
     <ClInclude Include="CLogo.h">
-      <Filter>02. Scene</Filter>
+      <Filter>01. Scene</Filter>
     </ClInclude>
     <ClInclude Include="CObject.h">
-      <Filter>03. Object</Filter>
+      <Filter>02. Object</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer.h">
-      <Filter>03. Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CObjectMgr.h">
-      <Filter>04. ObjectMgr</Filter>
+      <Filter>02. Object</Filter>
     </ClInclude>
     <ClInclude Include="CBmpMgr.h">
-      <Filter>05. BmpMgr</Filter>
+      <Filter>03. Bitmap</Filter>
     </ClInclude>
     <ClInclude Include="CMyBmp.h">
-      <Filter>05. BmpMgr</Filter>
+      <Filter>03. Bitmap</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjectMgr.h">
+      <Filter>02. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneMgr.h">
+      <Filter>01. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CLine.h">
+      <Filter>04. Line</Filter>
+    </ClInclude>
+    <ClInclude Include="CLineMgr.h">
+      <Filter>04. Line</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyMgr.h">
+      <Filter>05. KeyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CMouse.h">
+      <Filter>02. Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -89,29 +101,41 @@
     <ClCompile Include="CMainGame.cpp">
       <Filter>00. MainGame</Filter>
     </ClCompile>
-    <ClCompile Include="CSceneMgr.cpp">
-      <Filter>01. SceneMgr</Filter>
-    </ClCompile>
     <ClCompile Include="CScene.cpp">
-      <Filter>02. Scene</Filter>
+      <Filter>01. Scene</Filter>
     </ClCompile>
     <ClCompile Include="CLogo.cpp">
-      <Filter>02. Scene</Filter>
+      <Filter>01. Scene</Filter>
     </ClCompile>
     <ClCompile Include="CObject.cpp">
-      <Filter>03. Object</Filter>
+      <Filter>02. Object</Filter>
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
-      <Filter>03. Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CObjectMgr.cpp">
-      <Filter>04. ObjectMgr</Filter>
+      <Filter>02. Object</Filter>
     </ClCompile>
     <ClCompile Include="CBmpMgr.cpp">
-      <Filter>05. BmpMgr</Filter>
+      <Filter>03. Bitmap</Filter>
     </ClCompile>
     <ClCompile Include="CMyBmp.cpp">
-      <Filter>05. BmpMgr</Filter>
+      <Filter>03. Bitmap</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjectMgr.cpp">
+      <Filter>02. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>01. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CLine.cpp">
+      <Filter>04. Line</Filter>
+    </ClCompile>
+    <ClCompile Include="CLineMgr.cpp">
+      <Filter>04. Line</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyMgr.cpp">
+      <Filter>05. KeyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CMouse.cpp">
+      <Filter>02. Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
