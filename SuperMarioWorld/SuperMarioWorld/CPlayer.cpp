@@ -13,12 +13,12 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
-	m_tInfo = { TILECX * 0.5f, WINCY - (TILECY * 0.5f), TILECX, TILECY };
+	m_tInfo = { SMALLX * SCALE_FACTOR * 0.5f, WINCY - (SMALLY * SCALE_FACTOR * 0.5f), SMALLX * SCALE_FACTOR, SMALLY * SCALE_FACTOR };
 	m_fSpeed = 4.f;
 
 
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/Mario_LMove.bmp", L"Player_LEFT");
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/Mario_RMove.bmp", L"Player_RIGHT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SmallMario_L.bmp", L"Player_LEFT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SmallMario_R.bmp", L"Player_RIGHT");
 
 	m_eDir = DIR_RIGHT;
 	m_pFrameKey = (L"Player_RIGHT");
@@ -41,7 +41,7 @@ int CPlayer::Update()
 	Change_Motion();
 	CObject::Move_Frame();
 	CObject::Update_Rect();
-	CObject::Update_HitBox();
+	//CObject::Update_HitBox();
 	
 	// 점프 높이 기록용
 	if(m_tInfo.fY < g_iMaxHeight)
@@ -59,24 +59,21 @@ void CPlayer::Late_Update()
 
 void CPlayer::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tInfo.fX - (m_tInfo.fCX / 2), m_tInfo.fY - (m_tInfo.fCY / 2), m_tInfo.fX + (m_tInfo.fCX / 2), m_tInfo.fY + (m_tInfo.fCY / 2));
-
 	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_pFrameKey);
 
-	GdiTransparentBlt(hDC,
-		m_tRect.left,
-		m_tRect.top,
-		(int)m_tInfo.fCX,
-		(int)m_tInfo.fCY,
+	
+	GdiTransparentBlt(
+		hDC,
+		m_tRect.left, m_tRect.top,
+		(int)m_tInfo.fCX, (int)m_tInfo.fCY,                                 // 출력 크기 (3배)
 		hMemDC,
-		// 복사할 이미지의 비트맵 시작 좌표
-		m_tFrame.iStart * (int)m_tInfo.fCX,
-		m_tFrame.iMotion * (int)m_tInfo.fCY,	
-		// 복사할 이미지의 가로, 세로 사이즈
-		(int)m_tInfo.fCX,	
-		(int)m_tInfo.fCY,
+		m_tFrame.iStart * SMALLX,                   // 열 인덱스 × 프레임 너비
+		m_tFrame.iMotion * SMALLY,                  // 행 인덱스 × 프레임 높이
+		SMALLX, SMALLY,                                 // 자를 원본 크기
 		RGB(0, 255, 0));
+	
 
+	
 	
 }
 
@@ -102,15 +99,14 @@ void CPlayer::Key_Input()
 		m_eCurState = WALK;
 	}
 
-	// 올려보기, 웅크리기
-	if (GetAsyncKeyState(VK_UP))
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_UP))
 	{
-		// 이미지 X
+		m_eCurState = LOOK_UP;
 	}
 	
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_DOWN))
 	{
-		m_eCurState = CROUCH;
+		m_eCurState = DUCK;
 	}
 
 	// 점프
@@ -120,15 +116,18 @@ void CPlayer::Key_Input()
 		m_fJumpSpeed = -13.63f;
 		m_fJumpTime = 0.f;
 	}
+
 	// 스핀점프
 	else if (GetAsyncKeyState(VK_SPIN))
 	{
 
 	}
-	// 대시
-	else if (GetAsyncKeyState(VK_DASH))
-	{
 
+	// 달리기
+	else if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RUN))
+	{
+		m_fSpeed += 1.f;
+		m_eCurState = RUN;
 	}
 
 }
@@ -152,18 +151,34 @@ void CPlayer::Change_Motion()
 			m_tFrame.dwTime = GetTickCount();
 			break;
 
+		case LOOK_UP:
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 0;
+			m_tFrame.iMotion = 1;
+			m_tFrame.dwSpeed = 200;
+			m_tFrame.dwTime = GetTickCount();
+			break;
+
+		case DUCK:
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 0;
+			m_tFrame.iMotion = 2;
+			m_tFrame.dwSpeed = 200;
+			m_tFrame.dwTime = GetTickCount();
+			break;
+
 		case WALK:
 			m_tFrame.iStart = 0;
-			m_tFrame.iEnd = 1;
-			m_tFrame.iMotion = 1;
+			m_tFrame.iEnd = 2;
+			m_tFrame.iMotion = 3;
 			m_tFrame.dwSpeed = 200;
 			m_tFrame.dwTime = GetTickCount();
 			break;
 
 		case RUN:
 			m_tFrame.iStart = 0;
-			m_tFrame.iEnd = 1;
-			m_tFrame.iMotion = 2;
+			m_tFrame.iEnd = 2;
+			m_tFrame.iMotion = 4;
 			m_tFrame.dwSpeed = 200;
 			m_tFrame.dwTime = GetTickCount();
 			break;
@@ -171,33 +186,31 @@ void CPlayer::Change_Motion()
 		case JUMP:
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 0;
-			m_tFrame.iMotion = 3;
+			m_tFrame.iMotion = 7;
 			m_tFrame.dwSpeed = 200;
 			m_tFrame.dwTime = GetTickCount();
 			break;
 
-		case JUMP_ACCEL:
-			break;
-
-		case STOMP:
-			break;
-		// Y크기 50px > 32px 로 감소 (미반영)
-		case CROUCH:
+		case FALL:
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 0;
-			m_tFrame.iMotion = 6;
+			m_tFrame.iMotion = 8;
 			m_tFrame.dwSpeed = 200;
 			m_tFrame.dwTime = GetTickCount();
 			break;
-		case BRAKE:
+
+
+		case RUN_JUMP:
+			break;
+		case SKID:
 			break;
 		case KICK:
 			break;
 		case HOLD_IDLE:
 			break;
-		case HOLD_MOVE:
+		case HOLD_WALK:
 			break;
-		case PDEAD:
+		case DEATH:
 			break;
 		}
 		m_ePreState = m_eCurState;
@@ -205,9 +218,10 @@ void CPlayer::Change_Motion()
 	}
 }
 
+// TODO : 
 void CPlayer::Jump()
 {
-	float fGroundY = WINCY - TILECY * 0.5f;
+	float fGroundY = WINCY - m_tInfo.fCY * 0.5f;
 	float fGravity;
 
 	if (m_bJump)
@@ -221,6 +235,9 @@ void CPlayer::Jump()
 			
 		m_fAccel = fGravity;
 		m_fJumpSpeed += m_fAccel;
+		// 낙하할때 잠깐 FALL 상태
+		if (m_fJumpSpeed >= 0.f && m_fJumpSpeed <= 5.4f)
+			m_eCurState = FALL;
 		m_tInfo.fY += m_fJumpSpeed;
 
 		
