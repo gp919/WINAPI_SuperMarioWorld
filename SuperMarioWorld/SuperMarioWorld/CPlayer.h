@@ -1,9 +1,13 @@
 #pragma once
 #include "pch.h"
 #include "CObject.h"
+#include "CObjectMgr.h"
+#include "CBmpMgr.h"
+
 
 class CPlayer : public CObject
 {
+
 public:
 	CPlayer();
 	~CPlayer();
@@ -17,5 +21,10 @@ public:
 
 private:
 	void Key_Input();
+	void Change_Motion();
+
+private:
+	PLAYERSTATE     m_eCurState;
+	PLAYERSTATE     m_ePreState;
 
 };

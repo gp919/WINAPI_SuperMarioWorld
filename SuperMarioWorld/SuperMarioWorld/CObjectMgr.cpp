@@ -6,7 +6,6 @@ CObjectMgr* CObjectMgr::m_pInstance(nullptr);
 
 CObjectMgr::CObjectMgr()
 {
-	//ZeroMemory(m_listObject, sizeof(m_listObject));
 }
 
 CObjectMgr::~CObjectMgr()

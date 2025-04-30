@@ -135,7 +135,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBmpMgr.h" />
     <ClInclude Include="CMainGame.h" />
+    <ClInclude Include="CMyBmp.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CObjectMgr.h" />
     <ClInclude Include="CPlayer.h" />
@@ -150,7 +152,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBmpMgr.cpp" />
     <ClCompile Include="CMainGame.cpp" />
+    <ClCompile Include="CMyBmp.cpp" />
     <ClCompile Include="CObject.cpp" />
     <ClCompile Include="CObjectMgr.cpp" />
     <ClCompile Include="CPlayer.cpp" />
