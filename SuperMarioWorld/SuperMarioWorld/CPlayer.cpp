@@ -60,7 +60,7 @@ void CPlayer::Late_Update()
 			m_fJumpTime = 0.f;
 			m_bJump = false;
 			m_bSpin = false;
-			if(m_eCurState!=DUCK)
+			if(m_eCurState!=DUCK && m_eCurState!=RUN)
 				m_eCurState = IDLE;
 
 			wchar_t szDbg[256];
@@ -187,28 +187,34 @@ void CPlayer::Key_Input()
 		m_eCurState = SPIN_JUMP;
 	}
 
-	// 달리기 : 키를 누르는 동안에는 최대속도까지 가속하다가 떼는 순간 원래 속력
-	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RUN))
+	// 달리기 : 방향키와 함께 누르는 동안에는 최대속도까지 가속하다가 떼는 순간 원래 속력
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RUN) && CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT) ||
+		CKeyMgr::Get_Instance()->Key_Pressing(VK_RUN) && CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
 	{
-		if (m_fSpeed < SPEED_MAX)
+
+		if (m_fSpeed < 10.f)
 		{
-			m_fSpeed += RUN_ACCEL;
-			m_fJumpSpeed -= RUN_ACCEL;
+			m_fSpeed += 0.1f;
+			//m_fJumpSpeed -= 0.1f;
 		}
 		else
 		{
+			m_fSpeed = 10.f;
 			m_eCurState = RUN;
 		}
+		bPressed = true;
 	}
 
-	if (CKeyMgr::Get_Instance()->Key_Up(VK_RUN))
+	if (CKeyMgr::Get_Instance()->Key_Up(VK_RUN) && CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT) ||
+		CKeyMgr::Get_Instance()->Key_Up(VK_RUN) && CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
 	{
 		m_fSpeed = 4.f;
-		m_fJumpSpeed = -13.63f;
+		m_eCurState = WALK;
+		bPressed = true;
 	}	
 	
 
-	if (!bPressed && !m_bJump)
+	if (!bPressed && !m_bJump && m_eCurState!=RUN)
 	{
 		m_eCurState = IDLE;
 	}
