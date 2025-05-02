@@ -26,7 +26,7 @@ void CTutorial::Initialize()
 	
 
 	// 테스트용 강제 라인
-	CLineMgr::Get_Instance()->Add_Line({ 0.f, 600.f }, { WINCX, 600.f });
+	CLineMgr::Get_Instance()->Add_Line({ 0.f, 576.f }, { WINCX, 576.f });
 	CObjectMgr::Get_Instance()->Initialize();
 
 

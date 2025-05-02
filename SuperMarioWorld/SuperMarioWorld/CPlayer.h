@@ -37,4 +37,6 @@ private:
 	PLAYERSTATE     m_ePreState;
 	bool m_bSpin = false;
 
+	bool m_bLand = false;
+
 };

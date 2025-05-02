@@ -10,7 +10,7 @@ private:
 	~CLineMgr();
 
 public:
-	bool	Collision_Line(float _fX, float* pY);
+	bool	Collision_Line(INFO, float*);
 	void	Add_Line(LINEPOINT, LINEPOINT);
 
 public:
