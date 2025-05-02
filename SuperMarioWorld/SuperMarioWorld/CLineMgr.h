@@ -11,7 +11,7 @@ private:
 
 public:
 	bool	Collision_Line(float _fX, float* pY);
-
+	void	Add_Line(LINEPOINT, LINEPOINT);
 
 public:
 	void	Initialize();

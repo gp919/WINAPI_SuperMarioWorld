@@ -22,13 +22,15 @@ public:
 	void Render(HDC)override;
 	void Release()override;
 
+	void On_Collision(EOBJECTID _id)override;
+
 public:
 
 
 private:
 	void Key_Input();
 	void Change_Motion();
-	void Jump();
+	void Update_Gravity();
 
 private:
 	PLAYERSTATE     m_eCurState;

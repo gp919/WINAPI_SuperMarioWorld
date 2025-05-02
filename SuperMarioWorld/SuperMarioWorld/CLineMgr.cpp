@@ -1,3 +1,5 @@
+#pragma once
+
 #include "pch.h"
 #include "CLineMgr.h"
 
@@ -14,7 +16,6 @@ CLineMgr::~CLineMgr()
 
 bool CLineMgr::Collision_Line(float _fX, float* pY)
 {
-
 	if (m_Linelist.empty())
 		return false;
 
@@ -45,31 +46,15 @@ bool CLineMgr::Collision_Line(float _fX, float* pY)
 	return true;
 }
 
+void CLineMgr::Add_Line(LINEPOINT _src, LINEPOINT _dst)
+{
+	m_Linelist.push_back(new CLine(_src, _dst));
+}
+
 void CLineMgr::Initialize()
 {
-	/*
-	LINEPOINT	tPoint[4] =
-	{
-		{ 100.f, 450.f},
-		{ 300.f, 450.f},
-		{ 500.f, 250.f},
-		{ 700.f, 250.f},
-	};
-
-	m_Linelist.push_back(new CLine(tPoint[0], tPoint[1]));
-	m_Linelist.push_back(new CLine(tPoint[1], tPoint[2]));
-	m_Linelist.push_back(new CLine(tPoint[2], tPoint[3]));
-	*/
-
-	LINEPOINT tBottom[2] =
-	{	// 타일 2개 + 0.5개분 높이 + 캐릭터 중심좌표에 따른 보정
-		{WINCX, (WINCY - ((TILECY * 2.f * SCALE_FACTOR) + (TILECY * 0.5f) + (SMALLY * 0.5f)))},
-		{0.f, (WINCY - ((TILECY * 2.f * SCALE_FACTOR) + (TILECY * 0.5f) + (SMALLY * 0.5f)))}
-	};
-
-	m_Linelist.push_back(new CLine(tBottom[0], tBottom[1]));
-
-	Load_Data();
+	// 추후 맵에디터 고민
+	//Load_Data(); 
 }
 
 void CLineMgr::Render(HDC hDC)
@@ -81,7 +66,7 @@ void CLineMgr::Render(HDC hDC)
 void CLineMgr::Release()
 {
 	for_each(m_Linelist.begin(), m_Linelist.end(), Safe_Delete<CLine*>);
-	m_Linelist.clear();
+		m_Linelist.clear();
 
 }
 

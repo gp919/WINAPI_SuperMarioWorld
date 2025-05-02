@@ -33,6 +33,7 @@ int CObjectMgr::Update()
 			iter->Update();
 		}
 	}
+	
 	return NOEVENT;
 }
 
@@ -45,6 +46,7 @@ void CObjectMgr::Late_Update()
 			iter->Late_Update();
 		}
 	}
+	
 }
 
 void CObjectMgr::Render(HDC hDC)
@@ -60,12 +62,17 @@ void CObjectMgr::Render(HDC hDC)
 
 void CObjectMgr::Release()
 {
-
+	for (UINT i = 0; i < OBJ_END; ++i)
+	{
+		for_each(m_listObject[i].begin(), m_listObject[i].end(), Safe_Delete<CObject*>);
+			m_listObject[i].clear();
+	}
 }
 
 void CObjectMgr::Add_Object(EOBJECTID _id, CObject* _pObj)
 {
 	m_listObject[_id].push_back(_pObj);
+	m_listObject[_id].back()->Set_ID(_id);
 }
 
 void CObjectMgr::Delete_Object(EOBJECTID _id)

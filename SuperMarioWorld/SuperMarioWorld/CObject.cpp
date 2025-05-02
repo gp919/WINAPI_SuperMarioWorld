@@ -13,6 +13,10 @@ CObject::~CObject()
 {
 }
 
+void CObject::On_Collision(EOBJECTID _id)
+{
+}
+
 void CObject::Update_Rect()
 {
 	m_tRect.left = LONG(m_tInfo.fX - (m_tInfo.fCX * 0.5f));
@@ -21,6 +25,7 @@ void CObject::Update_Rect()
 	m_tRect.bottom = LONG(m_tInfo.fY + (m_tInfo.fCY * 0.5f));
 }
 
+// 미구현
 // 중심좌표 기준 히트박스 결정하는 함수
 // 작은마리오 40*30
 void CObject::Update_HitBox()
