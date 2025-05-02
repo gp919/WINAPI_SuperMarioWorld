@@ -40,9 +40,9 @@ bool CLineMgr::Collision_Line(INFO _info, float* pY)
 			float fLineY = slope * (fx_contact - fLx) + fLy;
 			float fBottom = _info.fY + _info.fCY * 0.5f;
 
-			wchar_t szDbg[256];
+			/*wchar_t szDbg[256];
 			swprintf_s(szDbg, L"fBottom = %.2f, fLineY = %.2f, diff = %.2f\n", fBottom, fLineY, fabsf(fBottom - fLineY));
-			OutputDebugString(szDbg);
+			OutputDebugString(szDbg);*/
 
 			if (fabsf(fBottom - fLineY) < 20.f)
 			{

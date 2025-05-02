@@ -16,7 +16,7 @@ void CPlayer::Initialize()
 	m_tInfo = { WINCX * 0.5f+100.f, 500.f , SMALLX * SCALE_FACTOR, SMALLY * SCALE_FACTOR };
 	m_fSpeed = 4.f;
 
-	m_bJump = false;
+	m_bJump = true;
 	m_eDir = DIR_RIGHT;
 	m_pFrameKey = (L"Player_RIGHT");
 
@@ -26,8 +26,11 @@ void CPlayer::Initialize()
 	m_tFrame.dwSpeed = 200;
 	m_tFrame.dwTime = GetTickCount();
 
-	m_eCurState = IDLE;
+	m_eCurState = JUMP;
 	m_ePreState = END;
+
+	m_fJumpSpeed = -10.f;
+	m_fJumpTime = 0.1f;
 
 }
 
@@ -47,27 +50,22 @@ void CPlayer::Late_Update()
 	On_Collision(OBJ_TILE);
 	CObject::Update_Rect();
 
-	if(m_fJumpSpeed>0.f)
+	if(m_fJumpSpeed > 0.f)
 	{
 		float fY(0);
 		if (CLineMgr::Get_Instance()->Collision_Line(this->m_tInfo, &fY))
 		{
-			/*
-			m_tInfo.fY = fY - m_tInfo.fCY * 0.5f - 0.1f;
-			m_fJumpSpeed = 0.f;
-			m_fJumpTime = 0.f;
-			m_eCurState = IDLE;
-			*/
 			m_tInfo.fY = fY - m_tInfo.fCY * 0.5f;
 			m_fJumpSpeed = 0.f;
 			m_fJumpTime = 0.f;
 			m_bJump = false;
 			m_bSpin = false;
-			m_eCurState = IDLE;
+			if(m_eCurState!=DUCK)
+				m_eCurState = IDLE;
 
-			wchar_t szBuf[128];
-			swprintf_s(szBuf, L"Y = %.2f, fY = %.2f\n", m_tInfo.fY, fY);
-			OutputDebugString(szBuf);
+			wchar_t szDbg[256];
+			swprintf_s(szDbg, L"current state : %d\n", m_eCurState);
+			OutputDebugString(szDbg);
 		}
 	}
 
@@ -138,31 +136,35 @@ void CPlayer::Key_Input()
 	bool bPressed = false;
 
 	// ÀÌµ¿ : ÁÂ¿ì
-	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT))
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT) && (m_eCurState != DUCK))
 	{
-		m_tInfo.fX -= m_fSpeed;
 		m_eDir = DIR_LEFT;
-		m_eCurState = WALK;
+		m_tInfo.fX -= m_fSpeed;
+		if(!m_bJump && !m_bSpin)
+			m_eCurState = WALK;
 		bPressed = true;
 	}
 
-	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT) && (m_eCurState != DUCK))
 	{
 		m_tInfo.fX += m_fSpeed;
 		m_eDir = DIR_RIGHT;
-		m_eCurState = WALK;
+		if (!m_bJump && !m_bSpin)
+			m_eCurState = WALK;
 		bPressed = true;
 	}
 
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_UP))
 	{
-		m_eCurState = LOOK_UP;
+		if (!m_bJump && !m_bSpin)
+			m_eCurState = LOOK_UP;
 		bPressed = true;
 	}
 	
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_DOWN))
 	{
-		m_eCurState = DUCK;
+		if(!m_bSpin)
+			m_eCurState = DUCK;
 		bPressed = true;
 	}
 
@@ -314,7 +316,12 @@ void CPlayer::Update_Gravity()
 	else if (m_fJumpSpeed <= -20.f)
 		m_fJumpSpeed = -20.f;
 	else
+	{
 		m_fJumpSpeed += GRAVITY * m_fJumpTime;
+		if (m_fJumpSpeed > 0 && m_fJumpSpeed < 1.f && !m_bSpin)
+			m_eCurState = FALL;
+	}
+		
 		
 		
 	// t++
