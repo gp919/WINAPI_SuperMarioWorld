@@ -1,3 +1,5 @@
+#pragma once
+
 #include "pch.h"
 #include "CTutorial.h"
 
@@ -11,21 +13,40 @@ CTutorial::~CTutorial()
 
 void CTutorial::Initialize()
 {
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tutorial/Yoshi.bmp", L"Tutorial");
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/BackGround01.bmp", L"BackGround01");
+	
+
+	// 이하 임의 타일 배치
+	//x :448쯤
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_PLAYER, new CPlayer);
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(TILECY * SCALE_FACTOR * 5, WINCY - (TILECY * SCALE_FACTOR * 5), TILE_EMPTY));
+	// 바닥 라인
+	/*CLineMgr::Get_Instance()->Add_Line(
+		{ 0.f, (WINCY - (16.f * 2.5f * SCALE_FACTOR + SMALLY * 0.5f)) },
+		{ WINCX, (WINCY - (16.f * 2.5f * SCALE_FACTOR + SMALLY * 0.5f)) });*/
+	
+
+	// 테스트용 강제 라인
+	CLineMgr::Get_Instance()->Add_Line({ 0.f, 600.f }, { WINCX, 600.f });
+	CObjectMgr::Get_Instance()->Initialize();
+
+
+	
 }
 
 int CTutorial::Update()
 {
+	CObjectMgr::Get_Instance()->Update();
 	return 0;
 }
 
 void CTutorial::Late_Update()
 {
+	CObjectMgr::Get_Instance()->Late_Update();
 }
 
 void CTutorial::Render(HDC hDC)
 {
+	
 	HDC hMemDC_back = CBmpMgr::Get_Instance()->Find_Image(L"BackGround01");
 	GdiTransparentBlt(
 		hDC,
@@ -48,9 +69,14 @@ void CTutorial::Render(HDC hDC)
 		WINCX / SCALE_FACTOR, WINCY / SCALE_FACTOR,                                 // 자를 원본 크기
 		RGB(0, 255, 0));
 
+	CLineMgr::Get_Instance()->Render(hDC);
+	CObjectMgr::Get_Instance()->Render(hDC);
+
 
 }
 
 void CTutorial::Release()
 {
+	CLineMgr::Get_Instance()->Destroy_Instance();
+	CObjectMgr::Get_Instance()->Destroy_Instance();
 }

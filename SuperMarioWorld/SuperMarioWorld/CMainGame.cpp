@@ -15,9 +15,15 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/back.bmp", L"Back");
+
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/BackGround01.bmp", L"BackGround01");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tile.bmp", L"Tile");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tutorial/Yoshi.bmp", L"Tutorial");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SmallMario_L.bmp", L"Player_LEFT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SmallMario_R.bmp", L"Player_RIGHT");
+
+	CLineMgr::Get_Instance()->Initialize();
 	CSceneMgr::Get_Instance()->Initialize();
-	CObjectMgr::Get_Instance()->Initialize();
 }
 
 void CMainGame::Update()
@@ -30,13 +36,12 @@ void CMainGame::Update()
 	m_lMouseY = pt.y;
 
 	CSceneMgr::Get_Instance()->Update();
-	CObjectMgr::Get_Instance()->Update();
+	CKeyMgr::Get_Instance()->Key_Update();
 }
 
 void CMainGame::Late_Update()
 {
 	CSceneMgr::Get_Instance()->Late_Update();
-	CObjectMgr::Get_Instance()->Late_Update();
 }
 
 void CMainGame::Render()
@@ -60,7 +65,6 @@ void CMainGame::Render()
 	}
 
 	CSceneMgr::Get_Instance()->Render(hMemDC);
-	CObjectMgr::Get_Instance()->Render(hMemDC);
 
 	BitBlt(m_hDC, 0, 0, WINCX, WINCY, hMemDC, 0, 0, SRCCOPY);
 
@@ -71,10 +75,10 @@ void CMainGame::Render()
 
 void CMainGame::Release()
 {
-	CSceneMgr::Destroy_Instance();
-	CObjectMgr::Destroy_Instance();
-	CBmpMgr::Destroy_Instance();
-	CKeyMgr::Destroy_Instance();
+	CSceneMgr::Get_Instance()->Destroy_Instance();
+	CBmpMgr::Get_Instance()->Destroy_Instance();
+	CKeyMgr::Get_Instance()->Destroy_Instance();
+	
 	ReleaseDC(g_hWnd, m_hDC);
 
 

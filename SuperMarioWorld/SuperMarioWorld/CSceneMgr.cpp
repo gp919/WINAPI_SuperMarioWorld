@@ -14,8 +14,7 @@ CSceneMgr::~CSceneMgr()
 }
 
 void CSceneMgr::Initialize()
-{
-	CObjectMgr::Get_Instance()->Add_Object(OBJ_PLAYER, new CPlayer);
+{	
 	m_pCurrentScene = new CTutorial;
 	m_pCurrentScene->Initialize();
 }
@@ -29,6 +28,7 @@ int CSceneMgr::Update()
 void CSceneMgr::Late_Update()
 {
 	m_pCurrentScene->Late_Update();
+	
 }
 
 void CSceneMgr::Render(HDC hDC)
@@ -38,8 +38,9 @@ void CSceneMgr::Render(HDC hDC)
 
 void CSceneMgr::Release()
 {
-	CLineMgr::Destroy_Instance();
-	CObjectMgr::Get_Instance()->Delete_Object(OBJ_PLAYER);
+	if (m_pCurrentScene)
+		m_pCurrentScene->Release();
+
 	Safe_Delete(m_pCurrentScene);
 }
 
@@ -47,13 +48,15 @@ void CSceneMgr::Release()
 // 기존에 가리키고 있던 SCENE은 제거
 void CSceneMgr::Change_Scene(SCENEID _id)
 {
-	if(m_pCurrentScene)
+	if (m_pCurrentScene)
+	{
 		Safe_Delete(m_pCurrentScene);
+	}
 
 	switch (_id)
 	{
 	case SC_LOGO:
-		m_pCurrentScene = new CLogo;
+		//m_pCurrentScene = new CLogo;
 		break;
 	// 이하 로고와 같은 방식으로 동작
 	case SC_MENU:

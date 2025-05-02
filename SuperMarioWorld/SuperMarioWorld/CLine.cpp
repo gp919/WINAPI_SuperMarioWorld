@@ -1,3 +1,5 @@
+#pragma once
+
 #include "pch.h"
 #include "CLine.h"
 
@@ -19,6 +21,6 @@ CLine::~CLine()
 
 void CLine::Render(HDC hDC)
 {
-	// MoveToEx(hDC, (int)m_tInfo.tLPoint.fX + iScrollX, (int)m_tInfo.tLPoint.fY, nullptr);
-	// LineTo(hDC, (int)m_tInfo.tRPoint.fX + iScrollX, (int)m_tInfo.tRPoint.fY);
+	MoveToEx(hDC, (int)m_tLine.tLPoint.fX, (int)m_tLine.tLPoint.fY, nullptr);
+	LineTo(hDC, (int)m_tLine.tRPoint.fX, (int)m_tLine.tRPoint.fY);
 }

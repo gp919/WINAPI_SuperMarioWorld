@@ -2,10 +2,9 @@
 
 #include "pch.h"
 #include "CScene.h"
-#include "CLogo.h"
-#include "CObjectMgr.h"
-#include "CPlayer.h"
+#include "CCollisionMgr.h"
 #include "CTutorial.h"
+
 
 
 class CSceneMgr

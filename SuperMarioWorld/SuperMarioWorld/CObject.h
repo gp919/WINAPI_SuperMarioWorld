@@ -15,8 +15,19 @@ public:
 	virtual void Render(HDC)PURE;
 	virtual void Release()PURE;
 
+	virtual void On_Collision(EOBJECTID _id);
+
 public:
-	INFO Get_Info() { return m_tInfo; };
+	INFO* Get_Info() { return &m_tInfo; };
+	RECT* Get_Rect() { return &m_tRect; };
+	EOBJECTID Get_ID() { return m_eId; }
+	COLLISIONDIR Get_Col() { return m_eColDir; ; };
+	void Set_Dead() { m_bDead = true; };
+	void Set_PosX(float _fx) { m_tInfo.fX += _fx; };
+	void Set_PosY(float _fy) { m_tInfo.fY += _fy; };
+	void Set_TileCol() { m_bTileCol = true; };
+	void Set_ID(EOBJECTID _id) { m_eId = _id; };
+	void Set_Col(COLLISIONDIR _dir) { m_eColDir = _dir; };
 
 protected:
 	void		Update_Rect();
@@ -36,11 +47,15 @@ protected:
 
 	const TCHAR* m_pFrameKey;
 
-	OBJECTDIR m_eDir;
+	OBJECTDIR	m_eDir;
+	EOBJECTID	m_eId;
 
 
 	bool m_bJump;
 	float m_fJumpSpeed;
 	float m_fJumpTime;
 	float m_fAccel;
+
+	bool m_bTileCol=false;
+	COLLISIONDIR m_eColDir=COL_NONE;
 };

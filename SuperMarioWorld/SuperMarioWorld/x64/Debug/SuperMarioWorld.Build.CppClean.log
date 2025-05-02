@@ -1,7 +1,5 @@
-c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\supermarioworld.pch
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\vc143.pdb
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\vc143.idb
-c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\pch.obj
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\supermarioworld.obj
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\clogo.obj
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\cscenemgr.obj
@@ -11,7 +9,16 @@ c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermario
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\cobject.obj
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\cmybmp.obj
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\cmaingame.obj
+c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\clinemgr.obj
+c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\cline.obj
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\cbmpmgr.obj
+c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\ckeymgr.obj
+c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\cmouse.obj
+c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\ctutorial.obj
+c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\ccollisionmgr.obj
+c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\supermarioworld.pch
+c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\pch.obj
+c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\ctile.obj
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\x64\debug\supermarioworld.exe
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\x64\debug\supermarioworld.pdb
 c:\users\user\documents\github\winapi_supermarioworld\supermarioworld\supermarioworld\x64\debug\supermarioworld.res
