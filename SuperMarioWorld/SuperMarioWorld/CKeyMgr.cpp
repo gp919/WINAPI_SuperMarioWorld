@@ -41,6 +41,7 @@ bool CKeyMgr::Key_Up(int iKey)
 	if ((m_bKeyState[iKey]) && !(GetAsyncKeyState(iKey) & 0x8000))
 	{
 		m_bKeyState[iKey] = !m_bKeyState[iKey];
+
 		return true;
 	}
 

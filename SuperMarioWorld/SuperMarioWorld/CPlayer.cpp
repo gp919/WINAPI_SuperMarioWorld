@@ -13,7 +13,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
-	m_tInfo = { WINCX * 0.5f+100.f, 590.f , SMALLX * SCALE_FACTOR, SMALLY * SCALE_FACTOR };
+	m_tInfo = { WINCX * 0.5f+100.f, 500.f , SMALLX * SCALE_FACTOR, SMALLY * SCALE_FACTOR };
 	m_fSpeed = 4.f;
 
 	m_bJump = false;
@@ -26,38 +26,56 @@ void CPlayer::Initialize()
 	m_tFrame.dwSpeed = 200;
 	m_tFrame.dwTime = GetTickCount();
 
+	m_eCurState = IDLE;
+	m_ePreState = END;
+
 }
 
 int CPlayer::Update()
 {
 	Key_Input();
 	if (m_eCurState != IDLE)
+	{
 		Update_Gravity();
-
-	CObject::Update_Rect();
-	CObject::Move_Frame();
+	}
 
 	return NOEVENT;
 }
 
 void CPlayer::Late_Update()
 {
-	if (m_tInfo.fY < g_iMaxHeight)
-		g_iMaxHeight = m_tInfo.fY;
-	g_iHeight = g_iMaxHeight;
-
 	On_Collision(OBJ_TILE);
-	
-	float fY;
-	bool bLine = CLineMgr::Get_Instance()->Collision_Line(m_tInfo.fX, &fY);
-	if (bLine && (fY - m_tInfo.fCY * 0.5f <= m_tInfo.fY))
+	CObject::Update_Rect();
+
+	if(m_fJumpSpeed>0.f)
 	{
-		m_bJump = false;
-		m_fJumpTime = 0.f;
-		m_tInfo.fY = fY - m_tInfo.fCY * 0.5f;
+		float fY(0);
+		if (CLineMgr::Get_Instance()->Collision_Line(this->m_tInfo, &fY))
+		{
+			/*
+			m_tInfo.fY = fY - m_tInfo.fCY * 0.5f - 0.1f;
+			m_fJumpSpeed = 0.f;
+			m_fJumpTime = 0.f;
+			m_eCurState = IDLE;
+			*/
+			m_tInfo.fY = fY - m_tInfo.fCY * 0.5f;
+			m_fJumpSpeed = 0.f;
+			m_fJumpTime = 0.f;
+			m_bJump = false;
+			m_bSpin = false;
+			m_eCurState = IDLE;
+
+			wchar_t szBuf[128];
+			swprintf_s(szBuf, L"Y = %.2f, fY = %.2f\n", m_tInfo.fY, fY);
+			OutputDebugString(szBuf);
+		}
 	}
 
+	
+
 	Change_Motion();
+	CObject::Move_Frame();
+	
 		
 }
 
@@ -117,12 +135,15 @@ void CPlayer::On_Collision(EOBJECTID _id)
 void CPlayer::Key_Input()
 {
 
+	bool bPressed = false;
+
 	// 이동 : 좌우
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT))
 	{
 		m_tInfo.fX -= m_fSpeed;
 		m_eDir = DIR_LEFT;
 		m_eCurState = WALK;
+		bPressed = true;
 	}
 
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
@@ -130,16 +151,19 @@ void CPlayer::Key_Input()
 		m_tInfo.fX += m_fSpeed;
 		m_eDir = DIR_RIGHT;
 		m_eCurState = WALK;
+		bPressed = true;
 	}
 
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_UP))
 	{
 		m_eCurState = LOOK_UP;
+		bPressed = true;
 	}
 	
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_DOWN))
 	{
 		m_eCurState = DUCK;
+		bPressed = true;
 	}
 
 	// 점프
@@ -161,7 +185,6 @@ void CPlayer::Key_Input()
 		m_eCurState = SPIN_JUMP;
 	}
 
-	
 	// 달리기 : 키를 누르는 동안에는 최대속도까지 가속하다가 떼는 순간 원래 속력
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RUN))
 	{
@@ -171,7 +194,9 @@ void CPlayer::Key_Input()
 			m_fJumpSpeed -= RUN_ACCEL;
 		}
 		else
+		{
 			m_eCurState = RUN;
+		}
 	}
 
 	if (CKeyMgr::Get_Instance()->Key_Up(VK_RUN))
@@ -181,7 +206,10 @@ void CPlayer::Key_Input()
 	}	
 	
 
-
+	if (!bPressed && !m_bJump)
+	{
+		m_eCurState = IDLE;
+	}
 
 	
 }
@@ -203,7 +231,6 @@ void CPlayer::Change_Motion()
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 0;
 			m_tFrame.dwSpeed = 50;
-			m_tFrame.dwTime = GetTickCount();
 			break;
 
 		case LOOK_UP:
@@ -211,7 +238,6 @@ void CPlayer::Change_Motion()
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 1;
 			m_tFrame.dwSpeed = 50;
-			m_tFrame.dwTime = GetTickCount();
 			break;
 
 		case DUCK:
@@ -219,7 +245,6 @@ void CPlayer::Change_Motion()
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 2;
 			m_tFrame.dwSpeed = 50;
-			m_tFrame.dwTime = GetTickCount();
 			break;
 
 		case WALK:
@@ -227,7 +252,6 @@ void CPlayer::Change_Motion()
 			m_tFrame.iEnd = 2;
 			m_tFrame.iMotion = 3;
 			m_tFrame.dwSpeed = 100;
-			m_tFrame.dwTime = GetTickCount();
 			break;
 
 		case RUN:
@@ -235,7 +259,6 @@ void CPlayer::Change_Motion()
 			m_tFrame.iEnd = 2;
 			m_tFrame.iMotion = 4;
 			m_tFrame.dwSpeed = 50;
-			m_tFrame.dwTime = GetTickCount();
 			break;
 
 		case JUMP:
@@ -243,7 +266,6 @@ void CPlayer::Change_Motion()
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 7;
 			m_tFrame.dwSpeed = 50;
-			m_tFrame.dwTime = GetTickCount();
 			break;
 
 		case FALL:
@@ -251,7 +273,6 @@ void CPlayer::Change_Motion()
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 8;
 			m_tFrame.dwSpeed = 50;
-			m_tFrame.dwTime = GetTickCount();
 			break;
 
 
@@ -263,7 +284,6 @@ void CPlayer::Change_Motion()
 			m_tFrame.iEnd = 3;
 			m_tFrame.iMotion = 10;
 			m_tFrame.dwSpeed = 50;
-			m_tFrame.dwTime = GetTickCount();
 			break;
 
 		case SKID:
@@ -277,8 +297,9 @@ void CPlayer::Change_Motion()
 		case DEATH:
 			break;
 		}
-		m_ePreState = m_eCurState;
 
+		m_tFrame.dwTime = GetTickCount();
+		m_ePreState = m_eCurState;
 	}
 }
 
@@ -288,7 +309,11 @@ void CPlayer::Update_Gravity()
 	// y = y0 + vt
 	m_tInfo.fY += m_fJumpSpeed * m_fJumpTime;
 	// v = v0 + at
-	if (m_fJumpSpeed < 13.6f)
+	if (m_fJumpSpeed >= 8.0f)
+		m_fJumpSpeed = 8.0f;
+	else if (m_fJumpSpeed <= -20.f)
+		m_fJumpSpeed = -20.f;
+	else
 		m_fJumpSpeed += GRAVITY * m_fJumpTime;
 		
 		
