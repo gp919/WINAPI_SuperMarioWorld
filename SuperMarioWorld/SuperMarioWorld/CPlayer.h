@@ -31,6 +31,7 @@ private:
 	void Key_Input();
 	void Change_Motion();
 	void Update_Gravity();
+	void Offset();
 
 private:
 	PLAYERSTATE     m_eCurState;
@@ -38,5 +39,7 @@ private:
 	bool m_bSpin = false;
 
 	bool m_bLand = false;
+	float fOffsetBoxLeft;
+	float fOffsetBoxRight;
 
 };

@@ -15,7 +15,7 @@ CSceneMgr::~CSceneMgr()
 
 void CSceneMgr::Initialize()
 {	
-	m_pCurrentScene = new CTutorial;
+	m_pCurrentScene = new CScene01;
 	m_pCurrentScene->Initialize();
 }
 
@@ -80,5 +80,12 @@ void CSceneMgr::Change_Scene(SCENEID _id)
 	}
 
 	// 포인터 변경후 Initialize
-	m_pCurrentScene->Initialize();
+	if (m_pCurrentScene)
+	{
+		m_pCurrentScene->Initialize();
+		pair<float, float> pSize = m_pCurrentScene->Get_MapSize();
+		CScrollMgr::Get_Instance()->Set_Size(pSize.first, pSize.second);
+		CScrollMgr::Get_Instance()->Scroll_Lock(); // 초기화 위치 제한
+	}
+	
 }

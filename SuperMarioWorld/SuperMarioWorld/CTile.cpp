@@ -79,11 +79,14 @@ void CTile::Render(HDC hDC)
 {
 	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Tile");
 
+	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+	float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+
 	GdiTransparentBlt(hDC,
-		m_tRect.left,
-		m_tRect.top,
-		(int)m_tInfo.fCX,
-		(int)m_tInfo.fCY,
+		(int)(m_tRect.left - fScrollX),
+		(int)(m_tRect.top - fScrollY),
+		(int)(m_tInfo.fCX),  // ← 타일 너비
+		(int)(m_tInfo.fCY),  // ← 타일 높이
 		hMemDC,
 		m_tFrame.iStart * TILECX,
 		m_tFrame.iMotion * TILECY,

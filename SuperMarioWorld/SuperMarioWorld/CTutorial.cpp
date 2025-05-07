@@ -19,6 +19,9 @@ void CTutorial::Initialize()
 	//x :448Âë
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_PLAYER, new CPlayer);
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(TILECY * SCALE_FACTOR * 5, WINCY - (TILECY * SCALE_FACTOR * 5), TILE_EMPTY));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(TILECY * SCALE_FACTOR * 5 + 48, WINCY - (TILECY * SCALE_FACTOR * 5), TILE_Q));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(TILECY * SCALE_FACTOR * 5 + 96, WINCY - (TILECY * SCALE_FACTOR * 5), TILE_E));
+	
 	// ¹Ù´Ú ¶óÀÎ
 	/*CLineMgr::Get_Instance()->Add_Line(
 		{ 0.f, (WINCY - (16.f * 2.5f * SCALE_FACTOR + SMALLY * 0.5f)) },
@@ -47,7 +50,7 @@ void CTutorial::Late_Update()
 void CTutorial::Render(HDC hDC)
 {
 	
-	HDC hMemDC_back = CBmpMgr::Get_Instance()->Find_Image(L"BackGround01");
+	HDC hMemDC_back = CBmpMgr::Get_Instance()->Find_Image(L"BackGround");
 	GdiTransparentBlt(
 		hDC,
 		0, 0,

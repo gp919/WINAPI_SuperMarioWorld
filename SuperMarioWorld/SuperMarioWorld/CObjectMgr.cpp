@@ -51,13 +51,11 @@ void CObjectMgr::Late_Update()
 
 void CObjectMgr::Render(HDC hDC)
 {
-	for (auto i = 0; i < OBJ_END; i++)
-	{
-		for (auto& iter : m_listObject[i])
-		{
-			iter->Render(hDC);
-		}
-	}
+	for (auto& obj : m_listObject[OBJ_TILE])
+		obj->Render(hDC);
+
+	for (auto& obj : m_listObject[OBJ_PLAYER])
+		obj->Render(hDC);
 }
 
 void CObjectMgr::Release()

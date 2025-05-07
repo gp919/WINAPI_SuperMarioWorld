@@ -16,4 +16,6 @@ public:
 	virtual void Late_Update()PURE;
 	virtual void Render(HDC)PURE;
 	virtual void Release()PURE;
+	
+	virtual pair<float, float> Get_MapSize()PURE;
 };
