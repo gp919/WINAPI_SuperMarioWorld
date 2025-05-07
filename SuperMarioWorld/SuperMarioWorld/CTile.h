@@ -3,6 +3,7 @@
 #include "pch.h"
 #include "CObject.h"
 #include "CBmpMgr.h"
+#include "CScrollMgr.h"
 
 class CTile : public CObject
 {

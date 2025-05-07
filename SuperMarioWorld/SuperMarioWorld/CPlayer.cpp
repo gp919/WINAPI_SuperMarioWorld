@@ -13,7 +13,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
-	m_tInfo = { WINCX * 0.5f+100.f, 500.f , SMALLX * SCALE_FACTOR, SMALLY * SCALE_FACTOR };
+	m_tInfo = { 400.f, 400.f , SMALLX * SCALE_FACTOR, SMALLY * SCALE_FACTOR };
 	m_fSpeed = 4.f;
 
 	m_bJump = true;
@@ -47,6 +47,8 @@ int CPlayer::Update()
 
 void CPlayer::Late_Update()
 {
+	Offset();
+
 	On_Collision(OBJ_TILE);
 	CObject::Update_Rect();
 
@@ -63,9 +65,6 @@ void CPlayer::Late_Update()
 			if(m_eCurState!=DUCK && m_eCurState!=RUN)
 				m_eCurState = IDLE;
 
-			wchar_t szDbg[256];
-			swprintf_s(szDbg, L"current state : %d\n", m_eCurState);
-			OutputDebugString(szDbg);
 		}
 	}
 
@@ -73,22 +72,42 @@ void CPlayer::Late_Update()
 
 	Change_Motion();
 	CObject::Move_Frame();
-	
-		
 }
 
 void CPlayer::Render(HDC hDC)
 {
+	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+	float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+
+
 	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_pFrameKey);
 	GdiTransparentBlt(
 		hDC,
-		m_tRect.left, m_tRect.top,
-		(int)m_tInfo.fCX, (int)m_tInfo.fCY,                                 // 출력 크기 (3배)
+		(int)(m_tRect.left - fScrollX),
+		(int)(m_tRect.top),
+		(int)m_tInfo.fCX,
+		(int)m_tInfo.fCY,                                 // 출력 크기 (3배)
 		hMemDC,
 		m_tFrame.iStart * SMALLX,                   // 열 인덱스 × 프레임 너비
 		m_tFrame.iMotion * SMALLY,                  // 행 인덱스 × 프레임 높이
 		SMALLX, SMALLY,                                 // 자를 원본 크기
 		RGB(0, 255, 0));
+
+	const float fFocusX = WINCX * 0.42f;
+	const float fOffsetHalf = 48.f; // 오프셋 박스의 반너비
+
+	const int iLeft = (int)(fFocusX - fOffsetHalf);
+	const int iRight = (int)(fFocusX + fOffsetHalf);
+
+	HPEN hPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0)); // 빨간색
+	HBRUSH hOldBrush = (HBRUSH)SelectObject(hDC, GetStockObject(NULL_BRUSH));
+	HPEN hOldPen = (HPEN)SelectObject(hDC, hPen);
+
+	Rectangle(hDC, iLeft, 0, iRight, WINCY); // 화면 위부터 아래까지 박스
+
+	SelectObject(hDC, hOldPen);
+	SelectObject(hDC, hOldBrush);
+	DeleteObject(hPen);
 }
 
 void CPlayer::Release()
@@ -120,10 +139,34 @@ void CPlayer::On_Collision(EOBJECTID _id)
 					if (m_fJumpSpeed < 0.f)
 						m_fJumpSpeed *= -1.f;
 				}
-
 			break;
+		// 2. 몬스터(보스패턴)
+		//case OBJ_MONSTER:
+		//	CObject* pTarget = CCollisionMgr::Collision_RectEx(
+		//		CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER),
+		//		CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER)
+		//	);
+		//	if (!pTarget) break;
+		//	// 위에서 밟은 경우
+		//	if (Get_Col() == COL_BOTTOM)
+		//	{
+		//		// 플레이어 반동 점프
+		//		m_bJump = true;
+		//		m_fJumpTime = 0.f;
+		//		m_fJumpSpeed = -BOUNCE_SPEED;  // 튕겨오르는 속도 상수
+
+		//		// 몬스터 스톰프 처리
+		//		static_cast<CMonster*>(pTarget)->On_Stomped();
+		//	}
+		//	else
+		//	{
+		//		// 피격 처리 (예: 작아지거나 사망)
+		//		Take_Damage();
+		//	}
+
+		//	break;
 	}
-	// 2. 몬스터(보스패턴)
+	
 
 	// 3. 아이템
 
@@ -333,4 +376,34 @@ void CPlayer::Update_Gravity()
 	// t++
 	m_fJumpTime += 0.1f;
 
+}
+
+void CPlayer::Offset()
+{
+	const float fFocusX = WINCX * 0.42f;          // 화면 내 기준 위치
+	const float fOffsetBoxHalf = 24.f;            // 플레이어 너비 * 2 (96px)
+
+	fOffsetBoxLeft = fFocusX - fOffsetBoxHalf;
+	fOffsetBoxRight = fFocusX + fOffsetBoxHalf;
+
+	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+	float fPlayerScreenX = m_tInfo.fX - fScrollX;
+
+	// 오프셋 박스 기준 스크롤 처리
+	if (fPlayerScreenX < fOffsetBoxLeft)
+	{
+		float fDelta = fOffsetBoxLeft - fPlayerScreenX;
+		CScrollMgr::Get_Instance()->Set_ScrollX(-fDelta);
+	}
+	else if (fPlayerScreenX > fOffsetBoxRight)
+	{
+		float fDelta = fPlayerScreenX - fOffsetBoxRight;
+		CScrollMgr::Get_Instance()->Set_ScrollX(fDelta);
+	}
+
+	float fTargetScrollY = CScrollMgr::Get_Instance()->Get_ScrollY() * SCALE_FACTOR - WINCY;
+	CScrollMgr::Get_Instance()->Set_ScrollY(fTargetScrollY);
+
+
+	CScrollMgr::Get_Instance()->Scroll_Lock();
 }

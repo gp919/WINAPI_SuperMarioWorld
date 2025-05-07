@@ -20,5 +20,7 @@ public:
 	 void Late_Update()override;
 	 void Render(HDC)override;
 	 void Release()override;
+	 pair<float, float> Get_MapSize() { return { 256.f, 224.f }; };
+	 
 };
 

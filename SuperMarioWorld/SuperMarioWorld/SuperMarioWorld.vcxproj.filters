@@ -31,6 +31,30 @@
     <Filter Include="05. KeyManager">
       <UniqueIdentifier>{cb6dfe68-d5c0-4c31-88ae-267c213f54d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. ScrollManager">
+      <UniqueIdentifier>{fa6d9f7e-7e81-4935-a87d-73210a3cf71d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. UIManager">
+      <UniqueIdentifier>{1dfb09fb-4e5e-4698-bd6f-7c580f91b9d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\CollisionManager">
+      <UniqueIdentifier>{60715243-6a77-4ae7-8b0c-13aae70cc432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\Mouse">
+      <UniqueIdentifier>{a9e6bc41-3c75-4f48-a423-556798be2d3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\ObjectManager">
+      <UniqueIdentifier>{19c0863f-2da3-42f0-b057-bc73e32df8c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\Monster">
+      <UniqueIdentifier>{479126b6-ff65-4f13-bfaa-ea0c0175c0f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\Player">
+      <UniqueIdentifier>{b944b31c-f6d7-4de9-ba44-b2e8c6e6a02a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\Tile">
+      <UniqueIdentifier>{fec19c2b-10a7-4240-92ce-573bb98ab2ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -60,17 +84,11 @@
     <ClInclude Include="CObject.h">
       <Filter>02. Object</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>02. Object</Filter>
-    </ClInclude>
     <ClInclude Include="CBmpMgr.h">
       <Filter>03. Bitmap</Filter>
     </ClInclude>
     <ClInclude Include="CMyBmp.h">
       <Filter>03. Bitmap</Filter>
-    </ClInclude>
-    <ClInclude Include="CObjectMgr.h">
-      <Filter>02. Object</Filter>
     </ClInclude>
     <ClInclude Include="CSceneMgr.h">
       <Filter>01. Scene</Filter>
@@ -84,17 +102,35 @@
     <ClInclude Include="CKeyMgr.h">
       <Filter>05. KeyManager</Filter>
     </ClInclude>
-    <ClInclude Include="CMouse.h">
-      <Filter>02. Object</Filter>
-    </ClInclude>
     <ClInclude Include="CTutorial.h">
       <Filter>01. Scene</Filter>
     </ClInclude>
+    <ClInclude Include="CScrollMgr.h">
+      <Filter>06. ScrollManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene01.h">
+      <Filter>01. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CUiMgr.h">
+      <Filter>07. UIManager</Filter>
+    </ClInclude>
     <ClInclude Include="CCollisionMgr.h">
-      <Filter>02. Object</Filter>
+      <Filter>02. Object\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CMouse.h">
+      <Filter>02. Object\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjectMgr.h">
+      <Filter>02. Object\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>02. Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>02. Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
-      <Filter>02. Object</Filter>
+      <Filter>02. Object\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,17 +149,11 @@
     <ClCompile Include="CObject.cpp">
       <Filter>02. Object</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>02. Object</Filter>
-    </ClCompile>
     <ClCompile Include="CBmpMgr.cpp">
       <Filter>03. Bitmap</Filter>
     </ClCompile>
     <ClCompile Include="CMyBmp.cpp">
       <Filter>03. Bitmap</Filter>
-    </ClCompile>
-    <ClCompile Include="CObjectMgr.cpp">
-      <Filter>02. Object</Filter>
     </ClCompile>
     <ClCompile Include="CSceneMgr.cpp">
       <Filter>01. Scene</Filter>
@@ -137,17 +167,35 @@
     <ClCompile Include="CKeyMgr.cpp">
       <Filter>05. KeyManager</Filter>
     </ClCompile>
-    <ClCompile Include="CMouse.cpp">
-      <Filter>02. Object</Filter>
-    </ClCompile>
     <ClCompile Include="CTutorial.cpp">
       <Filter>01. Scene</Filter>
     </ClCompile>
+    <ClCompile Include="CScrollMgr.cpp">
+      <Filter>06. ScrollManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene01.cpp">
+      <Filter>01. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CUiMgr.cpp">
+      <Filter>07. UIManager</Filter>
+    </ClCompile>
     <ClCompile Include="CCollisionMgr.cpp">
-      <Filter>02. Object</Filter>
+      <Filter>02. Object\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CMouse.cpp">
+      <Filter>02. Object\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjectMgr.cpp">
+      <Filter>02. Object\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>02. Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>02. Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="CTile.cpp">
-      <Filter>02. Object</Filter>
+      <Filter>02. Object\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

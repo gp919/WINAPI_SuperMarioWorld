@@ -31,7 +31,6 @@ public:
 
 protected:
 	void		Update_Rect();
-	void		Update_HitBox();
 	void		Move_Frame();
 
 protected:

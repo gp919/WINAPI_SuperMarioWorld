@@ -135,6 +135,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CMonster.h" />
+    <ClInclude Include="CScene01.h" />
+    <ClInclude Include="CScrollMgr.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CBmpMgr.h" />
     <ClInclude Include="CCollisionMgr.h" />
@@ -149,6 +152,7 @@
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CSceneMgr.h" />
     <ClInclude Include="CTutorial.h" />
+    <ClInclude Include="CUiMgr.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -158,6 +162,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="CScene01.cpp" />
+    <ClCompile Include="CScrollMgr.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CBmpMgr.cpp" />
     <ClCompile Include="CCollisionMgr.cpp" />
@@ -173,6 +180,7 @@
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneMgr.cpp" />
     <ClCompile Include="CTutorial.cpp" />
+    <ClCompile Include="CUiMgr.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 // 화면 사이즈 : 게임 오리지널 사이즈(256 * 224)의 3배
 #define WINCX	768
 #define WINCY	672
@@ -141,8 +143,13 @@ struct tagDeleteMap
 };
 
 
+template <typename T>
+const T& clamp(const T& v, const T& lo, const T& hi) {
+	return (v < lo) ? lo : (hi < v) ? hi : v;
+}
 
 extern HWND g_hWnd;
 
 extern int g_iHeight; 
 extern int g_iMaxHeight;
+

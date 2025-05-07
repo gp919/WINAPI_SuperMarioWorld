@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "CSceneMgr.h"
 #include "CKeyMgr.h"
+#include "CScrollMgr.h"
 
 class CMainGame
 {
