@@ -14,6 +14,7 @@ public:
 public:
 	void		Insert_Bmp(const TCHAR* pFilePath, const TCHAR* pImgKey);
 	void		Release();
+	void		PreWarm(HDC);
 
 
 public:

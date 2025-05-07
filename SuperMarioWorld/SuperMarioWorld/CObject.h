@@ -22,6 +22,7 @@ public:
 	RECT* Get_Rect() { return &m_tRect; };
 	EOBJECTID Get_ID() { return m_eId; }
 	COLLISIONDIR Get_Col() { return m_eColDir; ; };
+	bool Get_Dead() { return m_bDead; };
 	void Set_Dead() { m_bDead = true; };
 	void Set_PosX(float _fx) { m_tInfo.fX += _fx; };
 	void Set_PosY(float _fy) { m_tInfo.fY += _fy; };

@@ -27,6 +27,9 @@ void CObject::Update_Rect()
 
 void CObject::Move_Frame()
 {
+	if (m_tFrame.iEnd==0)
+		return;
+
 	if (m_tFrame.dwSpeed + m_tFrame.dwTime < GetTickCount())
 	{
 		++m_tFrame.iStart;

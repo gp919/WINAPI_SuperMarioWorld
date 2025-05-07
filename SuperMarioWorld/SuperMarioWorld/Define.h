@@ -27,6 +27,7 @@
 #define PI			3.141592f
 #define GRAVITY		0.45f
 #define RUN_ACCEL	0.06f
+#define BOUNCE_SPEED 5.f
 
 #define PURE		= 0
 

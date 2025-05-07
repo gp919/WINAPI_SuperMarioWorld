@@ -50,3 +50,11 @@ void CBmpMgr::Release()
 	m_mapBit.clear();
 
 }
+
+void CBmpMgr::PreWarm(HDC hDC)
+{
+	for (auto& pair : m_mapBit)
+	{
+		BitBlt(hDC, -100, -100, 1, 1, pair.second->Get_MemDC(), 0, 0, SRCCOPY);
+	}
+}

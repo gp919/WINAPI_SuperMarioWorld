@@ -28,12 +28,21 @@ int CObjectMgr::Update()
 {
 	for (auto i = 0; i < OBJ_END; i++)
 	{
-		for (auto& iter : m_listObject[i])
+		for (auto iter = m_listObject[i].begin(); iter != m_listObject[i].end(); )
 		{
-			iter->Update();
+			int iResult = (*iter)->Update();
+			if (iResult == DEAD)
+			{
+				Safe_Delete<CObject*>(*iter);
+				iter = m_listObject[i].erase(iter);
+			}
+			else
+			{
+				++iter;
+			}
 		}
 	}
-	
+
 	return NOEVENT;
 }
 
@@ -52,6 +61,9 @@ void CObjectMgr::Late_Update()
 void CObjectMgr::Render(HDC hDC)
 {
 	for (auto& obj : m_listObject[OBJ_TILE])
+		obj->Render(hDC);
+
+	for (auto& obj : m_listObject[OBJ_MONSTER])
 		obj->Render(hDC);
 
 	for (auto& obj : m_listObject[OBJ_PLAYER])

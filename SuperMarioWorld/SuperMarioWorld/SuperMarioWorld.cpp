@@ -55,10 +55,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     CMainGame MainGame;
     MainGame.Initialize();
 
-    DWORD   dwTime = GetTickCount();
+    
     // PeekMessage
     while (true)
     {
+        DWORD   dwTime = GetTickCount();
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (WM_QUIT == msg.message)
@@ -74,7 +75,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 프레임 조절
-            if (dwTime + 00.f < GetTickCount())
+            if (dwTime + 7.f < GetTickCount())
             {
                MainGame.Update();
                MainGame.Late_Update();

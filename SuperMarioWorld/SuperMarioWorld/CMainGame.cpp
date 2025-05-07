@@ -14,7 +14,12 @@ CMainGame::~CMainGame()
 
 void CMainGame::Initialize()
 {
+
 	m_hDC = GetDC(g_hWnd);
+
+	hMemDC = CreateCompatibleDC(m_hDC);
+	hBackBmp = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
+	hOldBmp = (HBITMAP)SelectObject(hMemDC, hBackBmp);
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/BackGround.bmp", L"BackGround");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tile.bmp", L"Tile");
@@ -30,9 +35,15 @@ void CMainGame::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/Coin_Icon.bmp", L"Coin_Icon");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/Number.bmp", L"Number");
 
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Koopa.bmp", L"Koopa");
+
+
+
 
 	CLineMgr::Get_Instance()->Initialize();
 	CSceneMgr::Get_Instance()->Initialize();
+
+	CBmpMgr::Get_Instance()->PreWarm(hMemDC);
 }
 
 void CMainGame::Update()
@@ -55,9 +66,7 @@ void CMainGame::Late_Update()
 
 void CMainGame::Render()
 {
-	HDC hMemDC = CreateCompatibleDC(m_hDC);
-	HBITMAP hBackBmp = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
-	HBITMAP hOldBmp = (HBITMAP)SelectObject(hMemDC, hBackBmp);
+	
 	
 	HBRUSH hOldBrush = (HBRUSH)SelectObject(hMemDC, GetStockObject(WHITE_BRUSH));
 	Rectangle(hMemDC, 0, 0, WINCX, WINCY);
@@ -77,18 +86,22 @@ void CMainGame::Render()
 
 	BitBlt(m_hDC, 0, 0, WINCX, WINCY, hMemDC, 0, 0, SRCCOPY);
 
-	SelectObject(hMemDC, hOldBmp);
-	DeleteObject(hBackBmp);
-	DeleteDC(hMemDC);
+	
 }
 
 void CMainGame::Release()
 {
+	
 	CSceneMgr::Get_Instance()->Destroy_Instance();
 	CBmpMgr::Get_Instance()->Destroy_Instance();
 	CKeyMgr::Get_Instance()->Destroy_Instance();
 	CScrollMgr::Get_Instance()->Destroy_Instance();
+	CUiMgr::Get_Instance()->Destroy_Instance();
 	
+	SelectObject(hMemDC, hOldBmp);
+	DeleteObject(hBackBmp);
+	DeleteDC(hMemDC);
+
 	ReleaseDC(g_hWnd, m_hDC);
 
 

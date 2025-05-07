@@ -62,6 +62,8 @@ void CTile::Initialize()
 		break;
 
 	}
+
+	CObject::Update_Rect();
 }
 
 int CTile::Update()
@@ -93,6 +95,8 @@ void CTile::Render(HDC hDC)
 		TILECX,
 		TILECY,
 		RGB(0, 255, 0));
+
+
 }
 
 void CTile::Release()
