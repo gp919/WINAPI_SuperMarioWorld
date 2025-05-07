@@ -11,17 +11,18 @@ CScene01::~CScene01()
 
 void CScene01::Initialize()
 {
-
-	CScrollMgr::Get_Instance()->Set_Size(Get_MapSize().first, Get_MapSize().second);
 	CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
-	CScrollMgr::Get_Instance()->Set_ScrollY((Get_MapSize().second - WINCY / SCALE_FACTOR) * SCALE_FACTOR);
+	CScrollMgr::Get_Instance()->Set_ScrollY(0.f);
 	
 	// 이하 임의 타일 배치
 	//x :448쯤
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_PLAYER, new CPlayer);
 
-	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(400.f, 720.f, TILE_EMPTY));
-	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(500.f, 720.f, TILE_Q));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(200.f, 400.f, TILE_EMPTY));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(300.f, 400.f, TILE_Q));
+
+	
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, new CKoopa(2000.f, 512.f));
 
 	// 바닥 라인
 	/*CLineMgr::Get_Instance()->Add_Line(
@@ -30,7 +31,7 @@ void CScene01::Initialize()
 
 
 		// 테스트용 강제 라인
-	CLineMgr::Get_Instance()->Add_Line({ 0.f, 576.f }, { Get_MapSize().first, 576.f});
+	CLineMgr::Get_Instance()->Add_Line({ 0.f, 528.f }, { Get_MapSize().first, 528.f});
 	CObjectMgr::Get_Instance()->Initialize();
 }
 
@@ -66,14 +67,13 @@ void CScene01::Render(HDC hDC)
 		{
 			int drawX = (startIdx + i) * BACK_WIDTH * SCALE_FACTOR - (int)fScrollX;
 
-			GdiTransparentBlt(
+			BitBlt(
 				hDC,
 				drawX, 0,
 				BACK_WIDTH * SCALE_FACTOR, BACK_HEIGHT * SCALE_FACTOR,
 				hMemDC_back,
 				0, 0,
-				BACK_WIDTH, BACK_HEIGHT,
-				RGB(0, 255, 0));
+				SRCCOPY);
 		}
 	}
 
@@ -85,8 +85,9 @@ void CScene01::Render(HDC hDC)
 		WINCX, WINCY,                                  // 출력 크기 (3배)
 		hMemDC,
 		(int)(fScrollX / SCALE_FACTOR),                   // 열 인덱스 × 프레임 너비
-		(int)(fScrollY / SCALE_FACTOR),                  // 행 인덱스 × 프레임 높이
-		WINCX / SCALE_FACTOR, WINCY / SCALE_FACTOR,                                 // 자를 원본 크기
+		// 오프셋 = 전체 맵 높이 - 화면 높이 = 432.f - 224.f = 208.f
+		(int)(fScrollY / SCALE_FACTOR + 208.f),             // 행 인덱스 × 프레임 높이
+		WINCX / SCALE_FACTOR, WINCY / SCALE_FACTOR,       // 자를 원본 크기
 		RGB(0, 255, 0));
 
 	CLineMgr::Get_Instance()->Render(hDC);

@@ -30,14 +30,14 @@ void CUiMgr::Render_PlayerLife(HDC hDC, float _fx, float _fy)
 {
     // "MARIO"
     HDC hText = CBmpMgr::Get_Instance()->Find_Image(L"MarioText");
-    GdiTransparentBlt(hDC, _fx, _fy, 120, 24, hText, 0, 0, 40, 8, RGB(0, 0, 255));
+    GdiTransparentBlt(hDC, _fx, _fy, 120, 24, hText, 0, 0, 40, 8, RGB(0, 255, 0));
 
     // "x" (텍스트 아래 줄)
     float fxSymbol = _fx;
     float fySymbol = _fy + 24.f; // 3배 높이인 24픽셀만큼 아래
 
     HDC hX = CBmpMgr::Get_Instance()->Find_Image(L"X_Mark");
-    GdiTransparentBlt(hDC, fxSymbol, fySymbol, 18, 21, hX, 0, 0, 6, 7, RGB(0, 0, 255));
+    GdiTransparentBlt(hDC, fxSymbol, fySymbol, 18, 21, hX, 0, 0, 6, 7, RGB(0, 255, 0));
 
     // 숫자 (x 오른쪽)
     Render_Number(hDC, fxSymbol + 24.f, fySymbol + 1.f, m_iLife, ENumberType::SMALL_WHITE);
@@ -46,7 +46,7 @@ void CUiMgr::Render_PlayerLife(HDC hDC, float _fx, float _fy)
 void CUiMgr::Render_Timer(HDC hDC, float _fx, float _fy)
 {
     HDC hTimeText = CBmpMgr::Get_Instance()->Find_Image(L"Time_Text");
-    GdiTransparentBlt(hDC, _fx, _fy, 72, 21, hTimeText, 0, 0, 24, 7, RGB(0, 0, 255));
+    GdiTransparentBlt(hDC, _fx, _fy, 72, 21, hTimeText, 0, 0, 24, 7, RGB(0, 255, 0));
 
     Render_Number(hDC, _fx, _fy + 18.f, static_cast<int>(m_fTime), SMALL_YELLOW);
 }
@@ -55,11 +55,11 @@ void CUiMgr::Render_Score(HDC hDC, float _fx, float _fy)
 {
     // 동전 아이콘 출력 (좌측 정렬)
     HDC hCoinIcon = CBmpMgr::Get_Instance()->Find_Image(L"Coin_Icon");
-    GdiTransparentBlt(hDC, _fx, _fy, 24, 24, hCoinIcon, 0, 0, 8, 8, RGB(0, 0, 255)); // 3배 확대
+    GdiTransparentBlt(hDC, _fx, _fy, 24, 24, hCoinIcon, 0, 0, 8, 8, RGB(0, 255, 0)); // 3배 확대
 
     // "x" 기호 출력 (아이콘 오른쪽)
     HDC hX = CBmpMgr::Get_Instance()->Find_Image(L"X_Mark");
-    GdiTransparentBlt(hDC, _fx + 30.f, _fy + 2.f, 18, 21, hX, 0, 0, 6, 7, RGB(0, 0, 255));
+    GdiTransparentBlt(hDC, _fx + 30.f, _fy + 2.f, 18, 21, hX, 0, 0, 6, 7, RGB(0, 255, 0));
 
     // 코인 수 출력 (x 오른쪽)
     Render_Number(hDC, _fx + 54.f, _fy + 2.f, m_iCoin, SMALL_WHITE);
@@ -103,7 +103,7 @@ void CUiMgr::Render_Number(HDC hDC, float x, float y, int num, ENumberType type)
             hNumDC,
             digit * 8, srcY,        // 원본 위치
             8, srcH,
-            RGB(0, 0, 255)
+            RGB(0, 255, 0)
         );
     }
 }

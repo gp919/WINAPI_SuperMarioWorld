@@ -69,8 +69,10 @@ CObject* CCollisionMgr::Collision_RectEx(list<CObject*>& _Dst, list<CObject*>& _
 	{
 		for (auto& Src : _Src)
 		{
+			if (Src->Get_Dead()) continue;	// 죽은 객체 충돌 무시
 			if (Check_Rect(Dst, Src, &fWidth, &fHeight))
 			{
+
 				// 상, 하 충돌
 				if (fWidth > fHeight)
 				{

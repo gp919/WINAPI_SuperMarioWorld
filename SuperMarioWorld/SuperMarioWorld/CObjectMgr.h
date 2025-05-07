@@ -1,6 +1,7 @@
 #pragma once
 
 #include "pch.h"
+#include "Define.h"
 #include "CObject.h"
 #include "CCollisionMgr.h"
 #include "CLineMgr.h"

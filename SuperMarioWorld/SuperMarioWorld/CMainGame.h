@@ -3,6 +3,7 @@
 #include "CSceneMgr.h"
 #include "CKeyMgr.h"
 #include "CScrollMgr.h"
+#include "CBmpMgr.h"
 
 class CMainGame
 {
@@ -16,6 +17,11 @@ public:
 	void Late_Update();
 	void Render();
 	void Release();
+
+private:
+	HDC hMemDC;
+	HBITMAP hBackBmp;
+	HBITMAP hOldBmp;
 
 private:
 	HDC			m_hDC;

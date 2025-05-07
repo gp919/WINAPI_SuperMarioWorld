@@ -132,6 +132,12 @@
     <ClInclude Include="CTile.h">
       <Filter>02. Object\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="CGoomba.h">
+      <Filter>02. Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CKoopa.h">
+      <Filter>02. Object\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -196,6 +202,12 @@
     </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>02. Object\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CGoomba.cpp">
+      <Filter>02. Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CKoopa.cpp">
+      <Filter>02. Object\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

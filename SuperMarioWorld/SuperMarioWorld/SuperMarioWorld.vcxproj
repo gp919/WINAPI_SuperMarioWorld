@@ -135,6 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CGoomba.h" />
+    <ClInclude Include="CKoopa.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CScene01.h" />
     <ClInclude Include="CScrollMgr.h" />
@@ -162,6 +164,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CGoomba.cpp" />
+    <ClCompile Include="CKoopa.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CScene01.cpp" />
     <ClCompile Include="CScrollMgr.cpp" />

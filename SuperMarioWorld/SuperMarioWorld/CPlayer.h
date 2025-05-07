@@ -6,6 +6,7 @@
 #include "CBmpMgr.h"
 #include "CKeyMgr.h"
 #include "CLineMgr.h"
+#include "CMonster.h"
 
 
 class CPlayer : public CObject
