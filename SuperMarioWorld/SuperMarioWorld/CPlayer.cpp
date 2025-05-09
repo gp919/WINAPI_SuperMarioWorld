@@ -319,7 +319,7 @@ void CPlayer::Key_Input()
 	}
 
 	// 방향키가 아무것도 눌리지 않고 공중도 아닐 때 → IDLE
-	if (!bPressed && !m_bJump && m_eCurState != IDLE && m_eCurState != DEATH)
+	if (!bPressed && !m_bJump && m_eCurState != IDLE && m_eCurState != DEATH && m_eCurState != LOOK_UP && m_eCurState != DUCK)
 	{
 		m_eCurState = IDLE;
 	}
@@ -435,8 +435,8 @@ void CPlayer::Update_Gravity()
 	else
 	{
 		m_fJumpSpeed += GRAVITY * m_fJumpTime;
-		if (m_fJumpSpeed > 0 && m_fJumpSpeed < 1.f && !m_bSpin && !m_bDead && m_eCurState != FALL)
-			m_eCurState = FALL;
+		/*if (m_fJumpSpeed > 0 && m_fJumpSpeed < 1.f && !m_bSpin && !m_bDead && m_eCurState != FALL)
+			m_eCurState = FALL;*/
 	}
 		
 		
