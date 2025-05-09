@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CEditor.h" />
     <ClInclude Include="CGoomba.h" />
     <ClInclude Include="CKoopa.h" />
     <ClInclude Include="CMonster.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CEditor.cpp" />
     <ClCompile Include="CGoomba.cpp" />
     <ClCompile Include="CKoopa.cpp" />
     <ClCompile Include="CMonster.cpp" />

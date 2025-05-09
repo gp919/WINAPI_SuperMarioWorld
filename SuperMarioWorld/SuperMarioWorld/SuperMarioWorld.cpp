@@ -5,6 +5,7 @@
 #include "framework.h"
 #include "SuperMarioWorld.h"
 #include "CMainGame.h"
+#include "CEditor.h"
 
 #define MAX_LOADSTRING 100
 
@@ -51,11 +52,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
     msg.message = WM_NULL;
 
+#ifdef _DEBUG
+ 
+        CEditor Editor;
+        Editor.Run();
+        return 0;
+
+#else
     //이하 메인게임 생성 후 초기화
     CMainGame MainGame;
     MainGame.Initialize();
-
-    
     // PeekMessage
     while (true)
     {
@@ -77,15 +83,20 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             // 프레임 조절
             if (dwTime + 7.f < GetTickCount())
             {
-               MainGame.Update();
-               MainGame.Late_Update();
-               MainGame.Render();
-               dwTime = GetTickCount();
+                MainGame.Update();
+                MainGame.Late_Update();
+                MainGame.Render();
+                dwTime = GetTickCount();
             }
         }
     }
 
-    return (int) msg.wParam;
+    return (int)msg.wParam;
+#endif
+
+
+
+
 }
 
 
