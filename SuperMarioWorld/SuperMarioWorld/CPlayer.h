@@ -38,8 +38,7 @@ private:
 	PLAYERSTATE     m_eCurState;
 	PLAYERSTATE     m_ePreState;
 	bool m_bSpin = false;
-
-	bool m_bLand = false;
+	bool m_bDuck = false;
 	float fOffsetBoxLeft;
 	float fOffsetBoxRight;
 

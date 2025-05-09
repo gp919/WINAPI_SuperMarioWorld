@@ -35,7 +35,8 @@ bool CKeyMgr::Key_Down(int iKey)
 	return false;
 }
 
-// 
+// 이전 프레임에 누른 적이 있고
+// 현재 프레임에 누르지 않은 상태
 bool CKeyMgr::Key_Up(int iKey)
 {
 	if ((m_bKeyState[iKey]) && !(GetAsyncKeyState(iKey) & 0x8000))
