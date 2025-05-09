@@ -99,7 +99,7 @@ void CPlayer::Late_Update()
 			m_bJump = false;
 			m_bSpin = false;
 
-			if (m_eCurState != DUCK && m_eCurState != DEATH)
+			if (m_eCurState != DEATH)
 			{
 				// 이동 중 착지 상태 판별을 속도로 처리
 				if (fabsf(m_fSpeed) > 8.0f)
@@ -221,15 +221,39 @@ void CPlayer::Key_Input()
 	if (m_bDead) return;
 
 	bool bPressed = false;
-
-	const bool bLeft = CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT);
-	const bool bRight = CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT);
-	const bool bUp = CKeyMgr::Get_Instance()->Key_Pressing(VK_UP);
-	const bool bDown = CKeyMgr::Get_Instance()->Key_Pressing(VK_DOWN);
 	const bool bRun = CKeyMgr::Get_Instance()->Key_Pressing(VK_RUN);
 
+	// 앉기
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_DOWN) && !m_bSpin && m_eCurState != DUCK)
+	{
+		m_eCurState = DUCK;
+		m_bDuck = true;
+		bPressed = true;
+	}
+
+	if (CKeyMgr::Get_Instance()->Key_Up(VK_DOWN))
+	{
+		m_bDuck = false;
+		if (m_eCurState == DUCK)
+			m_eCurState = IDLE;
+	}
+		
+	// 점프
+	if (CKeyMgr::Get_Instance()->Key_Down(VK_JUMP) && !m_bJump)
+	{
+		m_bJump = true;
+		m_fJumpTime = 0.1f;
+		m_fJumpSpeed = -13.63f;
+		if (!m_bDuck)
+		{
+			m_eCurState = JUMP;
+		}
+			
+		CSoundMgr::Get_Instance()->PlaySoundW(L"jump.wav", SOUND_EFFECT, 0.1f);
+	}
+
 	// 이동 - 좌
-	if (bLeft && m_eCurState != DUCK)
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT) && (!m_bDuck || m_bJump))
 	{
 		m_eDir = DIR_LEFT;
 		m_tInfo.fX -= m_fSpeed;
@@ -243,7 +267,7 @@ void CPlayer::Key_Input()
 				else
 					m_fSpeed = 10.f;
 
-				if (m_eCurState != RUN)
+				if (m_eCurState != RUN && m_fSpeed>=10.f)
 					m_eCurState = RUN;
 			}
 			else
@@ -257,7 +281,7 @@ void CPlayer::Key_Input()
 	}
 
 	// 이동 - 우
-	if (bRight && m_eCurState != DUCK)
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT) && (!m_bDuck || m_bJump))
 	{
 		m_eDir = DIR_RIGHT;
 		m_tInfo.fX += m_fSpeed;
@@ -271,7 +295,7 @@ void CPlayer::Key_Input()
 				else
 					m_fSpeed = 10.f;
 
-				if (m_eCurState != RUN)
+				if (m_eCurState != RUN && m_fSpeed>=10.f)
 					m_eCurState = RUN;
 			}
 			else
@@ -285,27 +309,13 @@ void CPlayer::Key_Input()
 	}
 
 	// 위 보기
-	if (bUp && !m_bJump && !m_bSpin && m_eCurState != LOOK_UP)
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_UP) && !m_bJump && !m_bSpin &&
+		m_eCurState != LOOK_UP &&
+		!CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT) &&
+		!CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
 	{
 		m_eCurState = LOOK_UP;
 		bPressed = true;
-	}
-
-	// 앉기
-	if (bDown && !m_bSpin && m_eCurState != DUCK)
-	{
-		m_eCurState = DUCK;
-		bPressed = true;
-	}
-
-	// 점프
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_JUMP) && !m_bJump)
-	{
-		m_bJump = true;
-		m_fJumpTime = 0.1f;
-		m_fJumpSpeed = -13.63f;
-		m_eCurState = JUMP;
-		CSoundMgr::Get_Instance()->PlaySoundW(L"jump.wav", SOUND_EFFECT, 0.5f);
 	}
 
 	// 스핀점프
@@ -403,6 +413,7 @@ void CPlayer::Change_Motion()
 			break;
 
 		case SKID:
+
 			break;
 		case KICK:
 			break;
@@ -435,12 +446,13 @@ void CPlayer::Update_Gravity()
 	else
 	{
 		m_fJumpSpeed += GRAVITY * m_fJumpTime;
-		/*if (m_fJumpSpeed > 0 && m_fJumpSpeed < 1.f && !m_bSpin && !m_bDead && m_eCurState != FALL)
-			m_eCurState = FALL;*/
+		if (m_bJump && m_fJumpSpeed > 0 && m_fJumpSpeed < 1.f && !m_bSpin)
+		{
+			if(!m_bDead && m_eCurState != FALL && !m_bDuck)
+				m_eCurState = FALL;
+		}
+			
 	}
-		
-		
-		
 	// t++
 	m_fJumpTime += 0.1f;
 
