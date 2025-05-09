@@ -58,6 +58,9 @@
     <Filter Include="08. SoundManager">
       <UniqueIdentifier>{761a68a2-88e6-4cd1-9810-d079a4c4f57e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09. Editor">
+      <UniqueIdentifier>{8e8e3409-946a-4b48-ab61-8345c708214a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -144,6 +147,9 @@
     <ClInclude Include="CSoundMgr.h">
       <Filter>08. SoundManager</Filter>
     </ClInclude>
+    <ClInclude Include="CEditor.h">
+      <Filter>09. Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -217,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="CSoundMgr.cpp">
       <Filter>08. SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditor.cpp">
+      <Filter>09. Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
