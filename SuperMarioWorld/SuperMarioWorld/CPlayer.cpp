@@ -305,6 +305,7 @@ void CPlayer::Key_Input()
 		m_fJumpTime = 0.1f;
 		m_fJumpSpeed = -13.63f;
 		m_eCurState = JUMP;
+		CSoundMgr::Get_Instance()->PlaySoundW(L"jump.wav", SOUND_EFFECT, 0.5f);
 	}
 
 	// ╫╨гиа║га

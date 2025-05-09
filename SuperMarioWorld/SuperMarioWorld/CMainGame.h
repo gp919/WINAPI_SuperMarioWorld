@@ -4,6 +4,7 @@
 #include "CKeyMgr.h"
 #include "CScrollMgr.h"
 #include "CBmpMgr.h"
+#include "CSoundMgr.h"
 
 class CMainGame
 {

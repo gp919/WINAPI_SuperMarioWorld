@@ -21,6 +21,8 @@ void CMainGame::Initialize()
 	hBackBmp = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
 	hOldBmp = (HBITMAP)SelectObject(hMemDC, hBackBmp);
 
+	CSoundMgr::Get_Instance()->Initialize();
+
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/BackGround.bmp", L"BackGround");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tile.bmp", L"Tile");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tutorial/Yoshi.bmp", L"Tutorial");
@@ -36,14 +38,26 @@ void CMainGame::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/Number.bmp", L"Number");
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Koopa.bmp", L"Koopa");
-
-
-
+	
 
 	CLineMgr::Get_Instance()->Initialize();
 	CSceneMgr::Get_Instance()->Initialize();
-
+	
 	CBmpMgr::Get_Instance()->PreWarm(hMemDC);
+
+
+	//#ifdef _DEBUG
+
+	//	if (::AllocConsole() == TRUE)
+	//	{
+	//		FILE* nfp[3];
+	//		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
+	//		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
+	//		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
+	//		std::ios::sync_with_stdio();
+	//	}
+
+	//#endif // _DEBUG
 }
 
 void CMainGame::Update()
@@ -57,6 +71,7 @@ void CMainGame::Update()
 
 	CSceneMgr::Get_Instance()->Update();
 	CKeyMgr::Get_Instance()->Key_Update();
+	CUiMgr::Get_Instance()->Update();
 }
 
 void CMainGame::Late_Update()
@@ -91,12 +106,17 @@ void CMainGame::Render()
 
 void CMainGame::Release()
 {
-	
-	CSceneMgr::Get_Instance()->Destroy_Instance();
-	CBmpMgr::Get_Instance()->Destroy_Instance();
-	CKeyMgr::Get_Instance()->Destroy_Instance();
-	CScrollMgr::Get_Instance()->Destroy_Instance();
-	CUiMgr::Get_Instance()->Destroy_Instance();
+	//#ifdef _DEBUG
+	//
+	//	FreeConsole();
+	//
+	//#endif // _DEBUG
+	CSoundMgr::Destroy_Instance();
+	CSceneMgr::Destroy_Instance();
+	CBmpMgr::Destroy_Instance();
+	CKeyMgr::Destroy_Instance();
+	CScrollMgr::Destroy_Instance();
+	CUiMgr::Destroy_Instance();
 	
 	SelectObject(hMemDC, hOldBmp);
 	DeleteObject(hBackBmp);

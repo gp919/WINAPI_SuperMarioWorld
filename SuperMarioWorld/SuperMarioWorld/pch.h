@@ -19,6 +19,22 @@
 
 #include <string>
 
+
+#include <Vfw.h>
+#pragma comment(lib, "vfw32.lib")
+
+#include <io.h>
+#include <iostream>
+
+
+#include "fmod.h"
+#include "fmod.hpp"
+#pragma comment(lib, "fmodex_vc.lib")
+
+//#pragma comment(lib, "fmod_vc.lib")      // 릴리즈 모드
+
+//#pragma comment(lib, "fmodL_vc.lib")     // 디버그 모드
+
 using namespace std;
 
 #ifdef _DEBUG
