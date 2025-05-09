@@ -33,7 +33,7 @@ void CScene01::Initialize()
 
 
 		// 테스트용 강제 라인
-	CLineMgr::Get_Instance()->Add_Line({ 0.f, 528.f }, { Get_MapSize().first, 528.f});
+	CLineMgr::Get_Instance()->Add_Line({ 0.f, 528.f }, { Get_MapSize().first * SCALE_FACTOR, 528.f});
 	CObjectMgr::Get_Instance()->Initialize();
 }
 

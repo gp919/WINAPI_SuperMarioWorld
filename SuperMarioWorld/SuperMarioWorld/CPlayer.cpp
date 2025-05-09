@@ -283,6 +283,7 @@ void CPlayer::Key_Input()
 	// 이동 - 우
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT) && (!m_bDuck || m_bJump))
 	{
+
 		m_eDir = DIR_RIGHT;
 		m_tInfo.fX += m_fSpeed;
 
@@ -356,21 +357,18 @@ void CPlayer::Change_Motion()
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 0;
-			m_tFrame.dwSpeed = 200;
 			break;
 
 		case LOOK_UP:
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 1;
-			m_tFrame.dwSpeed = 20;
 			break;
 
 		case DUCK:
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 2;
-			m_tFrame.dwSpeed = 20;
 			break;
 
 		case WALK:
@@ -391,14 +389,12 @@ void CPlayer::Change_Motion()
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 7;
-			m_tFrame.dwSpeed = 200;
 			break;
 
 		case FALL:
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 8;
-			m_tFrame.dwSpeed = 20;
 			break;
 
 
@@ -412,9 +408,14 @@ void CPlayer::Change_Motion()
 			m_tFrame.dwSpeed = 20;
 			break;
 
+		// 특정 속도 이상일때 반대 방향 키를 누르면 스키드 모션 + 스키드 이펙트
+		// 특정 속도 이상일때 더킹을 하면 스키드 이펙트만
 		case SKID:
-
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 0;
+			m_tFrame.iMotion = 11;
 			break;
+
 		case KICK:
 			break;
 		case HOLD_IDLE:
@@ -455,6 +456,18 @@ void CPlayer::Update_Gravity()
 	}
 	// t++
 	m_fJumpTime += 0.1f;
+}
+
+void CPlayer::Update_Speed()
+{
+	float fAccel;
+	// 좌우 키 입력시 가속 증가
+	// 일정 가속 수치에 도달하면 등가속
+	// 이에 따른 속도 증가도 일정 수치에 도달하면 등속
+	// 키를 뗏을때 가속도 감소 : 속도가 0이 될때까지
+	// 속도가 0이 되면 가속도는 0으로 초기화
+
+	// v = at
 
 }
 

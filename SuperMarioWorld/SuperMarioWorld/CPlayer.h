@@ -32,6 +32,7 @@ private:
 	void Key_Input();
 	void Change_Motion();
 	void Update_Gravity();
+	void Update_Speed();
 	void Offset();
 
 private:
