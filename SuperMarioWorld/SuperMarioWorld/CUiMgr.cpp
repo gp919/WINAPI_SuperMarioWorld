@@ -26,6 +26,45 @@ void CUiMgr::Release()
 {
 }
 
+void CUiMgr::Update()
+{
+    list<CObject*> ObjectList;
+    if (m_bPause)    return;
+
+    DWORD dwNow = GetTickCount();
+
+    if (dwNow - m_dwTime >= 1000) // 1초 경과
+    {
+        ObjectList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER);
+        for (auto it : ObjectList)
+        {
+            if (it->Get_Dead())
+                --m_iLife;
+            if (m_iLife <= 0)
+            {
+                // 사망처리
+            }
+        }
+        ObjectList.clear();
+
+        m_dwTime = dwNow;
+
+        if (m_fTime > 0)
+            --m_fTime;
+
+        if (m_fTime < 100)
+        {
+            // 배경음 변겅
+        }
+
+        if (m_fTime <= 0)
+        {
+            m_fTime = 0;
+            // 예: 게임 오버
+        }
+    }
+}
+
 void CUiMgr::Render_PlayerLife(HDC hDC, float _fx, float _fy)
 {
     // "MARIO"
@@ -91,6 +130,7 @@ void CUiMgr::Render_Number(HDC hDC, float x, float y, int num, ENumberType type)
         dstH = 48; // 16 × 3
         break;
     }
+
 
     for (size_t i = 0; i < str.length(); ++i)
     {

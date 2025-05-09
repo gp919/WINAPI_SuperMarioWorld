@@ -24,7 +24,10 @@ int CKoopa::Update()
 	if (m_bDead)
 	{
 		if (GetTickCount() > m_dwDeathTime + 500)  // 0.5초 후 제거
+		{
+			CUiMgr::Get_Instance()->Set_Score(100);
 			return DEAD;
+		}
 
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 0;

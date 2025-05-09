@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CScene01.h"
+#include "fmod_errors.h"
 
 CScene01::CScene01()
 {
@@ -11,6 +12,8 @@ CScene01::~CScene01()
 
 void CScene01::Initialize()
 {
+	CSoundMgr::Get_Instance()->PlayBGM(L"overworld.wav", 0.5f);
+
 	CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
 	CScrollMgr::Get_Instance()->Set_ScrollY(0.f);
 	
@@ -21,7 +24,6 @@ void CScene01::Initialize()
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(200.f, 400.f, TILE_EMPTY));
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(300.f, 400.f, TILE_Q));
 
-	
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, new CKoopa(2000.f, 512.f));
 
 	// ¹Ù´Ú ¶óÀÎ

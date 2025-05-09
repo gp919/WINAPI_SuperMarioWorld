@@ -110,10 +110,13 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)\fmod\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)\Lib\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fmodex_vc.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,6 +143,7 @@
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CScene01.h" />
     <ClInclude Include="CScrollMgr.h" />
+    <ClInclude Include="CSoundMgr.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CBmpMgr.h" />
     <ClInclude Include="CCollisionMgr.h" />
@@ -169,6 +173,7 @@
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CScene01.cpp" />
     <ClCompile Include="CScrollMgr.cpp" />
+    <ClCompile Include="CSoundMgr.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CBmpMgr.cpp" />
     <ClCompile Include="CCollisionMgr.cpp" />

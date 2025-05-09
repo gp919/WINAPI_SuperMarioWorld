@@ -56,6 +56,8 @@ enum PLAYERSTATE {
 };
 
 
+enum CHANNELID { SOUND_EFFECT, SOUND_BGM, MAXCHANNEL };
+
 template<typename T>
 void Safe_Delete(T& p)
 {

@@ -55,6 +55,9 @@
     <Filter Include="02. Object\Tile">
       <UniqueIdentifier>{fec19c2b-10a7-4240-92ce-573bb98ab2ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. SoundManager">
+      <UniqueIdentifier>{761a68a2-88e6-4cd1-9810-d079a4c4f57e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -138,6 +141,9 @@
     <ClInclude Include="CKoopa.h">
       <Filter>02. Object\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="CSoundMgr.h">
+      <Filter>08. SoundManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -208,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="CKoopa.cpp">
       <Filter>02. Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundMgr.cpp">
+      <Filter>08. SoundManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

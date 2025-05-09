@@ -3,6 +3,7 @@
 #include "CObject.h"
 #include "CBmpMgr.h"
 #include "CScrollMgr.h"
+#include "CUiMgr.h"
 
 enum MONSTER_STATE {MONSTER_WALK, MONSTER_STOMPED, MONSTER_DEAD, MONSTER_END};
 

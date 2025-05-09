@@ -1,8 +1,72 @@
-﻿  CScene01.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(37,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CScene01.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(38,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CScene01.cpp'을(를) 컴파일하는 중)
-  
-  SuperMarioWorld.vcxproj -> C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\x64\Debug\SuperMarioWorld.exe
+﻿CPlayer.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_GdiTransparentBlt
+CTutorial.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_GdiTransparentBlt
+CUiMgr.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_GdiTransparentBlt
+CGoomba.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_GdiTransparentBlt
+CKoopa.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_GdiTransparentBlt
+CScene01.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_GdiTransparentBlt
+CTile.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_GdiTransparentBlt
+CScene01.obj : error LNK2019: __imp_BitBlt"public: virtual void __cdecl CScene01::Render(struct HDC__ *)" (?Render@CScene01@@UEAAXPEAUHDC__@@@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+CBmpMgr.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_BitBlt
+CMainGame.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_BitBlt
+CSoundMgr.obj : error LNK2019: __imp_MessageBoxW"public: void __cdecl CSoundMgr::Initialize(void)" (?Initialize@CSoundMgr@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_System_Create"public: void __cdecl CSoundMgr::Initialize(void)" (?Initialize@CSoundMgr@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_System_Release"public: void __cdecl CSoundMgr::Release(void)" (?Release@CSoundMgr@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_System_Init"public: void __cdecl CSoundMgr::Initialize(void)" (?Initialize@CSoundMgr@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_System_Close"public: void __cdecl CSoundMgr::Release(void)" (?Release@CSoundMgr@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_System_Update"private: void __cdecl CSoundMgr::LoadSoundFile(void)" (?LoadSoundFile@CSoundMgr@@AEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_System_CreateSound"private: void __cdecl CSoundMgr::LoadSoundFile(void)" (?LoadSoundFile@CSoundMgr@@AEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_System_PlaySound"public: void __cdecl CSoundMgr::PlayBGM(wchar_t const *,float)" (?PlayBGM@CSoundMgr@@QEAAXPEB_WM@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_Sound_Release"public: void __cdecl CSoundMgr::Release(void)" (?Release@CSoundMgr@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_Channel_Stop"public: void __cdecl CSoundMgr::StopAll(void)" (?StopAll@CSoundMgr@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_Channel_SetVolume"public: void __cdecl CSoundMgr::PlayBGM(wchar_t const *,float)" (?PlayBGM@CSoundMgr@@QEAAXPEB_WM@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_Channel_IsPlaying"public: void __cdecl CSoundMgr::PlaySoundW(wchar_t const *,enum CHANNELID,float)" (?PlaySoundW@CSoundMgr@@QEAAXPEB_WW4CHANNELID@@M@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+CSoundMgr.obj : error LNK2019: FMOD_Channel_SetMode"public: void __cdecl CSoundMgr::PlayBGM(wchar_t const *,float)" (?PlayBGM@CSoundMgr@@QEAAXPEB_WM@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+CCollisionMgr.obj : error LNK2019: __imp_IntersectRect"public: static void __cdecl CCollisionMgr::Collision_Rect(class std::list<class CObject *,class std::allocator<class CObject *> >,class std::list<class CObject *,class std::allocator<class CObject *> >)" (?Collision_Rect@CCollisionMgr@@SAXV?$list@PEAVCObject@@V?$allocator@PEAVCObject@@@std@@@std@@0@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+CKeyMgr.obj : error LNK2019: __imp_GetAsyncKeyState"public: bool __cdecl CKeyMgr::Key_Down(int)" (?Key_Down@CKeyMgr@@QEAA_NH@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+CLine.obj : error LNK2019: __imp_LineTo"public: void __cdecl CLine::Render(struct HDC__ *)" (?Render@CLine@@QEAAXPEAUHDC__@@@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+CLine.obj : error LNK2019: __imp_MoveToEx"public: void __cdecl CLine::Render(struct HDC__ *)" (?Render@CLine@@QEAAXPEAUHDC__@@@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMainGame.obj : error LNK2019: __imp_CreateCompatibleBitmap"public: void __cdecl CMainGame::Initialize(void)" (?Initialize@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMainGame.obj : error LNK2019: __imp_CreateCompatibleDC"public: void __cdecl CMainGame::Initialize(void)" (?Initialize@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMyBmp.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_CreateCompatibleDC
+CMainGame.obj : error LNK2019: __imp_DeleteDC"public: void __cdecl CMainGame::Release(void)" (?Release@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMyBmp.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_DeleteDC
+CMainGame.obj : error LNK2019: __imp_DeleteObject"public: void __cdecl CMainGame::Release(void)" (?Release@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMyBmp.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_DeleteObject
+CMainGame.obj : error LNK2019: __imp_GetStockObject"public: void __cdecl CMainGame::Render(void)" (?Render@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMainGame.obj : error LNK2019: __imp_Rectangle"public: void __cdecl CMainGame::Render(void)" (?Render@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMouse.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_Rectangle
+CMainGame.obj : error LNK2019: __imp_SelectObject"public: void __cdecl CMainGame::Initialize(void)" (?Initialize@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMyBmp.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_SelectObject
+CMainGame.obj : error LNK2019: __imp_GetDC"public: void __cdecl CMainGame::Initialize(void)" (?Initialize@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMyBmp.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_GetDC
+CMainGame.obj : error LNK2019: __imp_ReleaseDC"public: void __cdecl CMainGame::Release(void)" (?Release@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMyBmp.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_ReleaseDC
+CMainGame.obj : error LNK2019: __imp_SetWindowTextW"public: void __cdecl CMainGame::Render(void)" (?Render@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMainGame.obj : error LNK2019: __imp_GetCursorPos"public: void __cdecl CMainGame::Update(void)" (?Update@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMouse.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_GetCursorPos
+CMainGame.obj : error LNK2019: __imp_ScreenToClient"public: void __cdecl CMainGame::Update(void)" (?Update@CMainGame@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMouse.obj : error LNK2001: 확인할 수 없는 외부 기호 __imp_ScreenToClient
+CMouse.obj : error LNK2019: __imp_ShowCursor"public: virtual int __cdecl CMouse::Update(void)" (?Update@CMouse@@UEAAHXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CMyBmp.obj : error LNK2019: __imp_LoadImageW"public: void __cdecl CMyBmp::Load_Bmp(wchar_t const *)" (?Load_Bmp@CMyBmp@@QEAAXPEB_W@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_LoadStringWwWinMain 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_TranslateMessagewWinMain 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_DispatchMessageWwWinMain 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_PeekMessageWwWinMain 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_DefWindowProcW"__int64 __cdecl WndProc(struct HWND__ *,unsigned int,unsigned __int64,__int64)" (?WndProc@@YA_JPEAUHWND__@@I_K_J@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_PostQuitMessage"__int64 __cdecl WndProc(struct HWND__ *,unsigned int,unsigned __int64,__int64)" (?WndProc@@YA_JPEAUHWND__@@I_K_J@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_RegisterClassExW"unsigned short __cdecl MyRegisterClass(struct HINSTANCE__ *)" (?MyRegisterClass@@YAGPEAUHINSTANCE__@@@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_CreateWindowExW"int __cdecl InitInstance(struct HINSTANCE__ *,int)" (?InitInstance@@YAHPEAUHINSTANCE__@@H@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_DestroyWindow"__int64 __cdecl WndProc(struct HWND__ *,unsigned int,unsigned __int64,__int64)" (?WndProc@@YA_JPEAUHWND__@@I_K_J@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_ShowWindow"int __cdecl InitInstance(struct HINSTANCE__ *,int)" (?InitInstance@@YAHPEAUHINSTANCE__@@H@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_DialogBoxParamW"__int64 __cdecl WndProc(struct HWND__ *,unsigned int,unsigned __int64,__int64)" (?WndProc@@YA_JPEAUHWND__@@I_K_J@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_EndDialog"__int64 __cdecl About(struct HWND__ *,unsigned int,unsigned __int64,__int64)" (?About@@YA_JPEAUHWND__@@I_K_J@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_LoadAcceleratorsWwWinMain 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_TranslateAcceleratorWwWinMain 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_UpdateWindow"int __cdecl InitInstance(struct HINSTANCE__ *,int)" (?InitInstance@@YAHPEAUHINSTANCE__@@H@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_BeginPaint"__int64 __cdecl WndProc(struct HWND__ *,unsigned int,unsigned __int64,__int64)" (?WndProc@@YA_JPEAUHWND__@@I_K_J@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_EndPaint"__int64 __cdecl WndProc(struct HWND__ *,unsigned int,unsigned __int64,__int64)" (?WndProc@@YA_JPEAUHWND__@@I_K_J@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_AdjustWindowRect"int __cdecl InitInstance(struct HINSTANCE__ *,int)" (?InitInstance@@YAHPEAUHINSTANCE__@@H@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_LoadCursorW"unsigned short __cdecl MyRegisterClass(struct HINSTANCE__ *)" (?MyRegisterClass@@YAGPEAUHINSTANCE__@@@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+SuperMarioWorld.obj : error LNK2019: __imp_LoadIconW"unsigned short __cdecl MyRegisterClass(struct HINSTANCE__ *)" (?MyRegisterClass@@YAGPEAUHINSTANCE__@@@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+fmodex_vc.lib : warning LNK4272: 'x86' 라이브러리 컴퓨터 종류가 'x64' 대상 컴퓨터 종류와 충돌합니다.
+C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\x64\Debug\SuperMarioWorld.exe : fatal error LNK1120: 53개의 확인할 수 없는 외부 참조입니다.
