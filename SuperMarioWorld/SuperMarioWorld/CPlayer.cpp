@@ -49,7 +49,7 @@ int CPlayer::Update()
 	}
 		
 	Key_Input();
-	if (m_eCurState != IDLE)
+	//if (m_eCurState != IDLE)
 	{
 		Update_Gravity();
 	}
@@ -180,6 +180,7 @@ void CPlayer::On_Collision(EOBJECTID _id)
 				}
 				else if (pTarget && Get_Col() == COL_TOP)
 				{
+					static_cast<CTile*>(pTarget)->On_Hit();
 					if (m_fJumpSpeed < 0.f)
 						m_fJumpSpeed *= -1.f;
 				}
