@@ -61,6 +61,8 @@ void CEditor::Update()
     // 스크롤 움직이기
     Move_Scroll();
 
+    // 상단에 어떤 모드 , 어떤 타입이 선택되었는지 정보 표시 필요
+
     // 모드 변경 : 1. 타일 2. 몬스터 3. 라인
     if (CKeyMgr::Get_Instance()->Key_Down('1'))
         m_eCurEdit = MODE_TILE;
@@ -267,42 +269,48 @@ void CEditor::Handle_Mouse_Input()
     Screen_To_Grid(m_lMouseX, m_lMouseY, &gridX, &gridY);
 
     // 좌클릭 - 배치
-    if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON)) {
-        switch (m_eCurEdit) {
-        case MODE_TILE:
-            Place_Tile(gridX, gridY);
-            break;
-        case MODE_MONSTER:
-            Place_Monster(gridX, gridY);
-            break;
-        case MODE_LINE:
-            Place_Line(gridX, gridY);
-            break;
-        }
+    if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON))
+    {
+        Place_Object(gridX, gridY);
     }
     // 우클릭 - 제거
-    else if (CKeyMgr::Get_Instance()->Key_Down(VK_RBUTTON)) {
+    else if (CKeyMgr::Get_Instance()->Key_Down(VK_RBUTTON))
+    {
         Remove_Object(gridX, gridY);
     }
 }
 
-void CEditor::Place_Tile(float _fx, float _fy)
+void CEditor::Place_Object(float _fx, float _fy)
 {
+    switch (m_eCurEdit)
+    {
+        case MODE_TILE:
+            CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(_fx, _fy, m_eCurTile));
+            break;
+        // TODO : 몬스터 종류 미구현. 임시로 쿠파만 지정
+        case MODE_MONSTER:
+            CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, new CKoopa(_fx, _fy));
+            break;
+    }
 }
-
-void CEditor::Place_Monster(float _fx, float _fy)
-{
-}
-
-void CEditor::Place_Line(float _fx, float _fy)
-{
-}
-
 void CEditor::Remove_Object(float _fx, float _fy)
 {
+    
+    for (auto& iter : CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER));
+    {
+        // 마우스가 속한 그리드 안에 오브젝트가 존재할시
+        // 오브젝트 삭제
+
+    }
+    for (auto& iter : CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_TILE));
+    {
+        // 마우스가 속한 그리드 안에 오브젝트가 존재할시
+        // 오브젝트 삭제
+
+    }
 }
 
-void CEditor::Screen_To_Grid(LONG screenX, LONG screenY, float* gridX, float* gridY)
+void CEditor::Screen_To_Grid(float screenX, float screenY, float* gridX, float* gridY)
 {
     float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
     float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
@@ -312,7 +320,8 @@ void CEditor::Screen_To_Grid(LONG screenX, LONG screenY, float* gridX, float* gr
     *gridY = (screenY + fScrollY) / (TILECY * SCALE_FACTOR);
 }
 
-void CEditor::Grid_To_Screen(float gridX, float gridY, LONG* screenX, LONG* screenY)
+// editor 에서 렌더링시 필요한가?
+void CEditor::Grid_To_Screen(float gridX, float gridY, float* screenX, float* screenY)
 {
     float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
     float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();

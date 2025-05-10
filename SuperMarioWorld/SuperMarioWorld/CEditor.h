@@ -44,14 +44,12 @@ public:
 public:
     void Move_Scroll();
     void Handle_Mouse_Input();
-    void Place_Tile(float , float);
-    void Place_Monster(float, float);
-    void Place_Line(float , float );
+    void Place_Object(float, float);
     void Remove_Object(float , float );
 
     // 그리드 좌표계 변환 함수
-    void Screen_To_Grid(LONG , LONG, float* , float* );
-    void Grid_To_Screen(float, float, LONG* , LONG* );
+    void Screen_To_Grid(float , float, float* , float* );
+    void Grid_To_Screen(float, float, float* , float* );
 
     void Save_Data();
     void Load_Data();
