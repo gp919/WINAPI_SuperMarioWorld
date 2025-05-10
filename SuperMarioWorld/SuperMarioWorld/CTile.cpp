@@ -23,6 +23,10 @@ void CTile::Initialize()
 {
 	m_tInfo.fCX = TILECX * SCALE_FACTOR;
 	m_tInfo.fCY = TILECY * SCALE_FACTOR;
+	
+	m_tFrame.dwSpeed = 100.f;
+	m_tFrame.dwTime = GetTickCount();
+
 	switch (m_eTileId)
 	{
 	case TILE_Q:
@@ -63,18 +67,22 @@ void CTile::Initialize()
 
 	}
 
-	CObject::Update_Rect();
 }
 
 int CTile::Update()
 {
-	CObject::Move_Frame();
-	CObject::Update_Rect();
+
+	/*m_tFrame.dwSpeed = 100.f;
+	m_tFrame.dwTime = GetTickCount();*/
+
 	return NOEVENT;
 }
 
 void CTile::Late_Update()
 {
+	
+	CObject::Move_Frame();
+	CObject::Update_Rect();
 }
 
 void CTile::Render(HDC hDC)
