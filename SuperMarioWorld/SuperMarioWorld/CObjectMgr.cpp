@@ -85,6 +85,7 @@ void CObjectMgr::Add_Object(EOBJECTID _id, CObject* _pObj)
 	m_listObject[_id].back()->Set_ID(_id);
 }
 
+
 void CObjectMgr::Delete_Object(EOBJECTID _id)
 {
 	for (auto& pObj : m_listObject[_id])

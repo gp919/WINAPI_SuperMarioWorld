@@ -7,6 +7,10 @@ CKoopa::CKoopa(float _fx, float _fy)
 	m_tInfo.fY = _fy;
 }
 
+CKoopa::CKoopa(INFO _info)
+{
+}
+
 CKoopa::~CKoopa()
 {
 	Release();

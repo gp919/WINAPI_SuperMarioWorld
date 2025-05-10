@@ -76,6 +76,8 @@ typedef struct tagInfo
 	float	fCX;
 	float	fCY;
 
+	int iType;
+
 }INFO;
 
 typedef struct tagLinePoint

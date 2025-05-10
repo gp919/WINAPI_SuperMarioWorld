@@ -5,6 +5,7 @@ CMonster::CMonster() : m_eState(MONSTER_WALK)
 {
 }
 
+
 CMonster::~CMonster()
 {
 }

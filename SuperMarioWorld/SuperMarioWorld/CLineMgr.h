@@ -18,8 +18,6 @@ public:
 	void	Render(HDC hDC);
 	void	Release();
 
-	void	Load_Data();
-
 public:
 	static CLineMgr* Get_Instance()
 	{
@@ -39,6 +37,8 @@ public:
 			m_pInstance = nullptr;
 		}
 	}
+
+	list<CLine*>& Get_LinetList() { return m_Linelist; };
 
 private:
 	static CLineMgr* m_pInstance;

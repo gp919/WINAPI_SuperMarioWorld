@@ -10,6 +10,7 @@ class CTile : public CObject
 public:
 	CTile();
 	CTile(float _fx, float _fy, TILEID _tileid);
+	CTile(INFO);
 	~CTile();
 
 public:
