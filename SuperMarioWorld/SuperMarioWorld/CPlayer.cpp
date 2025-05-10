@@ -13,7 +13,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
-	m_tInfo = { 400.f, 492.f , SMALLX * SCALE_FACTOR, SMALLY * SCALE_FACTOR };
+	m_tInfo = { 500.f, 492.f , SMALLX * SCALE_FACTOR, SMALLY * SCALE_FACTOR };
 	m_fSpeed = 4.f;
 
 	m_bJump = true;

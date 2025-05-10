@@ -17,15 +17,14 @@ void CScene01::Initialize()
 	CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
 	CScrollMgr::Get_Instance()->Set_ScrollY(0.f);
 	
-	// ÀÌÇÏ ÀÓÀÇ Å¸ÀÏ ¹èÄ¡
-	//x :448Âë
+	//x :500Âë
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_PLAYER, new CPlayer);
 
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(200.f, 400.f, TILE_EMPTY));
-	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(300.f, 400.f, TILE_Q));
-	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(600.f, 400.f, TILE_E));
-	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(700.f, 400.f, TILE_ROT));
-	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(800.f, 400.f, TILE_CLOUD));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(248.f, 400.f, TILE_Q));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(296.f, 400.f, TILE_E));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(344.f, 400.f, TILE_ROT));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(392.f, 400.f, TILE_CLOUD));
 
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, new CKoopa(2000.f, 512.f));
 
