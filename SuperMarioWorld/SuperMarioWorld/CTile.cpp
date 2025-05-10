@@ -114,8 +114,12 @@ void CTile::Release()
 
 void CTile::On_Hit()
 {
+
+
 	if (m_eTileId == TILE_Q || m_eTileId == TILE_E)
 	{
+		// TODO : 살짝 위로(타일사이즈의 절반) 튀어 오르는 기능 구현
+
 		m_eTileId = TILE_EMPTY;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 0;
