@@ -23,6 +23,9 @@ void CScene01::Initialize()
 
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(200.f, 400.f, TILE_EMPTY));
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(300.f, 400.f, TILE_Q));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(600.f, 400.f, TILE_E));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(700.f, 400.f, TILE_ROT));
+	CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(800.f, 400.f, TILE_CLOUD));
 
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, new CKoopa(2000.f, 512.f));
 

@@ -19,6 +19,8 @@ public:
 	void Render(HDC)override;
 	void Release()override;
 
+	void On_Hit();
+
 private:
 
 
