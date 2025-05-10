@@ -4,6 +4,13 @@
 #include "CBmpMgr.h"
 #include "CScrollMgr.h"
 #include "CKeyMgr.h"
+#include "CLineMgr.h"
+
+enum class EditorMode {
+    TILE_MODE,
+    MONSTER_MODE,
+    LINE_MODE
+};
 
 class CEditor
 {
