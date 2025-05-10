@@ -26,11 +26,11 @@ bool CLineMgr::Collision_Line(INFO _info, float* pY)
 	
 	for (auto& pLine : m_Linelist)
 	{
-		const LINE& tInfo = pLine->Get_Line();
-		float fLx = tInfo.tLPoint.fX;
-		float fLy = tInfo.tLPoint.fY;
-		float fRx = tInfo.tRPoint.fX;
-		float fRy = tInfo.tRPoint.fY;
+		const LINE* tInfo = pLine->Get_Line();
+		float fLx = tInfo->tLPoint.fX;
+		float fLy = tInfo->tLPoint.fY;
+		float fRx = tInfo->tRPoint.fX;
+		float fRy = tInfo->tRPoint.fY;
 
 		float slope = (fRy - fLy) / (fRx - fLx);
 		float fx_contact = (slope >= 0.f) ? (_info.fX + _info.fCX * 0.5f) : (_info.fX - _info.fCX * 0.5f);

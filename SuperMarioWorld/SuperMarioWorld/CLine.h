@@ -13,7 +13,7 @@ public:
 	void	Render(HDC hDC);
 
 public:
-	LINE Get_Line() { return m_tLine; };
+	LINE* Get_Line() { return &m_tLine; };
 
 private:
 	LINE			m_tLine;

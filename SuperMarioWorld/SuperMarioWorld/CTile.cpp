@@ -14,6 +14,11 @@ CTile::CTile(float _fx, float _fy, TILEID _tileid)
 	m_eTileId = _tileid;
 }
 
+CTile::CTile(INFO _info)
+{
+
+}
+
 CTile::~CTile()
 {
 	Release();

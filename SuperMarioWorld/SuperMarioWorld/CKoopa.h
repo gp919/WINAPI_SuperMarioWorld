@@ -7,6 +7,7 @@ class CKoopa : public CMonster
 {
 public:
 	CKoopa(float, float);
+	CKoopa(INFO);
 	virtual ~CKoopa();
 public:
 	void Initialize()override;
