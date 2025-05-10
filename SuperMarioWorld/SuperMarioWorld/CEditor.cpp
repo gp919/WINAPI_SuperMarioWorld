@@ -18,7 +18,6 @@ void CEditor::Run()
 
     // 스테이지 로딩 부분 : 나중에 enum으로 관리
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Scene1.bmp", L"Scene1");
-    Load_Data();
     
 
 
@@ -160,9 +159,12 @@ void CEditor::Render(HDC hDC)
 
 void CEditor::Release()
 {
+    CObjectMgr::Destroy_Instance();
+    CLineMgr::Destroy_Instance();
     CBmpMgr::Destroy_Instance();
     CScrollMgr::Destroy_Instance();
     CKeyMgr::Destroy_Instance();
+
 }
 
 void CEditor::Move_Scroll()
@@ -248,42 +250,59 @@ void CEditor::Move_Scroll()
     }
 }
 
-//void CEditor::Handle_Mouse_Input()
-//{
-//    // 마우스 좌표 얻기
-//    POINT ptMouse = {};
-//    GetCursorPos(&ptMouse);
-//    ScreenToClient(g_hWnd, &ptMouse);
-//
-//    // 스크롤 위치 고려
-//    float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
-//    float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
-//
-//    // 그리드 좌표 계산
-//    int gridX, gridY;
-//    Screen_To_Grid(ptMouse.x, ptMouse.y, &gridX, &gridY);
-//
-//    // 좌클릭 - 배치
-//    if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON)) {
-//        switch (m_eCurEdit) {
-//        case MODE_TILE:
-//            Place_Tile(gridX, gridY);
-//            break;
-//        case MODE_MONSTER:
-//            Place_Monster(gridX, gridY);
-//            break;
-//        case MODE_LINE:
-//            Place_Line(gridX, gridY);
-//            break;
-//        }
-//    }
-//    // 우클릭 - 제거
-//    else if (CKeyMgr::Get_Instance()->Key_Down(VK_RBUTTON)) {
-//        Remove_Object(gridX, gridY);
-//    }
-//}
+void CEditor::Handle_Mouse_Input()
+{
+    POINT pt{};
+    GetCursorPos(&pt);
+    ScreenToClient(g_hWnd, &pt);
+    m_lMouseX = pt.x;
+    m_lMouseY = pt.y;
 
-void CEditor::Screen_To_Grid(float screenX, float screenY, float* gridX, float* gridY)
+    // 스크롤 위치 고려
+    float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+    float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+
+    // 그리드 좌표 계산
+    float gridX, gridY;
+    Screen_To_Grid(m_lMouseX, m_lMouseY, &gridX, &gridY);
+
+    // 좌클릭 - 배치
+    if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON)) {
+        switch (m_eCurEdit) {
+        case MODE_TILE:
+            Place_Tile(gridX, gridY);
+            break;
+        case MODE_MONSTER:
+            Place_Monster(gridX, gridY);
+            break;
+        case MODE_LINE:
+            Place_Line(gridX, gridY);
+            break;
+        }
+    }
+    // 우클릭 - 제거
+    else if (CKeyMgr::Get_Instance()->Key_Down(VK_RBUTTON)) {
+        Remove_Object(gridX, gridY);
+    }
+}
+
+void CEditor::Place_Tile(float _fx, float _fy)
+{
+}
+
+void CEditor::Place_Monster(float _fx, float _fy)
+{
+}
+
+void CEditor::Place_Line(float _fx, float _fy)
+{
+}
+
+void CEditor::Remove_Object(float _fx, float _fy)
+{
+}
+
+void CEditor::Screen_To_Grid(LONG screenX, LONG screenY, float* gridX, float* gridY)
 {
     float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
     float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
@@ -293,7 +312,7 @@ void CEditor::Screen_To_Grid(float screenX, float screenY, float* gridX, float* 
     *gridY = (screenY + fScrollY) / (TILECY * SCALE_FACTOR);
 }
 
-void CEditor::Grid_To_Screen(float gridX, float gridY, float* screenX, float* screenY)
+void CEditor::Grid_To_Screen(float gridX, float gridY, LONG* screenX, LONG* screenY)
 {
     float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
     float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
