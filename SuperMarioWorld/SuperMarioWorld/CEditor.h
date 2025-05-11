@@ -10,7 +10,8 @@
 #include "CMonster.h"
 #include "CScene.h"
 
-enum EDITMODE { MODE_TILE,  MODE_MONSTER,   MODE_LINE, MODE_END  };
+enum EDITMODE { MODE_TILE, MODE_MONSTER, MODE_LINE, MODE_END };
+enum LINEDIR { LINE_HOR, LINE_VER, LINE_END };
 
 class CEditor : public CScene
 {
@@ -48,6 +49,7 @@ private:
     EDITMODE m_eCurEdit = MODE_TILE;
     TILEID m_eCurTile = TILE_Q;
     MONSTERID m_eCurMon = MON_KOOPA;
+    LINEDIR m_eCurLine = LINE_VER;
     // 몬스터, 타일을 통합해서 출력을 위한 타입 저장 변수
     int m_iType = 0;
     int m_CurStage = 0;

@@ -171,21 +171,42 @@ void CEditor::Render(HDC hDC)
                 int(fCursorX + GRID_SIZE / 2), int(fCursorY + GRID_SIZE / 2));
         else if (m_eCurEdit == MODE_LINE)
         {
-            // 윗면 라인임을 나타내는 화살표 모양(↑)
-            // 위쪽 선
-            Rectangle(hDC, int(fCursorX - GRID_SIZE / 2), int(fCursorY - GRID_SIZE / 2),
-                int(fCursorX + GRID_SIZE / 2), int(fCursorY - GRID_SIZE / 2 + 5));
+            if(m_iType == LINE_HOR)
+            {
+                // 윗면 라인임을 나타내는 화살표 모양(↑)
+                // 위쪽 선
+                Rectangle(hDC, int(fCursorX - GRID_SIZE / 2), int(fCursorY - GRID_SIZE / 2),
+                    int(fCursorX + GRID_SIZE / 2), int(fCursorY - GRID_SIZE / 2 + 5));
 
-            // 화살표 부분
-            MoveToEx(hDC, int(fCursorX), int(fCursorY - GRID_SIZE / 2), NULL);
-            LineTo(hDC, int(fCursorX), int(fCursorY + GRID_SIZE / 3));
+                // 화살표 부분
+                MoveToEx(hDC, int(fCursorX), int(fCursorY - GRID_SIZE / 2), NULL);
+                LineTo(hDC, int(fCursorX), int(fCursorY + GRID_SIZE / 3));
 
-            // 화살표 머리
-            MoveToEx(hDC, int(fCursorX), int(fCursorY - GRID_SIZE / 2), NULL);
-            LineTo(hDC, int(fCursorX - GRID_SIZE / 4), int(fCursorY - GRID_SIZE / 4));
+                // 화살표 머리
+                MoveToEx(hDC, int(fCursorX), int(fCursorY - GRID_SIZE / 2), NULL);
+                LineTo(hDC, int(fCursorX - GRID_SIZE / 4), int(fCursorY - GRID_SIZE / 4));
 
-            MoveToEx(hDC, int(fCursorX), int(fCursorY - GRID_SIZE / 2), NULL);
-            LineTo(hDC, int(fCursorX + GRID_SIZE / 4), int(fCursorY - GRID_SIZE / 4));
+                MoveToEx(hDC, int(fCursorX), int(fCursorY - GRID_SIZE / 2), NULL);
+                LineTo(hDC, int(fCursorX + GRID_SIZE / 4), int(fCursorY - GRID_SIZE / 4));
+            }
+            else
+            {
+                // 세로 라인임을 나타내는 화살표 모양(→)
+                // 오른쪽 선
+                Rectangle(hDC, int(fCursorX + GRID_SIZE / 2 - 5), int(fCursorY - GRID_SIZE / 2),
+                    int(fCursorX + GRID_SIZE / 2), int(fCursorY + GRID_SIZE / 2));
+
+                // 화살표 부분
+                MoveToEx(hDC, int(fCursorX + GRID_SIZE / 2), int(fCursorY), NULL);
+                LineTo(hDC, int(fCursorX - GRID_SIZE / 3), int(fCursorY));
+
+                // 화살표 머리
+                MoveToEx(hDC, int(fCursorX + GRID_SIZE / 2), int(fCursorY), NULL);
+                LineTo(hDC, int(fCursorX + GRID_SIZE / 4), int(fCursorY - GRID_SIZE / 4));
+
+                MoveToEx(hDC, int(fCursorX + GRID_SIZE / 2), int(fCursorY), NULL);
+                LineTo(hDC, int(fCursorX + GRID_SIZE / 4), int(fCursorY + GRID_SIZE / 4));
+            }
         }
     }
 
@@ -354,9 +375,8 @@ void CEditor::Key_Input()
     {
         m_eCurEdit = MODE_LINE;
         m_wcMode = L"LINE";
-        m_iType = 0;
+        m_iType = m_eCurLine;
     }
-    if (m_eCurEdit == MODE_LINE) return;
 
     // 이전 타입으로 이동, 첫번째 인덱스라면 마지막 인덱스로 순환
     if (CKeyMgr::Get_Instance()->Key_Down('Q'))
@@ -407,6 +427,20 @@ void CEditor::Key_Input()
             m_iType = m_eCurMon;
         }
     }
+
+    // 라인 타입 변경 : 가로 <-> 세로
+    if (CKeyMgr::Get_Instance()->Key_Down('E'))
+    {
+        if(m_eCurEdit == MODE_LINE)
+        {
+            if (m_eCurLine == LINE_HOR)
+                m_eCurLine = LINE_VER;
+            else
+                m_eCurLine = LINE_HOR;
+
+            m_iType = m_eCurLine;
+        }
+    }
 }
 
 void CEditor::AfterInit(CObject* _obj)
@@ -434,10 +468,23 @@ void CEditor::Place_Object(float _fx, float _fy)
 
 void CEditor::Place_Line(float _fx, float _fy)
 {
-    float f1X = _fx - (TILECX * SCALE_FACTOR) / 2.f;
-    float f1Y = _fy - (TILECY * SCALE_FACTOR) / 2.f;
-    float f2X = _fx + (TILECX * SCALE_FACTOR) / 2.f;
-    float f2Y = _fy - (TILECY * SCALE_FACTOR) / 2.f;
+    float f1X, f1Y;
+    float f2X, f2Y;
+
+    if(m_eCurLine == LINE_HOR)
+    {
+        f1X = _fx - (TILECX * SCALE_FACTOR) / 2.f;
+        f1Y = _fy - (TILECY * SCALE_FACTOR) / 2.f;
+        f2X = _fx + (TILECX * SCALE_FACTOR) / 2.f;
+        f2Y = _fy - (TILECY * SCALE_FACTOR) / 2.f;
+    }
+    else
+    {
+        f1X = _fx + (TILECX * SCALE_FACTOR) / 2.f;
+        f1Y = _fy - (TILECY * SCALE_FACTOR) / 2.f;
+        f2X = _fx + (TILECX * SCALE_FACTOR) / 2.f;
+        f2Y = _fy + (TILECY * SCALE_FACTOR) / 2.f;
+    }
     CLineMgr::Get_Instance()->Add_Line({ f1X,f1Y }, { f2X,f2Y });
 }
 
