@@ -323,7 +323,13 @@ void CEditor::Handle_Mouse_Input()
     // 우클릭 - 제거
     else if (CKeyMgr::Get_Instance()->Key_Down(VK_RBUTTON))
     {
-        CObjectMgr::Get_Instance()->Sub_Object(m_fGridX, m_fGridY);
+        if (m_eCurEdit == MODE_LINE)
+        {
+            CLineMgr::Get_Instance()->Sub_Line(m_fGridX, m_fGridY);
+        }
+        else
+            CObjectMgr::Get_Instance()->Sub_Object(m_fGridX, m_fGridY);
+        
     }
 }
 
@@ -419,7 +425,7 @@ void CEditor::Place_Object(float _fx, float _fy)
             break;
         // TODO : 몬스터 종류 미구현. 임시로 쿠파만 지정
         case MODE_MONSTER:
-            pObject = new CKoopa(_fx, _fy);
+            pObject = new CMonster(_fx, _fy);
             CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pObject);
             break;
     }
@@ -530,6 +536,9 @@ void CEditor::Save_Data()
 
 void CEditor::Load_Data( )
 {
+    CObjectMgr::Get_Instance()->Delete_Object(OBJ_MONSTER);
+    CObjectMgr::Get_Instance()->Delete_Object(OBJ_TILE);
+    CLineMgr::Get_Instance()->Release();
     const wchar_t* wc_Dir = L"../Data/";
     const wchar_t* wc_Dat = L".dat";
 
@@ -579,7 +588,7 @@ void CEditor::Load_Data( )
 
                 if (0 == dwByte)
                     break;
-                CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, new CKoopa(tInfo));
+                CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, new CMonster(tInfo));
             }
             break;
         case MODE_LINE:

@@ -11,6 +11,8 @@ class CMonster : public CObject
 {
 public:
 	CMonster();
+	CMonster(float, float);
+	CMonster(INFO);
 	~CMonster();
 
 public:
@@ -20,11 +22,13 @@ public:
 	void Render(HDC)override;
 	void Release()override;
 
-	virtual void On_Stomped()PURE;   // π‚«˚¿ª ∂ß
-	virtual void Update_AI()PURE;    // ¿Ãµø AI
+	virtual void On_Stomped();
+	virtual void Update_AI();
 
-protected:
-	MONSTER_STATE m_eState;
+private:
+	DWORD m_dwDeathTime = 0.f;
+	float m_fFallSpeed = 0.f;
+
 
 };
 

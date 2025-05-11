@@ -7,8 +7,6 @@
 #include "CTile.h"
 #include "CPlayer.h"
 #include "CUiMgr.h"
-#include "CGoomba.h"
-#include "CKoopa.h"
 
 class CScene01 : public CScene
 {

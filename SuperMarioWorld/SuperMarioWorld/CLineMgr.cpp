@@ -66,6 +66,23 @@ void CLineMgr::Add_Line(LINEPOINT _src, LINEPOINT _dst)
 	m_Linelist.push_back(new CLine(_src, _dst));
 }
 
+void CLineMgr::Sub_Line(float _fx, float _fy)
+{
+	for (auto iter = m_Linelist.begin(); iter != m_Linelist.end();)
+	{
+		LINE* pLine = (*iter)->Get_Line();
+		if (pLine->tLPoint.fX == (_fx - (TILECX * SCALE_FACTOR) / 2.f))
+		{
+			Safe_Delete<CLine*>(*iter);
+			iter = m_Linelist.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+}
+
 void CLineMgr::Initialize()
 {
 	// ÃßÈÄ ¸Ê¿¡µðÅÍ °í¹Î

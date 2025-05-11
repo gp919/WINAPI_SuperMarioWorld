@@ -8,7 +8,6 @@
 #include "CLineMgr.h"
 #include "CTile.h"
 #include "CMonster.h"
-#include "CKoopa.h"
 #include "CScene.h"
 
 enum EDITMODE { MODE_TILE,  MODE_MONSTER,   MODE_LINE, MODE_END  };
