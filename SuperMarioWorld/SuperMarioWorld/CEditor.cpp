@@ -12,85 +12,29 @@ CEditor::~CEditor()
     Release();
 }
 
-void CEditor::Run()
-{
-    Initialize();
-
-    // 스테이지 로딩 부분 : 나중에 enum으로 관리
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Scene1.bmp", L"Scene1");
-    
-
-
-    MSG msg = {};
-    while (true)
-    {
-        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-        {
-            if (msg.message == WM_QUIT)
-                break;
-
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
-        // 메인 루프에서 키 상태 업데이트
-        CKeyMgr::Get_Instance()->Key_Update();
-        Update();
-
-        m_hDC = GetDC(g_hWnd);
-        Render(m_hDC);
-        ReleaseDC(g_hWnd, m_hDC);
-    }
-
-    Release();
-}
 
 void CEditor::Initialize()
 {
+
     m_CurStage = 1;
     CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
     CScrollMgr::Get_Instance()->Set_ScrollY(0.f);
-
     CScrollMgr::Get_Instance()->Set_Size(5120.f * SCALE_FACTOR, 432.f * SCALE_FACTOR);
 
-    CObjectMgr::Get_Instance()->Initialize();
 
 }
 
-void CEditor::Update()
+
+int CEditor::Update()
 {
     // 스크롤 움직이기
     Move_Scroll();
+    // 마우스 움직임 반영
+    Handle_Mouse_Input();
+    // 키보드 입력에 따른 모드, 타입 변경
+    Key_Input();
 
-    // 상단에 어떤 모드 , 어떤 타입이 선택되었는지 정보 표시 필요
-
-    // 모드 변경 : 1. 타일 2. 몬스터 3. 라인
-    if (CKeyMgr::Get_Instance()->Key_Down('1'))
-        m_eCurEdit = MODE_TILE;
-    else if (CKeyMgr::Get_Instance()->Key_Down('2'))
-        m_eCurEdit = MODE_MONSTER;
-    else if (CKeyMgr::Get_Instance()->Key_Down('3'))
-        m_eCurEdit = MODE_LINE;;
-
-    // 타일 종류 선택 1. Q. 물음표 E. 느낌표 R. 회전 C. 구름 H. 투명 O. 기본
-    if (m_eCurEdit == MODE_TILE) {
-        if (CKeyMgr::Get_Instance()->Key_Down('Q')) m_eCurTile = TILE_Q;
-        else if (CKeyMgr::Get_Instance()->Key_Down('E')) m_eCurTile = TILE_E;
-        else if (CKeyMgr::Get_Instance()->Key_Down('R')) m_eCurTile = TILE_ROT;
-        else if (CKeyMgr::Get_Instance()->Key_Down('C')) m_eCurTile = TILE_CLOUD;
-        else if (CKeyMgr::Get_Instance()->Key_Down('H')) m_eCurTile = TILE_HIDDEN;
-        else if (CKeyMgr::Get_Instance()->Key_Down('0')) m_eCurTile = TILE_EMPTY;
-    }
-
-    
-    // TODO : 몬스터 종류 선택 (숫자 키 4-9)
-    //if (m_eMode == EditorMode::MONSTER_MODE) {
-    //    for (int i = '4'; i <= '9'; ++i) {
-    //        if (CKeyMgr::Get_Instance()->Key_Down(i)) {
-    //            m_iSelectedMonster = i - '4';  // 0부터 시작하는 인덱스로 변환
-    //        }
-    //    }
-    //}
-
+    CObjectMgr::Get_Instance()->Update();
 
      // 저장/로드
     if (CKeyMgr::Get_Instance()->Key_Down('S') && (GetAsyncKeyState(VK_CONTROL) & 0x8000))
@@ -105,68 +49,171 @@ void CEditor::Update()
             L"에디터 종료", MB_YESNO) == IDYES) {
             Save_Data();
         }
-        return;
+        return NOEVENT;
     }
+
+    return NOEVENT;
+}
+
+void CEditor::Late_Update()
+{
+    CObjectMgr::Get_Instance()->Late_Update();
 }
 
 void CEditor::Render(HDC hDC)
 {
-    HDC hBackDC = CreateCompatibleDC(hDC);
-    HBITMAP hBackBitmap = CreateCompatibleBitmap(hDC, WINCX, WINCY);
-    HBITMAP hOldBitmap = (HBITMAP)SelectObject(hBackDC, hBackBitmap);
+    m_fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+    m_fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
 
-    PatBlt(hBackDC, 0, 0, WINCX, WINCY, WHITENESS);  // 화면 초기화
+    swprintf_s(m_szBuffer, 128, L"mouseX : %ld, mouseY : %ld  gridX : %4.1f, gridY : %4.1f  MODE : %ls, TYPE : %d",
+        m_lMouseX, m_lMouseY, m_fGridX, m_fGridY, m_wcMode.c_str(), m_iType);
+    SetWindowText(g_hWnd, m_szBuffer);
 
-    float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
-    float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+    HDC hMemDC_back = CBmpMgr::Get_Instance()->Find_Image(L"BackGround01");
+    if (hMemDC_back)
+    {
+        const int BACK_WIDTH = 512;
+        const int BACK_HEIGHT = 432;
 
+        // 현재 보여질 배경 영역 시작 인덱스
+        int startIdx = (int)(m_fScrollX / (BACK_WIDTH * SCALE_FACTOR));
+
+        // 필요한 배경 수: 화면 너비를 커버할 만큼
+        int numBacks = WINCX / (BACK_WIDTH * SCALE_FACTOR) + 2;
+
+        for (int i = 0; i < numBacks; ++i)
+        {
+            int drawX = (startIdx + i) * BACK_WIDTH * SCALE_FACTOR - (int)m_fScrollX;
+
+            BitBlt(
+                hDC,
+                drawX, 0,
+                BACK_WIDTH * SCALE_FACTOR, BACK_HEIGHT * SCALE_FACTOR,
+                hMemDC_back,
+                0, 0,
+                SRCCOPY);
+        }
+    }
+
+    // 맵 
     HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Scene1");
-    int iSrcX = (int)(fScrollX / SCALE_FACTOR);
-    int iSrcY = (int)((432.f * SCALE_FACTOR - WINCY - fScrollY) / SCALE_FACTOR);  // Y 반전
-    int iSrcW = WINCX / SCALE_FACTOR;
-    int iSrcH = WINCY / SCALE_FACTOR;
-
     GdiTransparentBlt(
-        hBackDC,
+        hDC,
         0, 0,
-        WINCX, WINCY,
+        WINCX, WINCY,                          // 출력 크기
         hMemDC,
-        iSrcX,
-        iSrcY,
-        iSrcW,
-        iSrcH,
+        (int)(m_fScrollX / SCALE_FACTOR),        // 열 인덱스
+        (int)(m_fScrollY / SCALE_FACTOR),        // 행 인덱스 (오프셋 제거)
+        WINCX / SCALE_FACTOR, WINCY / SCALE_FACTOR,
         RGB(0, 255, 0));
 
+    // 그리드
     const int GRID_SIZE = 48;
     for (int x = 0; x < WINCX; x += GRID_SIZE)
     {
-        MoveToEx(hBackDC, x, 0, nullptr);
-        LineTo(hBackDC, x, WINCY);
+        MoveToEx(hDC, x, 0, nullptr);
+        LineTo(hDC, x, WINCY);
     }
     for (int y = 0; y < WINCY; y += GRID_SIZE)
     {
-        MoveToEx(hBackDC, 0, y, nullptr);
-        LineTo(hBackDC, WINCX, y);
+        MoveToEx(hDC, 0, y, nullptr);
+        LineTo(hDC, WINCX, y);
     }
 
+    
 
-    // 실제 화면에 복사
-    BitBlt(hDC, 0, 0, WINCX, WINCY, hBackDC, 0, 0, SRCCOPY);
+    // 라인 : 빨간색
+    HPEN hLinePen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));  // 빨간색으로 변경
+    HPEN hOldPen = (HPEN)SelectObject(hDC, hLinePen);
 
-    // 정리
-    SelectObject(hBackDC, hOldBitmap);
-    DeleteObject(hBackBitmap);
-    DeleteDC(hBackDC);
+    for (auto& pLine : CLineMgr::Get_Instance()->Get_LinetList())
+    {
+        LINE* pLineInfo = pLine->Get_Line();
+        float fX1 = pLineInfo->tLPoint.fX - m_fScrollX;
+        float fY1 = pLineInfo->tLPoint.fY - m_fScrollY;
+        float fX2 = pLineInfo->tRPoint.fX - m_fScrollX;
+        float fY2 = pLineInfo->tRPoint.fY - m_fScrollY;
+
+        // 화면 영역 내에 있는지 확인 (간단한 확인)
+        if ((fX1 > -GRID_SIZE && fX1 < WINCX + GRID_SIZE) ||
+            (fX2 > -GRID_SIZE && fX2 < WINCX + GRID_SIZE))
+        {
+            MoveToEx(hDC, int(fX1), int(fY1), nullptr);
+            LineTo(hDC, int(fX2), int(fY2));
+        }
+    }
+
+    // 리소스 정리
+    SelectObject(hDC, hOldPen);
+    DeleteObject(hLinePen);
+
+    // 오브젝트
+    CObjectMgr::Get_Instance()->Render(hDC);
+
+    // 현재 선택된 그리드 위치 표시 (노란색)
+    HBRUSH hCursorBrush = CreateSolidBrush(RGB(255, 255, 0));  // 노란색
+    HPEN hCursorPen = CreatePen(PS_DOT, 1, RGB(0, 0, 0));
+    SelectObject(hDC, hCursorBrush);
+    SelectObject(hDC, hCursorPen);
+
+    float fCursorX = m_fGridX - m_fScrollX;
+    float fCursorY = m_fGridY - m_fScrollY;
+
+    if (fCursorX > -GRID_SIZE && fCursorX < WINCX + GRID_SIZE &&
+        fCursorY > -GRID_SIZE && fCursorY < WINCY + GRID_SIZE)
+    {
+        // 현재 모드에 따라 다른 모양으로 표시
+        if (m_eCurEdit == MODE_TILE)
+            Rectangle(hDC, int(fCursorX - GRID_SIZE / 2), int(fCursorY - GRID_SIZE / 2),
+                int(fCursorX + GRID_SIZE / 2), int(fCursorY + GRID_SIZE / 2));
+        else if (m_eCurEdit == MODE_MONSTER)
+            Ellipse(hDC, int(fCursorX - GRID_SIZE / 2), int(fCursorY - GRID_SIZE / 2),
+                int(fCursorX + GRID_SIZE / 2), int(fCursorY + GRID_SIZE / 2));
+        else if (m_eCurEdit == MODE_LINE)
+        {
+            // 윗면 라인임을 나타내는 화살표 모양(↑)
+            // 위쪽 선
+            Rectangle(hDC, int(fCursorX - GRID_SIZE / 2), int(fCursorY - GRID_SIZE / 2),
+                int(fCursorX + GRID_SIZE / 2), int(fCursorY - GRID_SIZE / 2 + 5));
+
+            // 화살표 부분
+            MoveToEx(hDC, int(fCursorX), int(fCursorY - GRID_SIZE / 2), NULL);
+            LineTo(hDC, int(fCursorX), int(fCursorY + GRID_SIZE / 3));
+
+            // 화살표 머리
+            MoveToEx(hDC, int(fCursorX), int(fCursorY - GRID_SIZE / 2), NULL);
+            LineTo(hDC, int(fCursorX - GRID_SIZE / 4), int(fCursorY - GRID_SIZE / 4));
+
+            MoveToEx(hDC, int(fCursorX), int(fCursorY - GRID_SIZE / 2), NULL);
+            LineTo(hDC, int(fCursorX + GRID_SIZE / 4), int(fCursorY - GRID_SIZE / 4));
+        }
+    }
+
+    SelectObject(hDC, GetStockObject(WHITE_BRUSH));
+    SelectObject(hDC, GetStockObject(BLACK_PEN));
+    DeleteObject(hCursorBrush);
+    DeleteObject(hCursorPen);
+
+    // 도움말 표시 (선택 사항)
+    SetBkMode(hDC, TRANSPARENT);
+    SetTextColor(hDC, RGB(0, 0, 0));
+    TextOutW(hDC, 10, 10, L"모드: 1-타일, 2-몬스터, 3-라인", wcslen(L"모드: 1-타일, 2-몬스터, 3-라인"));
+    TextOutW(hDC, 10, 30, L"타입 변경: Q-이전, W-다음", wcslen(L"타입 변경: Q-이전, W-다음"));
+    TextOutW(hDC, 10, 50, L"저장: Ctrl+S, 불러오기: Ctrl+L", wcslen(L"저장: Ctrl+S, 불러오기: Ctrl+L"));
+    TextOutW(hDC, 10, 70, L"종료: ESC", wcslen(L"종료: ESC"));
+
+    // 디버그 정보 - 오브젝트 개수 확인
+    auto& tileList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_TILE);
+    auto& monsterList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER);
+    wchar_t szDebug[128];
+    swprintf_s(szDebug, L"타일 수: %d, 몬스터 수: %d", tileList.size(), monsterList.size());
+    TextOutW(hDC, 10, 90, szDebug, wcslen(szDebug));
 }
 
 void CEditor::Release()
 {
-    CObjectMgr::Destroy_Instance();
-    CLineMgr::Destroy_Instance();
-    CBmpMgr::Destroy_Instance();
-    CScrollMgr::Destroy_Instance();
-    CKeyMgr::Destroy_Instance();
-
+    CLineMgr::Get_Instance()->Destroy_Instance();
+    CObjectMgr::Get_Instance()->Destroy_Instance();
 }
 
 void CEditor::Move_Scroll()
@@ -174,72 +221,67 @@ void CEditor::Move_Scroll()
     // 타이머 설정
     static DWORD dwLastMoveTime = 0;
     DWORD dwCurrentTime = GetTickCount();
+    const DWORD MIN_INPUT_INTERVAL = 50;  // 부드러운 움직임을 위한 간격
 
-    // 최소 입력 간격 (ms) - 이 값을 조정하여 입력 민감도 조절
-    const DWORD MIN_INPUT_INTERVAL = 200;
-
-    // 충분한 시간이 지났는지 확인 (이동 속도 제한)
     if (dwCurrentTime - dwLastMoveTime < MIN_INPUT_INTERVAL)
-        return;  // 아직 입력 간격이 충분하지 않으면 처리하지 않음
+        return;
 
     // 현재 스크롤 위치
-    float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
-    float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+    m_fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+    m_fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
 
-    // 고정된 이동 거리 (타일 2칸)
-    constexpr float TILE_SIZE = 48.f;
-    constexpr float SCROLL_STEP = TILE_SIZE * 2; // 96픽셀씩 이동
+    // 이동량 설정 - X는 그대로, Y는 따로 조정
+    constexpr float SCROLL_STEP_X = 48.0f;  // 타일 한 칸 (48픽셀)
+    constexpr float SCROLL_STEP_Y = 24.0f;  // Y축은 X축의 절반으로 설정 (조정 가능)
 
-    // 키 입력 확인 및 처리
     bool bMoved = false;
     float fDeltaX = 0.f;
     float fDeltaY = 0.f;
 
-    // GetAsyncKeyState는 현재 키가 눌렸는지만 확인
+    // 키 입력 처리
     if (GetAsyncKeyState(VK_LEFT) & 0x8000)
     {
-        fDeltaX = -SCROLL_STEP; // 왼쪽으로 이동 (X 감소)
+        fDeltaX = -SCROLL_STEP_X;
         bMoved = true;
     }
     else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
     {
-        fDeltaX = SCROLL_STEP; // 오른쪽으로 이동 (X 증가)
+        fDeltaX = SCROLL_STEP_X;
         bMoved = true;
     }
 
-    // GDI 좌표계에서 위로 이동은 Y 감소, 아래로 이동은 Y 증가
     if (GetAsyncKeyState(VK_UP) & 0x8000)
     {
-        fDeltaY = SCROLL_STEP; // 위로 이동 (Y 감소)
+        fDeltaY = -SCROLL_STEP_Y;
         bMoved = true;
     }
     else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
     {
-        fDeltaY = SCROLL_STEP * (-1); // 아래로 이동 (Y 증가)
+        fDeltaY = SCROLL_STEP_Y;
         bMoved = true;
     }
 
-    // 움직였을 경우에만 시간과 위치 업데이트
+    // 움직였을 경우에만 업데이트
     if (bMoved)
     {
-        // 맵 경계 제한 (스크롤 매니저에 설정하기 전에 계산)
+        // 맵 경계 제한
         float MAP_WIDTH = 5120.f * SCALE_FACTOR;
         float MAP_HEIGHT = 432.f * SCALE_FACTOR;
 
-        // 예상되는 새 위치
-        float fNewScrollX = fScrollX + fDeltaX;
-        float fNewScrollY = fScrollY + fDeltaY;
+        // 예상 위치
+        float fNewScrollX = m_fScrollX + fDeltaX;
+        float fNewScrollY = m_fScrollY + fDeltaY;
 
-        // 경계를 벗어나는 경우 델타값 조정
+        // 경계 조정
         if (fNewScrollX < 0.f)
-            fDeltaX = -fScrollX;
+            fDeltaX = -m_fScrollX;
         else if (fNewScrollX > MAP_WIDTH - WINCX)
-            fDeltaX = (MAP_WIDTH - WINCX) - fScrollX;
+            fDeltaX = (MAP_WIDTH - WINCX) - m_fScrollX;
 
         if (fNewScrollY < 0.f)
-            fDeltaY = -fScrollY;
+            fDeltaY = -m_fScrollY;
         else if (fNewScrollY > MAP_HEIGHT - WINCY)
-            fDeltaY = (MAP_HEIGHT - WINCY) - fScrollY;
+            fDeltaY = (MAP_HEIGHT - WINCY) - m_fScrollY;
 
         // 스크롤 매니저 업데이트
         if (fDeltaX != 0.f)
@@ -261,74 +303,171 @@ void CEditor::Handle_Mouse_Input()
     m_lMouseY = pt.y;
 
     // 스크롤 위치 고려
-    float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
-    float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+    m_fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+    m_fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
 
     // 그리드 좌표 계산
-    float gridX, gridY;
-    Screen_To_Grid(m_lMouseX, m_lMouseY, &gridX, &gridY);
+    Screen_To_World(m_lMouseX, m_lMouseY, &m_fWorldX, &m_fWorldY);
+    World_To_Grid(m_fWorldX, m_fWorldY, &m_fGridX, &m_fGridY);
 
     // 좌클릭 - 배치
     if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON))
     {
-        Place_Object(gridX, gridY);
+        if (m_eCurEdit == MODE_LINE)
+        {
+            Place_Line(m_fGridX, m_fGridY);
+        }
+        else
+            Place_Object(m_fGridX, m_fGridY);
     }
     // 우클릭 - 제거
     else if (CKeyMgr::Get_Instance()->Key_Down(VK_RBUTTON))
     {
-        Remove_Object(gridX, gridY);
+        CObjectMgr::Get_Instance()->Sub_Object(m_fGridX, m_fGridY);
     }
+}
+
+void CEditor::Key_Input()
+{
+    // 모드 변경 : 1. 타일 2. 몬스터 3. 라인
+    if (CKeyMgr::Get_Instance()->Key_Pressing('1'))
+    {
+        m_eCurEdit = MODE_TILE;
+        m_eCurTile = TILE_Q;
+        m_wcMode = L"TILE";
+        m_iType = m_eCurTile;
+    }
+    else if (CKeyMgr::Get_Instance()->Key_Pressing('2'))
+    {
+        m_eCurEdit = MODE_MONSTER;
+        m_eCurMon = MON_KOOPA;
+        m_wcMode = L"MONSTER";
+        m_iType = m_eCurMon;
+    }
+    else if (CKeyMgr::Get_Instance()->Key_Pressing('3'))
+    {
+        m_eCurEdit = MODE_LINE;
+        m_wcMode = L"LINE";
+        m_iType = 0;
+    }
+    if (m_eCurEdit == MODE_LINE) return;
+
+    // 이전 타입으로 이동, 첫번째 인덱스라면 마지막 인덱스로 순환
+    if (CKeyMgr::Get_Instance()->Key_Down('Q'))
+    {
+        if (m_eCurEdit == MODE_TILE)
+        {
+            if (m_eCurTile != TILE_Q)
+            {
+                m_eCurTile = (TILEID)(m_eCurTile - 1);
+            }
+            else
+                m_eCurTile = (TILEID)(TILE_END - 1);
+            m_iType = (int)m_eCurTile;
+        }
+        else if (m_eCurEdit == MODE_MONSTER)
+        {
+            if (m_eCurMon != MON_KOOPA)
+            {
+                m_eCurMon = (MONSTERID)(m_eCurMon - 1);
+            }
+            else
+                m_eCurMon = (MONSTERID)(MON_END - 1);
+            m_iType = (int)m_eCurMon;
+        }
+    }
+
+    // 다음 타입으로 이동, 마지막 인덱스라면 첫번째 인덱스로 순환
+    if (CKeyMgr::Get_Instance()->Key_Down('W'))
+    {
+        if (m_eCurEdit == MODE_TILE)
+        {
+            if (m_eCurTile != (TILEID)(TILE_END - 1))
+            {
+                m_eCurTile = (TILEID)(m_eCurTile + 1);
+            }
+            else
+                m_eCurTile = TILE_Q;
+            m_iType = m_eCurTile;
+        }
+        else if (m_eCurEdit == MODE_MONSTER)
+        {
+            if (m_eCurMon != (MONSTERID)(MON_END - 1))
+            {
+                m_eCurMon = (MONSTERID)(m_eCurMon + 1);
+            }
+            else
+                m_eCurMon = MON_KOOPA;
+            m_iType = m_eCurMon;
+        }
+    }
+}
+
+void CEditor::AfterInit(CObject* _obj)
+{
+    _obj->Initialize();
 }
 
 void CEditor::Place_Object(float _fx, float _fy)
 {
+    CObject* pObject = nullptr;
     switch (m_eCurEdit)
     {
         case MODE_TILE:
-            CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(_fx, _fy, m_eCurTile));
+            pObject = new CTile(_fx, _fy, m_eCurTile);
+            CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, pObject);
             break;
         // TODO : 몬스터 종류 미구현. 임시로 쿠파만 지정
         case MODE_MONSTER:
-            CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, new CKoopa(_fx, _fy));
+            pObject = new CKoopa(_fx, _fy);
+            CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pObject);
             break;
     }
-}
-void CEditor::Remove_Object(float _fx, float _fy)
-{
-    
-    for (auto& iter : CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER));
-    {
-        // 마우스가 속한 그리드 안에 오브젝트가 존재할시
-        // 오브젝트 삭제
-
-    }
-    for (auto& iter : CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_TILE));
-    {
-        // 마우스가 속한 그리드 안에 오브젝트가 존재할시
-        // 오브젝트 삭제
-
-    }
+    if (pObject) AfterInit(pObject);
 }
 
-void CEditor::Screen_To_Grid(float screenX, float screenY, float* gridX, float* gridY)
+void CEditor::Place_Line(float _fx, float _fy)
 {
-    float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
-    float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+    float f1X = _fx - (TILECX * SCALE_FACTOR) / 2.f;
+    float f1Y = _fy - (TILECY * SCALE_FACTOR) / 2.f;
+    float f2X = _fx + (TILECX * SCALE_FACTOR) / 2.f;
+    float f2Y = _fy - (TILECY * SCALE_FACTOR) / 2.f;
+    CLineMgr::Get_Instance()->Add_Line({ f1X,f1Y }, { f2X,f2Y });
+}
 
-    // 스크롤 위치를 고려하여 그리드 좌표 계산
-    *gridX = (screenX + fScrollX) / (TILECX * SCALE_FACTOR);
-    *gridY = (screenY + fScrollY) / (TILECY * SCALE_FACTOR);
+void CEditor::Screen_To_World(float screenX, float screenY, float* worldX, float* worldY)
+{
+    m_fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+    m_fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+
+    // 상대 -> 절대 좌표
+    *worldX = (screenX + m_fScrollX);
+    *worldY = (screenY + m_fScrollY);
+
+
+
 }
 
 // editor 에서 렌더링시 필요한가?
-void CEditor::Grid_To_Screen(float gridX, float gridY, float* screenX, float* screenY)
+void CEditor::World_To_Screen(float worldX, float worldY, float* screenX, float* screenY)
 {
-    float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
-    float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+    m_fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+    m_fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
 
     // 스크롤 위치를 고려하여 그리드 좌표 계산
-    *screenX = (gridX + fScrollX) / (TILECX * SCALE_FACTOR);
-    *screenY = (gridY + fScrollY) / (TILECY * SCALE_FACTOR);
+    *screenX = (worldX - m_fScrollX);
+    *screenY = (worldY - m_fScrollY);
+}
+
+void CEditor::World_To_Grid(float worldX, float worldY, float* gridX, float* gridY)
+{
+    // 월드 좌표를 그리드 인덱스로 변환 (정수 인덱스)
+    int gridIndexX = static_cast<int>(worldX / 48.0f);
+    int gridIndexY = static_cast<int>(worldY / 48.0f);
+
+    // 그리드의 중심좌표 계산
+    *gridX = (gridIndexX * 48.0f) + 24.0f;
+    *gridY = (gridIndexY * 48.0f) + 24.0f;
 }
 
 void CEditor::Save_Data()
@@ -338,6 +477,7 @@ void CEditor::Save_Data()
     
     for (auto i = 0; i < MODE_END; i++)
     {
+        // 0. 타일 1. 몬스터 2. 라인  // enum 타입으로 넣는것 고민하기 싫어서 정수로
         string s_Name = to_string(i);
         wstring ws_Name(s_Name.begin(), s_Name.end());
         wstring ws_FullPath = wc_Dir + ws_Name + wc_Dat;
@@ -370,6 +510,7 @@ void CEditor::Save_Data()
         case MODE_MONSTER:
             for (auto& pobj : CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER))
             {
+                //  TODO : 몬스터 타입 체크해서 넣기 , 바우저는 하드코딩
                 WriteFile(hFile, (pobj->Get_Info()), sizeof(INFO), &dwByte, nullptr);
             }
             break;
@@ -394,7 +535,7 @@ void CEditor::Load_Data( )
 
     for (auto i = 0; i < MODE_END; i++)
     {
-        // 0. 타일 1. 몬스터 2. 라인
+        // 0. 타일 1. 몬스터 2. 라인  // enum 타입으로 넣는것 고민하기 싫어서 정수로
         string s_Name = to_string(i);
         wstring ws_Name(s_Name.begin(), s_Name.end());
         wstring ws_FullPath = wc_Dir + ws_Name + wc_Dat;
@@ -456,6 +597,7 @@ void CEditor::Load_Data( )
 
         CloseHandle(hFile);
         MessageBox(g_hWnd, L"Load 완료", _T("Success"), MB_OK);
+        CObjectMgr::Get_Instance()->Initialize();
     }
 }
 

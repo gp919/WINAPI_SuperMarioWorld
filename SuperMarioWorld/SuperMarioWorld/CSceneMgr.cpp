@@ -15,7 +15,12 @@ CSceneMgr::~CSceneMgr()
 
 void CSceneMgr::Initialize()
 {	
+	#ifdef _DEBUG
+	m_pCurrentScene = new CEditor;
+	#else
 	m_pCurrentScene = new CScene01;
+	#endif
+	
 	m_pCurrentScene->Initialize();
 }
 

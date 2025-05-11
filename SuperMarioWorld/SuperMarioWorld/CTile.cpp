@@ -11,12 +11,14 @@ CTile::CTile(float _fx, float _fy, TILEID _tileid)
 {
 	m_tInfo.fX = _fx;
 	m_tInfo.fY = _fy;
+	m_tInfo.iType = (int)(_tileid);
 	m_eTileId = _tileid;
 }
 
 CTile::CTile(INFO _info)
 {
-
+	m_tInfo = _info;
+	m_eTileId = (TILEID)(_info.iType);
 }
 
 CTile::~CTile()
@@ -109,8 +111,6 @@ void CTile::Render(HDC hDC)
 		TILECX,
 		TILECY,
 		RGB(0, 255, 0));
-
-
 }
 
 void CTile::Release()

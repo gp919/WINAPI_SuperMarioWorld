@@ -62,13 +62,6 @@ void CMainGame::Initialize()
 
 void CMainGame::Update()
 {
-	// 커서 좌표 표시
-	POINT pt{};
-	GetCursorPos(&pt);
-	ScreenToClient(g_hWnd, &pt);
-	m_lMouseX = pt.x;
-	m_lMouseY = pt.y;
-
 	CSceneMgr::Get_Instance()->Update();
 	CKeyMgr::Get_Instance()->Key_Update();
 	CUiMgr::Get_Instance()->Update();
@@ -81,8 +74,6 @@ void CMainGame::Late_Update()
 
 void CMainGame::Render()
 {
-	
-	
 	HBRUSH hOldBrush = (HBRUSH)SelectObject(hMemDC, GetStockObject(WHITE_BRUSH));
 	Rectangle(hMemDC, 0, 0, WINCX, WINCY);
 	SelectObject(hMemDC, hOldBrush);
@@ -90,7 +81,7 @@ void CMainGame::Render()
 	++m_iFPS;
 	if (m_dwTime + 1000 < GetTickCount())
 	{
-		swprintf_s(m_szBuffer, 128, L"FPS : %d\tHeigt : %d\tX : %ld Y : %ld\t", m_iFPS, g_iHeight-25, m_lMouseX, m_lMouseY);
+		swprintf_s(m_szBuffer, 128, L"FPS : %d", m_iFPS);
 		SetWindowText(g_hWnd, m_szBuffer);
 
 		m_iFPS = 0;

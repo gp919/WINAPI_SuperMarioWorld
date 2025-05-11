@@ -8,6 +8,7 @@ CScene01::CScene01()
 
 CScene01::~CScene01()
 {
+	Release();
 }
 
 void CScene01::Initialize()

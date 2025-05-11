@@ -61,6 +61,15 @@
     <Filter Include="09. Editor">
       <UniqueIdentifier>{8e8e3409-946a-4b48-ab61-8345c708214a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\Scene01">
+      <UniqueIdentifier>{f243ae11-2a63-4cde-aa74-8efd2bc4c439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\Tutorial">
+      <UniqueIdentifier>{928fa5ac-d1e9-4651-9972-b846661b45fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\Editor">
+      <UniqueIdentifier>{49754816-d72b-48d4-8471-c26996b1da98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -108,14 +117,8 @@
     <ClInclude Include="CKeyMgr.h">
       <Filter>05. KeyManager</Filter>
     </ClInclude>
-    <ClInclude Include="CTutorial.h">
-      <Filter>01. Scene</Filter>
-    </ClInclude>
     <ClInclude Include="CScrollMgr.h">
       <Filter>06. ScrollManager</Filter>
-    </ClInclude>
-    <ClInclude Include="CScene01.h">
-      <Filter>01. Scene</Filter>
     </ClInclude>
     <ClInclude Include="CUiMgr.h">
       <Filter>07. UIManager</Filter>
@@ -147,8 +150,14 @@
     <ClInclude Include="CSoundMgr.h">
       <Filter>08. SoundManager</Filter>
     </ClInclude>
+    <ClInclude Include="CScene01.h">
+      <Filter>01. Scene\Scene01</Filter>
+    </ClInclude>
+    <ClInclude Include="CTutorial.h">
+      <Filter>01. Scene\Tutorial</Filter>
+    </ClInclude>
     <ClInclude Include="CEditor.h">
-      <Filter>09. Editor</Filter>
+      <Filter>01. Scene\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -185,14 +194,8 @@
     <ClCompile Include="CKeyMgr.cpp">
       <Filter>05. KeyManager</Filter>
     </ClCompile>
-    <ClCompile Include="CTutorial.cpp">
-      <Filter>01. Scene</Filter>
-    </ClCompile>
     <ClCompile Include="CScrollMgr.cpp">
       <Filter>06. ScrollManager</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene01.cpp">
-      <Filter>01. Scene</Filter>
     </ClCompile>
     <ClCompile Include="CUiMgr.cpp">
       <Filter>07. UIManager</Filter>
@@ -224,8 +227,14 @@
     <ClCompile Include="CSoundMgr.cpp">
       <Filter>08. SoundManager</Filter>
     </ClCompile>
+    <ClCompile Include="CScene01.cpp">
+      <Filter>01. Scene\Scene01</Filter>
+    </ClCompile>
+    <ClCompile Include="CTutorial.cpp">
+      <Filter>01. Scene\Tutorial</Filter>
+    </ClCompile>
     <ClCompile Include="CEditor.cpp">
-      <Filter>09. Editor</Filter>
+      <Filter>01. Scene\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

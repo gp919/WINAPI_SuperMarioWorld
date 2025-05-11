@@ -1,22 +1,5 @@
-﻿  CEditor.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
+﻿  CTile.cpp
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CTile.cpp(43,22): warning C4244: '=': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CTile.cpp'을(를) 컴파일하는 중)
   
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CEditor.cpp(269,31): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CEditor.cpp(269,20): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
-  
-  SuperMarioWorld.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/SuperMarioWorld.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/SuperMarioWorld.cpp'을(를) 컴파일하는 중)
-  
-  코드를 생성하고 있습니다...
-  SuperMarioWorld.vcxproj -> C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\Debug\SuperMarioWorld.exe
+  SuperMarioWorld.vcxproj -> C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\Debug\SuperMarioWorld.exe

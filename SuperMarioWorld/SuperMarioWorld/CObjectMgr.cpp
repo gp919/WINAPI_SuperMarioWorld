@@ -85,6 +85,40 @@ void CObjectMgr::Add_Object(EOBJECTID _id, CObject* _pObj)
 	m_listObject[_id].back()->Set_ID(_id);
 }
 
+void CObjectMgr::Sub_Object(float _fx, float _fy)
+{
+	
+	for (auto iter = m_listObject[OBJ_MONSTER].begin(); iter != m_listObject[OBJ_MONSTER].end(); )
+	{
+		INFO* pInfo = (*iter)->Get_Info();
+		// 지정된 좌표 근처에 있는 오브젝트 찾기
+		if (abs(pInfo->fX - _fx) < 24.0f && abs(pInfo->fY - _fy) < 24.0f)
+		{
+			Safe_Delete<CObject*>(*iter);
+			iter = m_listObject[OBJ_MONSTER].erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+
+	for (auto iter = m_listObject[OBJ_TILE].begin(); iter != m_listObject[OBJ_TILE].end(); )
+	{
+		INFO* pInfo = (*iter)->Get_Info();
+		// 지정된 좌표 근처에 있는 오브젝트 찾기
+		if (abs(pInfo->fX - _fx) < 24.0f && abs(pInfo->fY - _fy) < 24.0f)
+		{
+			Safe_Delete<CObject*>(*iter);
+			iter = m_listObject[OBJ_TILE].erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+
+}
 
 void CObjectMgr::Delete_Object(EOBJECTID _id)
 {

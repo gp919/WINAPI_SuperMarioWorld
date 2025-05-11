@@ -33,7 +33,8 @@ public:
 
 private:
 	static CKeyMgr* m_pInstance;
-	bool		m_bKeyState[VK_MAX];
+	bool        m_bCurState[VK_MAX];   // 현재 프레임의 키 상태
+	bool        m_bPrevState[VK_MAX];  // 이전 프레임의 키 상태
 	
 };
 

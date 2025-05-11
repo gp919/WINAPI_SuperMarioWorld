@@ -9,82 +9,67 @@
 #include "CTile.h"
 #include "CMonster.h"
 #include "CKoopa.h"
+#include "CScene.h"
 
 enum EDITMODE { MODE_TILE,  MODE_MONSTER,   MODE_LINE, MODE_END  };
 
-class CEditor
+class CEditor : public CScene
 {
 public:
     CEditor();
-    ~CEditor();
+    virtual ~CEditor();
+
 
 public:
-    static CEditor* Get_Instance()
-    {
-        if (!m_pInstance)
-            m_pInstance = new CEditor;
-        return m_pInstance;
-    }
-
-    static void Destroy_Instance()
-    {
-        if (m_pInstance)
-        {
-            Safe_Delete(m_pInstance);
-        }
-    }
-
-public:
-    void Run();
-    void Initialize();
-    void Update();
-    void Render(HDC hDC);
-    void Release();
+    void Initialize()override;
+    int Update()override;
+    void Late_Update()override;
+    void Render(HDC)override;
+    void Release()override;
+    pair<float, float> Get_MapSize() { return { 5120.f, 432.f }; };
 
 public:
     void Move_Scroll();
     void Handle_Mouse_Input();
+    void Key_Input();
+    void AfterInit(CObject*);
     void Place_Object(float, float);
-    void Remove_Object(float , float );
+    void Place_Line(float, float);
 
     // 그리드 좌표계 변환 함수
-    void Screen_To_Grid(float , float, float* , float* );
-    void Grid_To_Screen(float, float, float* , float* );
+    void Screen_To_World(float , float, float* , float* );
+    void World_To_Screen(float, float, float* , float* );
+    void World_To_Grid(float, float, float*, float*);
 
     void Save_Data();
     void Load_Data();
 
 private:
     // 이하 enum
-    EDITMODE m_eCurEdit;
-    TILEID m_eCurTile;
-    // 나중에 enum 타입으로 수정
-    int m_iCurMonster;
-    int m_CurStage;
-    
-
+    EDITMODE m_eCurEdit = MODE_TILE;
+    TILEID m_eCurTile = TILE_Q;
+    MONSTERID m_eCurMon = MON_KOOPA;
+    // 몬스터, 타일을 통합해서 출력을 위한 타입 저장 변수
+    int m_iType = 0;
+    int m_CurStage = 0;
     list<CLine*>	m_Linelist;
 
-    //// 그리드 설정
-    int m_iTileSize;   // 타일 크기 (픽셀)
-    int m_iMapWidth;   // 맵 너비 (픽셀)
-    int m_iMapHeight;  // 맵 높이 (픽셀)
-
-
-    
-
 private:
-    HDC hMemDC;
-    HBITMAP hBackBmp;
-    HBITMAP hOldBmp;
-
-private:
-    HDC			m_hDC;
     DWORD		m_dwTime;
-    int			m_iFPS;
+    TCHAR		m_szBuffer[128];
+    wstring m_wcMode = L"TILE";
+
     LONG		m_lMouseX;
     LONG		m_lMouseY;
-    TCHAR		m_szBuffer[128];
+    // 화면내 상대 좌표
+    float		m_fScrollX;
+    float		m_fScrollY;
+    // 스크롤 보정이 되어있는 월드맵 절대 좌표
+    float		m_fWorldX;
+    float		m_fWorldY;
+    // 그리드의 중심좌표 관리 변수
+    float       m_fGridX;
+    float       m_fGridY;
 
 private:
     static CEditor* m_pInstance;

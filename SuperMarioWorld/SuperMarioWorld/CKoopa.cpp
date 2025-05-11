@@ -9,6 +9,7 @@ CKoopa::CKoopa(float _fx, float _fy)
 
 CKoopa::CKoopa(INFO _info)
 {
+	m_tInfo = _info;
 }
 
 CKoopa::~CKoopa()
@@ -55,10 +56,10 @@ int CKoopa::Update()
 
 void CKoopa::Late_Update()
 {
-	
+	// 화면(624)아래로 가면 사망
+	if (m_tInfo.fY <= 624.f)
+		m_bDead = true;
 	// 중력 적용
-	
-
 	m_tInfo.fY += 0.5f;
 
 	// 라인 충돌 검사

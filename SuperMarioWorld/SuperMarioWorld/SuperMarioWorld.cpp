@@ -51,14 +51,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
     msg.message = WM_NULL;
-
-#ifdef _DEBUG
- 
-        CEditor Editor;
-        Editor.Run();
-        return 0;
-
-#else
     //이하 메인게임 생성 후 초기화
     CMainGame MainGame;
     MainGame.Initialize();
@@ -92,11 +84,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     return (int)msg.wParam;
-#endif
-
-
-
-
 }
 
 

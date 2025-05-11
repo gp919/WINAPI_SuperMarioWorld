@@ -5,6 +5,7 @@
 #include "CCollisionMgr.h"
 #include "CTutorial.h"
 #include "CScene01.h"
+#include "CEditor.h"
 
 
 
