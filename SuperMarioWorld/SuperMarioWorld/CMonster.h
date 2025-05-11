@@ -28,6 +28,7 @@ public:
 private:
 	DWORD m_dwDeathTime = 0.f;
 	float m_fFallSpeed = 0.f;
+	float m_bMove = false;
 
 
 };

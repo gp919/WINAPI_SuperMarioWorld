@@ -57,7 +57,8 @@ int CMonster::Update()
 		CObject::Move_Frame();
 		return NOEVENT;
 	}
-	Update_AI();
+	if(m_bMove)
+		Update_AI();
 	
 	m_tFrame.iStart = 0;
 	m_tFrame.iEnd = 1;
