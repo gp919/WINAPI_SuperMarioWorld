@@ -92,9 +92,16 @@ void CPlayer::Late_Update()
 	On_Collision(OBJ_MONSTER);
 	float fX(0);
 	float fY(0);
+	
 	if (CLineMgr::Get_Instance()->Collision_Vertical(this->m_tInfo, &fX))
 	{
-		m_tInfo.fX = m_tInfo.fCX - fX;
+		float fLeft = m_tInfo.fX - m_tInfo.fCX * 0.5f;
+		float fRight = m_tInfo.fX + m_tInfo.fCX * 0.5f;
+
+		if (m_eDir == DIR_LEFT && fX >= fLeft && fX < fRight - 0.00013f)
+			m_tInfo.fX = fX + m_tInfo.fCX * 0.5f;
+		else if (m_eDir == DIR_RIGHT && fX <= fRight && fX > fLeft + 0.00013f)
+			m_tInfo.fX = fX - m_tInfo.fCX * 0.5f;
 	}
 
 	if(m_fJumpSpeed > 0.f)

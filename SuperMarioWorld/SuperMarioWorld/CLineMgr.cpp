@@ -63,8 +63,6 @@ bool CLineMgr::Collision_Vertical(INFO _info, float* pX)
 	if (m_Linelist.empty())
 		return false;
 
-	float fLineX(0);
-
 	for (auto& pLine : m_Linelist)
 	{
 		const LINE* tInfo = pLine->Get_Line();
@@ -75,27 +73,15 @@ bool CLineMgr::Collision_Vertical(INFO _info, float* pX)
 		if (fLx == fRx)
 		{
 			float fx = fLx;
-			float fBottom = _info.fY + _info.fCY * 0.5f;
-
-			if (fabsf(_info.fX - fx) < (_info.fCX * 0.5f)) // x 충돌
+			if ((fx > _info.fX - _info.fCX * 0.5f) && (fx < _info.fX + _info.fCX * 0.5f)) // x 충돌
 			{
 				// y 구간 포함 여부
-				float fTopY = min(fLy, fRy);
+				float fTopY = min(fLy, fRy);	
 				float fBottomY = max(fLy, fRy);
 
-				if (fBottom >= fTopY && fBottom <= fBottomY)
+				if ((_info.fY >= fTopY) && (_info.fY <= fBottomY))
 				{
-					// 좌측 충돌
-					if (fx <= _info.fX)
-					{
-						fLineX = fx - (_info.fX - _info.fCX * 0.5f);
-					}
-					// 우측 충돌
-					else
-					{
-						fLineX = (_info.fX + _info.fCX * 0.5f) - fx;
-					}
-					*pX = fLineX;
+					*pX = fx;
 					return true;
 				}
 			}
