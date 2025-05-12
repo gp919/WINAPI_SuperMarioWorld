@@ -34,7 +34,6 @@ public:
     void Move_Scroll();
     void Handle_Mouse_Input();
     void Key_Input();
-    void AfterInit(CObject*);
     void Place_Object(float, float);
     void Place_Line(float, float);
 

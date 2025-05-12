@@ -22,8 +22,17 @@ public:
 	void Release()override;
 
 	void Catch_Item(CObject*);
+	void Set_Pop(bool _pop)
+	{
+		m_bPopUp = _pop;
+		m_iPopFrame = 0;
+		m_fStartY = m_tInfo.fY;
+	}
 
 private:
 	bool m_bMove;
+	bool m_bPopUp = false;     // 등장 중
+	int  m_iPopFrame = 0;     // 몇 프레임 올랐는지
+	float m_fStartY;          // 시작 위치 기억
 };
 

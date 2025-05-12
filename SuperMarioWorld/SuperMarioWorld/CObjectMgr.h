@@ -37,8 +37,10 @@ public:
 
 	list<CObject*>& Get_ObjectList(EOBJECTID _id) { return m_listObject[_id]; };
 	void Add_Object(EOBJECTID, CObject*);
+	void AfterInit(CObject*);
 	void Sub_Object(float, float);
 	void Delete_Object(EOBJECTID);
+
 
 private:
 	static CObjectMgr* m_pInstance;

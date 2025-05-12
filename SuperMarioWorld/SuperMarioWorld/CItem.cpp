@@ -75,6 +75,20 @@ int CItem::Update()
 		CUiMgr::Get_Instance()->Set_Score(100);
 		return DEAD;
 	}
+
+	if (m_bPopUp)
+	{
+		m_tInfo.fY -= 1.6f;
+		m_iPopFrame++;
+
+		if (m_iPopFrame >= 19)
+		{
+			m_bPopUp = false;
+			m_bMove = true; // 이후 중력 적용 시작
+		}
+
+		return NOEVENT;
+	}
 	
 	if (m_bMove)
 	{

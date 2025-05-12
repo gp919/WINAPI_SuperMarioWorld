@@ -4,6 +4,7 @@
 #include "CObject.h"
 #include "CBmpMgr.h"
 #include "CScrollMgr.h"
+#include "CItem.h"
 
 class CTile : public CObject
 {
@@ -23,9 +24,10 @@ public:
 	void On_Hit();
 
 private:
-
-
-private:
+	bool m_bHit = false;
+	bool m_bBounce = false;
+	float m_fBounceY = 0.f;
+	float m_fOriginY = 0.f;
 	TILEID m_eTileId = TILE_EMPTY;
 };
 

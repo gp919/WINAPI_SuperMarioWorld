@@ -30,6 +30,7 @@ void CTile::Initialize()
 {
 	m_tInfo.fCX = TILECX * SCALE_FACTOR;
 	m_tInfo.fCY = TILECY * SCALE_FACTOR;
+	m_fOriginY = m_tInfo.fY;
 	
 	
 	m_tFrame.dwTime = GetTickCount();
@@ -83,6 +84,27 @@ int CTile::Update()
 
 	/*m_tFrame.dwSpeed = 100.f;
 	m_tFrame.dwTime = GetTickCount();*/
+	if (m_bBounce)
+	{
+		m_tInfo.fY -= 4.f; // 올라감
+		if (m_tInfo.fY <= m_fBounceY)
+			m_bBounce = false;
+	}
+	else if (m_bHit && m_tInfo.fY < m_fOriginY)
+	{
+		m_tInfo.fY += 4.f; // 다시 내려옴
+		if (m_tInfo.fY >= m_fOriginY)
+		{
+			m_tInfo.fY = m_fOriginY;
+
+			m_eTileId = TILE_EMPTY;
+			m_tInfo.iType = TILE_EMPTY;
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 0;
+			m_tFrame.iMotion = 4;
+		}
+			
+	}
 
 	return NOEVENT;
 }
@@ -122,15 +144,22 @@ void CTile::Release()
 void CTile::On_Hit()
 {
 
+	if (m_bHit) return;
+
+	m_bHit = true;
 
 	if (m_eTileId == TILE_Q || m_eTileId == TILE_E)
 	{
 		// TODO : 살짝 위로(타일사이즈의 절반) 튀어 오르는 기능 구현
+		m_bBounce = true;  // 튀는 애니메이션
+		m_fBounceY = m_tInfo.fY - 24.f; // 위로 24px 튀기기
 
-		m_eTileId = TILE_EMPTY;
-		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 0;
-		m_tFrame.iMotion = 4;
+		// 아이템 생성 예약
+		CItem* pItem = new CItem(m_tInfo.fX, m_tInfo.fY - TILECY, ITEM_MUSH);
+		pItem->Set_Pop(true);
+		CObjectMgr::Get_Instance()->Add_Object(OBJ_ITEM, pItem);
+		CObjectMgr::Get_Instance()->AfterInit(pItem);
+		
 	}
 	
 	else if (m_eTileId == TILE_ROT)

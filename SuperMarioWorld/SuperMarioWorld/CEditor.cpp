@@ -480,10 +480,6 @@ void CEditor::Key_Input()
     }
 }
 
-void CEditor::AfterInit(CObject* _obj)
-{
-    _obj->Initialize();
-}
 
 void CEditor::Place_Object(float _fx, float _fy)
 {
@@ -505,7 +501,7 @@ void CEditor::Place_Object(float _fx, float _fy)
             CObjectMgr::Get_Instance()->Add_Object(OBJ_ITEM, pObject);
             break;
     }
-    if (pObject) AfterInit(pObject);
+    if (pObject) CObjectMgr::Get_Instance()->AfterInit(pObject);
 }
 
 void CEditor::Place_Line(float _fx, float _fy)
