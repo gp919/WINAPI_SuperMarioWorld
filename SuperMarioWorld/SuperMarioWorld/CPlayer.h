@@ -43,4 +43,12 @@ private:
 	float fOffsetBoxLeft;
 	float fOffsetBoxRight;
 
+private:
+	float		m_fScrollX PURE;
+	float		m_fScrollY PURE;
+	float		m_fWorldX PURE;
+	float		m_fWorldY PURE;
+	float		m_fGridX PURE;
+	float		m_fGridY PURE;
+
 };

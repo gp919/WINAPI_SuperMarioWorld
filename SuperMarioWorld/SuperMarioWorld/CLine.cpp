@@ -21,6 +21,15 @@ CLine::~CLine()
 
 void CLine::Render(HDC hDC)
 {
-	MoveToEx(hDC, (int)m_tLine.tLPoint.fX, (int)m_tLine.tLPoint.fY, nullptr);
-	LineTo(hDC, (int)m_tLine.tRPoint.fX, (int)m_tLine.tRPoint.fY);
+    float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+    float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+
+    float fX1 = m_tLine.tLPoint.fX - fScrollX;
+    float fY1 = m_tLine.tLPoint.fY - fScrollY;
+    float fX2 = m_tLine.tRPoint.fX - fScrollX;
+    float fY2 = m_tLine.tRPoint.fY - fScrollY;
+
+    MoveToEx(hDC, int(fX1), int(fY1), nullptr);
+    LineTo(hDC, int(fX2), int(fY2));
+    
 }

@@ -36,6 +36,8 @@ public:
 	void Late_Update();
 	void Render(HDC hDC);
 	void Release();
+	void Key_Input();
+	void Load_Data();
 
 public:
 	void Change_Scene(SCENEID);

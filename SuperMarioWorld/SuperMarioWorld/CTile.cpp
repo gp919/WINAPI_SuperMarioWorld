@@ -75,6 +75,7 @@ void CTile::Initialize()
 
 	}
 
+	CObject::Update_Rect();
 }
 
 int CTile::Update()
@@ -100,11 +101,12 @@ void CTile::Render(HDC hDC)
 	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
 	float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
 
+	float drawX = m_tInfo.fX - m_tInfo.fCX * 0.5f - fScrollX;
+	float drawY = m_tInfo.fY - m_tInfo.fCY * 0.5f - fScrollY;
+
 	GdiTransparentBlt(hDC,
-		(int)(m_tRect.left - fScrollX),
-		(int)(m_tRect.top - fScrollY),
-		(int)(m_tInfo.fCX),  // ← 타일 너비
-		(int)(m_tInfo.fCY),  // ← 타일 높이
+		int(drawX), int(drawY),
+		int(m_tInfo.fCX), int(m_tInfo.fCY),
 		hMemDC,
 		m_tFrame.iStart * TILECX,
 		m_tFrame.iMotion * TILECY,

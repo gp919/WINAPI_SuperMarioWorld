@@ -18,4 +18,12 @@ public:
 	virtual void Release()PURE;
 	
 	virtual pair<float, float> Get_MapSize()PURE;
+
+private:
+	float		m_fScrollX PURE;
+	float		m_fScrollY PURE;
+	float		m_fWorldX PURE;
+	float		m_fWorldY PURE;
+	float		m_fGridX PURE;
+	float		m_fGridY PURE;
 };

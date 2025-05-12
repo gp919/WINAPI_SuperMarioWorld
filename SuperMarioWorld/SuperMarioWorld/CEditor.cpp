@@ -15,12 +15,9 @@ CEditor::~CEditor()
 
 void CEditor::Initialize()
 {
-
-    m_CurStage = 1;
     CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
     CScrollMgr::Get_Instance()->Set_ScrollY(0.f);
     CScrollMgr::Get_Instance()->Set_Size(5120.f * SCALE_FACTOR, 432.f * SCALE_FACTOR);
-
 
 }
 

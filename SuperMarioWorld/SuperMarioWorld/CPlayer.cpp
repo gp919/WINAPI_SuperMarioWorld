@@ -13,7 +13,10 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
-	m_tInfo = { 500.f, 492.f , SMALLX * SCALE_FACTOR, SMALLY * SCALE_FACTOR };
+	m_tInfo.fX = 264.f;
+	m_tInfo.fY = 1152.f - (SMALLY * SCALE_FACTOR * 0.5f);  // 바닥 위에 정확히 착지
+	m_tInfo.fCX = SMALLX * SCALE_FACTOR;
+	m_tInfo.fCY = SMALLY * SCALE_FACTOR;
 	m_fSpeed = 4.f;
 
 	m_bJump = true;
@@ -31,6 +34,7 @@ void CPlayer::Initialize()
 
 	m_fJumpSpeed = -10.f;
 	m_fJumpTime = 0.1f;
+	Offset();
 
 }
 
@@ -53,7 +57,7 @@ int CPlayer::Update()
 	{
 		Update_Gravity();
 	}
-
+	
 	return NOEVENT;
 }
 
@@ -65,11 +69,11 @@ void CPlayer::Late_Update()
 	CObject::Update_Rect();
 	Offset();
 
-	if (m_tInfo.fY > 1000.f)
+	if (m_tInfo.fY > 1700.f * SCALE_FACTOR)
 	{
 		// 리스폰 처리
-		m_tInfo.fX = 400.f;
-		m_tInfo.fY = 492.f;
+		m_tInfo.fX = 264.f;
+		m_tInfo.fY = 1152.f - (SMALLY * SCALE_FACTOR * 0.5f);
 		m_fJumpSpeed = 0.f;
 		m_fJumpTime = 0.f;
 		m_bJump = false;
@@ -120,14 +124,16 @@ void CPlayer::Render(HDC hDC)
 	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
 	float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
 
+	float drawX = m_tInfo.fX - m_tInfo.fCX * 0.5f - fScrollX;
+	float drawY = m_tInfo.fY - m_tInfo.fCY * 0.5f - fScrollY;
 
 	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_pFrameKey);
 	GdiTransparentBlt(
 		hDC,
-		(int)(m_tRect.left - fScrollX),
-		(int)(m_tRect.top),
+		(int)drawX,
+		(int)drawY,
 		(int)m_tInfo.fCX,
-		(int)m_tInfo.fCY,                                 // 출력 크기 (3배)
+		(int)m_tInfo.fCY,                              // 출력 크기 (3배)
 		hMemDC,
 		m_tFrame.iStart * SMALLX,                   // 열 인덱스 × 프레임 너비
 		m_tFrame.iMotion * SMALLY,                  // 행 인덱스 × 프레임 높이
@@ -149,6 +155,8 @@ void CPlayer::Render(HDC hDC)
 	//SelectObject(hDC, hOldPen);
 	//SelectObject(hDC, hOldBrush);
 	//DeleteObject(hPen);
+
+	
 }
 
 void CPlayer::Release()
@@ -474,16 +482,16 @@ void CPlayer::Update_Speed()
 
 void CPlayer::Offset()
 {
-	const float fFocusX = WINCX * 0.42f;          // 화면 내 기준 위치
-	const float fOffsetBoxHalf = 24.f;            // 플레이어 너비 * 2 (96px)
+	const float fFocusX = WINCX * 0.42f;
+	const float fOffsetBoxHalf = 24.f;
 
 	fOffsetBoxLeft = fFocusX - fOffsetBoxHalf;
 	fOffsetBoxRight = fFocusX + fOffsetBoxHalf;
 
-	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
-	float fPlayerScreenX = m_tInfo.fX - fScrollX;
+	// X축: 오프셋 박스를 벗어나면 스크롤 이동
+	float fPlayerScreenX, fPlayerScreenY;
+	CScrollMgr::Get_Instance()->World_To_Screen(m_tInfo.fX, m_tInfo.fY, &fPlayerScreenX, &fPlayerScreenY);
 
-	// 오프셋 박스 기준 스크롤 처리
 	if (fPlayerScreenX < fOffsetBoxLeft)
 	{
 		float fDelta = fOffsetBoxLeft - fPlayerScreenX;
@@ -495,9 +503,11 @@ void CPlayer::Offset()
 		CScrollMgr::Get_Instance()->Set_ScrollX(fDelta);
 	}
 
-	float fTargetScrollY = CScrollMgr::Get_Instance()->Get_ScrollY() * SCALE_FACTOR - WINCY;
-	CScrollMgr::Get_Instance()->Set_ScrollY(fTargetScrollY);
-
+	// Y축: 플레이어를 화면 중앙에 고정
+	float fTargetScrollY = m_tInfo.fY - WINCY * 0.5f;
+	float fCurrentScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
+	float fDeltaY = fTargetScrollY - fCurrentScrollY;
+	//ScrollMgr::Get_Instance()->Set_ScrollY(fDeltaY);
 
 	CScrollMgr::Get_Instance()->Scroll_Lock();
 }

@@ -1,91 +1,13 @@
-﻿  CEditor.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CMonster.h(29,24): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CEditor.cpp(331,32): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CEditor.cpp(331,21): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
-  
-  CMainGame.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CMainGame.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CMainGame.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CMonster.h(29,24): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CMainGame.cpp'을(를) 컴파일하는 중)
-  
-  CMonster.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CMonster.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CMonster.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CMonster.h(29,24): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CMonster.cpp'을(를) 컴파일하는 중)
-  
-  CPlayer.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CPlayer.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CPlayer.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CMonster.h(29,24): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CPlayer.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CPlayer.cpp(464,8): warning C4101: 'fAccel' :참조되지 않은 지역 변수입니다.
-  (소스 파일 '/CPlayer.cpp'을(를) 컴파일하는 중)
-  
-  CScene01.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  CScene01.cpp
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   (소스 파일 '/CScene01.cpp'을(를) 컴파일하는 중)
   
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   (소스 파일 '/CScene01.cpp'을(를) 컴파일하는 중)
   
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CMonster.h(29,24): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CMonster.h(29,24): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   (소스 파일 '/CScene01.cpp'을(를) 컴파일하는 중)
   
-  CSceneMgr.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CSceneMgr.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CSceneMgr.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CMonster.h(29,24): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CSceneMgr.cpp'을(를) 컴파일하는 중)
-  
-  CTutorial.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CTutorial.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CTutorial.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CMonster.h(29,24): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CTutorial.cpp'을(를) 컴파일하는 중)
-  
-  SuperMarioWorld.cpp
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/SuperMarioWorld.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/SuperMarioWorld.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CMonster.h(29,24): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/SuperMarioWorld.cpp'을(를) 컴파일하는 중)
-  
+  CScrollMgr.cpp
   코드를 생성하고 있습니다...
-  SuperMarioWorld.vcxproj -> C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\Debug\SuperMarioWorld.exe
+  SuperMarioWorld.vcxproj -> C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\Debug\SuperMarioWorld.exe
