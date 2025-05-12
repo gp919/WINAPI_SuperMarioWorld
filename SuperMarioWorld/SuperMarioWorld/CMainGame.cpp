@@ -38,6 +38,7 @@ void CMainGame::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/Number.bmp", L"Number");
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Koopa.bmp", L"Koopa");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Goomba.bmp", L"Goomba");
 	
 
 	CLineMgr::Get_Instance()->Initialize();

@@ -5,10 +5,11 @@ CMonster::CMonster()
 {
 }
 
-CMonster::CMonster(float _fx, float _fy)
+CMonster::CMonster(float _fx, float _fy, MONSTERID _monid )
 {
 	m_tInfo.fX = _fx;
 	m_tInfo.fY = _fy;
+	m_tInfo.iType = _monid;
 }
 
 CMonster::CMonster(INFO _info)
@@ -27,14 +28,21 @@ void CMonster::Initialize()
 	m_tInfo.fCX = TILECX * SCALE_FACTOR;
 	m_tInfo.fCY = TILECY * SCALE_FACTOR;
 	m_fSpeed = 1.f;
+
 	switch (m_tInfo.iType)
 	{
 	case MON_KOOPA:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 1;
+		m_tFrame.iMotion = 0;
+		m_tFrame.dwSpeed = 200.f;
 		break;
 	case MON_GOOMBA:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 3;
+		m_tFrame.iMotion = 0;
+		m_tFrame.dwSpeed = 100.f;
 		break;
-	default:
-		m_tInfo.iType = MON_KOOPA;
 	}
 
 }
@@ -50,20 +58,16 @@ int CMonster::Update()
 			return DEAD;
 		}
 		
-		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 0;
-		m_tFrame.iMotion = 1;  // 죽는 모션 프레임 (납작한 등)
 		
 		CObject::Move_Frame();
 		return NOEVENT;
 	}
+
 	if(m_bMove)
 		Update_AI();
 	
-	m_tFrame.iStart = 0;
-	m_tFrame.iEnd = 1;
-	m_tFrame.iMotion = 0;
-	m_tFrame.dwSpeed = 500;
+
+	
 	
 	CObject::Move_Frame();
 	
@@ -111,6 +115,15 @@ void CMonster::Late_Update()
 void CMonster::Render(HDC hDC)
 {
 	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Koopa");
+	switch (m_tInfo.iType)
+	{
+	case MON_KOOPA:
+		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Koopa");
+		break;
+	case MON_GOOMBA:
+		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Goomba");
+		break;
+	}
 
 	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
 	float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
@@ -135,13 +148,38 @@ void CMonster::Release()
 
 void CMonster::On_Stomped()
 {
-	m_tInfo.iType = MONSTER_STOMPED;
+	m_eState = MONSTER_STOMPED;
 	m_bDead = true;
 
+	switch (m_tInfo.iType)
+	{
+	case MON_KOOPA:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 0;
+		m_tFrame.iMotion = 1;  // 죽는 모션 프레임 (납작한 등)
+		break;
+	case MON_GOOMBA:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 3;
+		m_tFrame.iMotion = 1;  // 죽는 모션 프레임 (납작한 등)
+		m_tFrame.dwSpeed = 25.f;
+		break;
+	}
 	m_dwDeathTime = GetTickCount();  // 죽은 시간 기록
-	m_tFrame.iStart = 0;
-	m_tFrame.iEnd = 0;
-	m_tFrame.iMotion = 2;  // ← 납작한 모션 (스프라이트에 따라 조정)
+	//switch (m_tInfo.iType)
+	//{
+	//case MON_KOOPA:
+	//	m_tFrame.iStart = 0;
+	//	m_tFrame.iEnd = 0;
+	//	m_tFrame.iMotion = 2;  // ← 납작한 모션 (스프라이트에 따라 조정)
+	//	break;
+	//case MON_GOOMBA:
+	//	m_tFrame.iStart = 0;
+	//	m_tFrame.iEnd = 3;
+	//	m_tFrame.iMotion = 2;  // ← 납작한 모션 (스프라이트에 따라 조정)
+	//	break;
+	//}
+	
 }
 
 void CMonster::Update_AI()

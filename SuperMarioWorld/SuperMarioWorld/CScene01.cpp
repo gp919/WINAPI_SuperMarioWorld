@@ -13,7 +13,7 @@ CScene01::~CScene01()
 
 void CScene01::Initialize()
 {
-	//CSoundMgr::Get_Instance()->PlayBGM(L"overworld.wav", 0.5f);
+	CSoundMgr::Get_Instance()->PlayBGM(L"overworld.wav", 0.5f);
 
 	CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
 	CScrollMgr::Get_Instance()->Set_ScrollY(0.f);

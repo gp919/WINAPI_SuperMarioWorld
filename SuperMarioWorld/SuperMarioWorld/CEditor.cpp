@@ -456,7 +456,7 @@ void CEditor::Place_Object(float _fx, float _fy)
             break;
         // TODO : 몬스터 종류 미구현. 임시로 쿠파만 지정
         case MODE_MONSTER:
-            pObject = new CMonster(_fx, _fy);
+            pObject = new CMonster(_fx, _fy, m_eCurMon);
             CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pObject);
             break;
     }
