@@ -90,11 +90,16 @@ void CPlayer::Late_Update()
 
 	On_Collision(OBJ_TILE);
 	On_Collision(OBJ_MONSTER);
-	
+	float fX(0);
+	float fY(0);
+	if (CLineMgr::Get_Instance()->Collision_Vertical(this->m_tInfo, &fX))
+	{
+		m_tInfo.fX = m_tInfo.fCX - fX;
+	}
 
 	if(m_fJumpSpeed > 0.f)
 	{
-		float fY(0);
+		
 		if (CLineMgr::Get_Instance()->Collision_Line(this->m_tInfo, &fY))
 		{
 			m_tInfo.fY = fY - m_tInfo.fCY * 0.5f;

@@ -11,6 +11,7 @@ private:
 
 public:
 	bool	Collision_Line(INFO, float*);
+	bool	Collision_Vertical(INFO, float*);
 	void	Add_Line(LINEPOINT, LINEPOINT);
 	void	Sub_Line(float, float);
 
