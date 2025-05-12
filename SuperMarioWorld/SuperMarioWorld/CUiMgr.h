@@ -36,8 +36,8 @@ public:
 	void Update();
 
 	void Set_Time(float _time) { m_fTime = _time; };
-	void Set_Life(float _life) { m_iLife = _life; };
-	void Set_Coin(float _coin) { m_iCoin = _coin; };
+	void Set_Life(float _life) { m_iLife += _life; };
+	void Set_Coin(float _coin) { m_iCoin += _coin; };
 	void Set_Score(int _score) { m_iScore += _score; };
 
 	void Render_PlayerLife(HDC, float, float);

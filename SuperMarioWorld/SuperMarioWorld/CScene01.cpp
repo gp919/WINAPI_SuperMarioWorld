@@ -28,30 +28,12 @@ void CScene01::Initialize()
 	pPlayer->Late_Update();
 	
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
-	//pPlayer->Late_Update();
-	//pPlayer->Late_Update();
 
 	// 스크롤 위치 보정
 	CScrollMgr::Get_Instance()->Set_ScrollX(pPlayer->Get_Info()->fX - WINCX * 0.42f);
 	CScrollMgr::Get_Instance()->Set_ScrollY(pPlayer->Get_Info()->fY - WINCY * 0.5f);
 	CScrollMgr::Get_Instance()->Scroll_Lock();
-	//CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(200.f, 400.f, TILE_EMPTY));
-	//CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(248.f, 400.f, TILE_Q));
-	//CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(296.f, 400.f, TILE_E));
-	//CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(344.f, 400.f, TILE_ROT));
-	//CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, new CTile(392.f, 400.f, TILE_CLOUD));
 
-	//CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, new CMonster(2000.f, 512.f));
-
-	//// 바닥 라인
-	///*CLineMgr::Get_Instance()->Add_Line(
-	//	{ 0.f, (WINCY - (16.f * 2.5f * SCALE_FACTOR + SMALLY * 0.5f)) },
-	//	{ WINCX, (WINCY - (16.f * 2.5f * SCALE_FACTOR + SMALLY * 0.5f)) });*/
-
-
-	//	// 테스트용 강제 라인
-	//CLineMgr::Get_Instance()->Add_Line({ 0.f, 528.f }, { Get_MapSize().first * SCALE_FACTOR, 528.f});
-	//
 }
 
 int CScene01::Update()

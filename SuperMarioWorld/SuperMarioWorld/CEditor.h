@@ -9,8 +9,10 @@
 #include "CTile.h"
 #include "CMonster.h"
 #include "CScene.h"
+#include "CItem.h"
 
-enum EDITMODE { MODE_TILE, MODE_MONSTER, MODE_LINE, MODE_END };
+// 새로운 오브젝트 추가시 변경
+enum EDITMODE { MODE_TILE, MODE_MONSTER, MODE_LINE, MODE_ITEM, MODE_END };
 enum LINEDIR { LINE_HOR, LINE_VER, LINE_END };
 
 class CEditor : public CScene
@@ -45,10 +47,11 @@ public:
     void Load_Data();
 
 private:
-    // 이하 enum
+    // 이하 enum : 여기에 새로운 오브젝트 추가
     EDITMODE m_eCurEdit = MODE_TILE;
     TILEID m_eCurTile = TILE_Q;
     MONSTERID m_eCurMon = MON_KOOPA;
+    ITEMID m_eCurItem = ITEM_COIN;
     LINEDIR m_eCurLine = LINE_VER;
     // 몬스터, 타일을 통합해서 출력을 위한 타입 저장 변수
     int m_iType = 0;

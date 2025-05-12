@@ -90,6 +90,7 @@ void CPlayer::Late_Update()
 
 	On_Collision(OBJ_TILE);
 	On_Collision(OBJ_MONSTER);
+	On_Collision(OBJ_ITEM);
 	float fX(0);
 	float fY(0);
 	
@@ -151,24 +152,6 @@ void CPlayer::Render(HDC hDC)
 		m_tFrame.iMotion * SMALLY,                  // 행 인덱스 × 프레임 높이
 		SMALLX, SMALLY,                                 // 자를 원본 크기
 		RGB(0, 255, 0));
-
-	//const float fFocusX = WINCX * 0.42f;
-	//const float fOffsetHalf = 48.f; // 오프셋 박스의 반너비
-
-	//const int iLeft = (int)(fFocusX - fOffsetHalf);
-	//const int iRight = (int)(fFocusX + fOffsetHalf);
-
-	//HPEN hPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0)); // 빨간색
-	//HBRUSH hOldBrush = (HBRUSH)SelectObject(hDC, GetStockObject(NULL_BRUSH));
-	//HPEN hOldPen = (HPEN)SelectObject(hDC, hPen);
-
-	//Rectangle(hDC, iLeft, 0, iRight, WINCY); // 화면 위부터 아래까지 박스
-
-	//SelectObject(hDC, hOldPen);
-	//SelectObject(hDC, hOldBrush);
-	//DeleteObject(hPen);
-
-	
 }
 
 void CPlayer::Release()
@@ -229,10 +212,20 @@ void CPlayer::On_Collision(EOBJECTID _id)
 			}
 
 			break;
-	}
-	
 
-	// 3. 아이템
+		case OBJ_ITEM:
+			pTarget = CCollisionMgr::Collision_RectEx(
+				CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER),
+				CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_ITEM)
+			);
+			if (!pTarget) break;
+			// 아이템과 충돌한 경우
+			else
+			{
+				static_cast<CItem*>(pTarget)->Catch_Item(pTarget);
+			}
+			break;
+	}
 
 	// 4. 지형(용암,낭떠러지)
 }

@@ -166,6 +166,17 @@ void CEditor::Render(HDC hDC)
         else if (m_eCurEdit == MODE_MONSTER)
             Ellipse(hDC, int(fCursorX - GRID_SIZE / 2), int(fCursorY - GRID_SIZE / 2),
                 int(fCursorX + GRID_SIZE / 2), int(fCursorY + GRID_SIZE / 2));
+        else if (m_eCurEdit == MODE_ITEM)
+        {
+            // 아이템 모드: 다이아몬드(마름모) 모양으로 표시
+            POINT points[4];
+            points[0] = { int(fCursorX), int(fCursorY - GRID_SIZE / 2) };        // 위쪽 점
+            points[1] = { int(fCursorX + GRID_SIZE / 2), int(fCursorY) };        // 오른쪽 점
+            points[2] = { int(fCursorX), int(fCursorY + GRID_SIZE / 2) };        // 아래쪽 점
+            points[3] = { int(fCursorX - GRID_SIZE / 2), int(fCursorY) };        // 왼쪽 점
+
+            Polygon(hDC, points, 4);
+        }
         else if (m_eCurEdit == MODE_LINE)
         {
             if(m_iType == LINE_HOR)
@@ -215,7 +226,7 @@ void CEditor::Render(HDC hDC)
     // 도움말 표시 (선택 사항)
     SetBkMode(hDC, TRANSPARENT);
     SetTextColor(hDC, RGB(0, 0, 0));
-    TextOutW(hDC, 10, 10, L"모드: 1-타일, 2-몬스터, 3-라인", wcslen(L"모드: 1-타일, 2-몬스터, 3-라인"));
+    TextOutW(hDC, 10, 10, L"모드: 1-타일, 2-몬스터, 3-라인, 4-아이템", wcslen(L"모드: 1-타일, 2-몬스터, 3-라인, 4-아이템"));
     TextOutW(hDC, 10, 30, L"타입 변경: Q-이전, W-다음", wcslen(L"타입 변경: Q-이전, W-다음"));
     TextOutW(hDC, 10, 50, L"저장: Ctrl+S, 불러오기: Ctrl+L", wcslen(L"저장: Ctrl+S, 불러오기: Ctrl+L"));
     TextOutW(hDC, 10, 70, L"종료: ESC", wcslen(L"종료: ESC"));
@@ -223,8 +234,11 @@ void CEditor::Render(HDC hDC)
     // 디버그 정보 - 오브젝트 개수 확인
     auto& tileList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_TILE);
     auto& monsterList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER);
+    auto& itemList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_ITEM);
+
     wchar_t szDebug[128];
-    swprintf_s(szDebug, L"타일 수: %d, 몬스터 수: %d", tileList.size(), monsterList.size());
+    swprintf_s(szDebug, L"타일: %d, 몬스터: %d, 아이템: %d",
+        tileList.size(), monsterList.size(), itemList.size());
     TextOutW(hDC, 10, 90, szDebug, wcslen(szDebug));
 }
 
@@ -374,6 +388,12 @@ void CEditor::Key_Input()
         m_wcMode = L"LINE";
         m_iType = m_eCurLine;
     }
+    else if (CKeyMgr::Get_Instance()->Key_Pressing('4'))
+    {
+        m_eCurEdit = MODE_ITEM;
+        m_wcMode = L"ITEM";
+        m_iType = m_eCurItem;
+    }
 
     // 이전 타입으로 이동, 첫번째 인덱스라면 마지막 인덱스로 순환
     if (CKeyMgr::Get_Instance()->Key_Down('Q'))
@@ -397,6 +417,16 @@ void CEditor::Key_Input()
             else
                 m_eCurMon = (MONSTERID)(MON_END - 1);
             m_iType = (int)m_eCurMon;
+        }
+        else if (m_eCurEdit == MODE_ITEM)
+        {
+            if (m_eCurItem != ITEM_COIN)
+            {
+                m_eCurItem = (ITEMID)(m_eCurItem - 1);
+            }
+            else
+                m_eCurItem = (ITEMID)(ITEM_END - 1);
+            m_iType = (int)m_eCurItem;
         }
     }
 
@@ -422,6 +452,16 @@ void CEditor::Key_Input()
             else
                 m_eCurMon = MON_KOOPA;
             m_iType = m_eCurMon;
+        }
+        else if (m_eCurEdit == MODE_ITEM)
+        {
+            if (m_eCurItem != (ITEMID)(ITEM_END - 1))
+            {
+                m_eCurItem = (ITEMID)(m_eCurItem + 1);
+            }
+            else
+                m_eCurItem = ITEM_COIN;
+            m_iType = m_eCurItem;
         }
     }
 
@@ -454,10 +494,15 @@ void CEditor::Place_Object(float _fx, float _fy)
             pObject = new CTile(_fx, _fy, m_eCurTile);
             CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, pObject);
             break;
-        // TODO : 몬스터 종류 미구현. 임시로 쿠파만 지정
+
         case MODE_MONSTER:
             pObject = new CMonster(_fx, _fy, m_eCurMon);
             CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pObject);
+            break;
+
+        case MODE_ITEM:
+            pObject = new CItem(_fx, _fy, m_eCurItem);
+            CObjectMgr::Get_Instance()->Add_Object(OBJ_ITEM, pObject);
             break;
     }
     if (pObject) AfterInit(pObject);
@@ -527,7 +572,8 @@ void CEditor::Save_Data()
     
     for (auto i = 0; i < MODE_END; i++)
     {
-        // 0. 타일 1. 몬스터 2. 라인  // enum 타입으로 넣는것 고민하기 싫어서 정수로
+        // 0. 타일 1. 몬스터 2. 라인 3. 아이템
+        // enum 타입으로 넣는것 고민하기 싫어서 정수로
         string s_Name = to_string(i);
         wstring ws_Name(s_Name.begin(), s_Name.end());
         wstring ws_FullPath = wc_Dir + ws_Name + wc_Dat;
@@ -548,7 +594,7 @@ void CEditor::Save_Data()
         }
 
         DWORD	dwByte(0);
-        // TILE, MONSTER, LINE 순으로 저장
+        // TILE, MONSTER, LINE, ITEM 순으로 저장
         switch (i)
         {
         case MODE_TILE:
@@ -570,6 +616,13 @@ void CEditor::Save_Data()
                WriteFile(hFile, (pLine->Get_Line()), sizeof(LINE), &dwByte, nullptr);
             }
             break;
+        case MODE_ITEM:
+            for (auto& pobj : CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_ITEM))
+            {
+                WriteFile(hFile, (pobj->Get_Info()), sizeof(INFO), &dwByte, nullptr);
+            }
+            break;
+
         }
         
         CloseHandle(hFile);
@@ -582,13 +635,15 @@ void CEditor::Load_Data( )
 {
     CObjectMgr::Get_Instance()->Delete_Object(OBJ_MONSTER);
     CObjectMgr::Get_Instance()->Delete_Object(OBJ_TILE);
+    CObjectMgr::Get_Instance()->Delete_Object(OBJ_ITEM);
     CLineMgr::Get_Instance()->Release();
     const wchar_t* wc_Dir = L"../Data/";
     const wchar_t* wc_Dat = L".dat";
 
     for (auto i = 0; i < MODE_END; i++)
     {
-        // 0. 타일 1. 몬스터 2. 라인  // enum 타입으로 넣는것 고민하기 싫어서 정수로
+        // 0. 타일 1. 몬스터 2. 라인 3. 아이템
+        // enum 타입으로 넣는것 고민하기 싫어서 정수로
         string s_Name = to_string(i);
         wstring ws_Name(s_Name.begin(), s_Name.end());
         wstring ws_FullPath = wc_Dir + ws_Name + wc_Dat;
@@ -644,6 +699,16 @@ void CEditor::Load_Data( )
                     break;
 
                 CLineMgr::Get_Instance()->Get_LinetList().push_back(new CLine(tLine));
+            }
+            break;
+        case MODE_ITEM:
+            while (true)
+            {
+                ReadFile(hFile, &tInfo, sizeof(INFO), &dwByte, nullptr);
+
+                if (0 == dwByte)
+                    break;
+                CObjectMgr::Get_Instance()->Add_Object(OBJ_ITEM, new CItem(tInfo));
             }
             break;
         }

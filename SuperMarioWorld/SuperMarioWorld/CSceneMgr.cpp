@@ -58,13 +58,15 @@ void CSceneMgr::Load_Data()
 {
     CObjectMgr::Get_Instance()->Delete_Object(OBJ_MONSTER);
     CObjectMgr::Get_Instance()->Delete_Object(OBJ_TILE);
+    CObjectMgr::Get_Instance()->Delete_Object(OBJ_ITEM);
     CLineMgr::Get_Instance()->Release();
     const wchar_t* wc_Dir = L"../Data/";
     const wchar_t* wc_Dat = L".dat";
 
     for (auto i = 0; i < MODE_END; i++)
     {
-        // 0. 타일 1. 몬스터 2. 라인  // enum 타입으로 넣는것 고민하기 싫어서 정수로
+        // 0. 타일 1. 몬스터 2. 라인 3. 아이템
+        // enum 타입으로 넣는것 고민하기 싫어서 정수로
         string s_Name = to_string(i);
         wstring ws_Name(s_Name.begin(), s_Name.end());
         wstring ws_FullPath = wc_Dir + ws_Name + wc_Dat;
@@ -122,56 +124,20 @@ void CSceneMgr::Load_Data()
                 CLineMgr::Get_Instance()->Get_LinetList().push_back(new CLine(tLine));
             }
             break;
+        case MODE_ITEM:
+            while (true)
+            {
+                ReadFile(hFile, &tInfo, sizeof(INFO), &dwByte, nullptr);
+
+                if (0 == dwByte)
+                    break;
+                CObjectMgr::Get_Instance()->Add_Object(OBJ_ITEM, new CItem(tInfo));
+            }
+            break;
         }
 
         CloseHandle(hFile);
         MessageBox(g_hWnd, L"Load 완료", _T("Success"), MB_OK);
         CObjectMgr::Get_Instance()->Initialize();
     }
-}
-
-// SCENEID를 받아 현재 SCENE을 가리키는 포인터를 변경
-// 기존에 가리키고 있던 SCENE은 제거
-void CSceneMgr::Change_Scene(SCENEID _id)
-{
-	if (m_pCurrentScene)
-	{
-		Safe_Delete(m_pCurrentScene);
-	}
-
-	switch (_id)
-	{
-	case SC_LOGO:
-		//m_pCurrentScene = new CLogo;
-		break;
-	// 이하 로고와 같은 방식으로 동작
-	case SC_MENU:
-		break;
-	case SC_TUTORIAL:
-		m_pCurrentScene = new CTutorial;
-		break;\
-	case SC_WORLD:
-		break;
-	case SC_STAGE_ONE:
-		break;
-	case SC_STAGE_TWO:
-		break;
-	case SC_STAGE_FINAL:
-		break;
-	case SC_BOSS:
-		break;
-	default:
-		// 에러 메세지 코드
-		break;
-	}
-
-	// 포인터 변경후 Initialize
-	if (m_pCurrentScene)
-	{
-		m_pCurrentScene->Initialize();
-		pair<float, float> pSize = m_pCurrentScene->Get_MapSize();
-		CScrollMgr::Get_Instance()->Set_Size(pSize.first, pSize.second);
-		CScrollMgr::Get_Instance()->Scroll_Lock(); // 초기화 위치 제한
-	}
-	
 }

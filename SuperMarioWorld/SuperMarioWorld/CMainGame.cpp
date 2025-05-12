@@ -24,13 +24,16 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/BackGround.bmp", L"BackGround");
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tile.bmp", L"Tile");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tutorial/Yoshi.bmp", L"Tutorial");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Scene1.bmp", L"Scene1");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/back01.bmp", L"BackGround01");
+	
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tile.bmp", L"Tile");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Item.bmp", L"Item");
+
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SmallMario_L.bmp", L"Player_LEFT");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SmallMario_R.bmp", L"Player_RIGHT");
-	
+
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/MarioText.bmp", L"MarioText");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/XMark.bmp", L"X_Mark");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/Time_Text.bmp", L"Time_Text");
@@ -40,7 +43,6 @@ void CMainGame::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Koopa.bmp", L"Koopa");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Goomba.bmp", L"Goomba");
 	
-
 	CLineMgr::Get_Instance()->Initialize();
 	CSceneMgr::Get_Instance()->Initialize();
 	

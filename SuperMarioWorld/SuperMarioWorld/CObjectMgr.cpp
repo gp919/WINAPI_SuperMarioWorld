@@ -66,8 +66,12 @@ void CObjectMgr::Render(HDC hDC)
 	for (auto& obj : m_listObject[OBJ_MONSTER])
 		obj->Render(hDC);
 
+	for (auto& obj : m_listObject[OBJ_ITEM])
+		obj->Render(hDC);
+
 	for (auto& obj : m_listObject[OBJ_PLAYER])
 		obj->Render(hDC);
+	
 }
 
 void CObjectMgr::Release()
@@ -111,6 +115,21 @@ void CObjectMgr::Sub_Object(float _fx, float _fy)
 		{
 			Safe_Delete<CObject*>(*iter);
 			iter = m_listObject[OBJ_TILE].erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+
+	for (auto iter = m_listObject[OBJ_ITEM].begin(); iter != m_listObject[OBJ_ITEM].end(); )
+	{
+		INFO* pInfo = (*iter)->Get_Info();
+		// 지정된 좌표 근처에 있는 오브젝트 찾기
+		if (abs(pInfo->fX - _fx) < 24.0f && abs(pInfo->fY - _fy) < 24.0f)
+		{
+			Safe_Delete<CObject*>(*iter);
+			iter = m_listObject[OBJ_ITEM].erase(iter);
 		}
 		else
 		{

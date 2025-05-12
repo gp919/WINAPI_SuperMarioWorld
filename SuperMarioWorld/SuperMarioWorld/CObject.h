@@ -35,7 +35,13 @@ protected:
 	void		Move_Frame();
 
 protected:
-	
+	float		m_fScrollX PURE;
+	float		m_fScrollY PURE;
+	float		m_fWorldX PURE;
+	float		m_fWorldY PURE;
+	float		m_fGridX PURE;
+	float		m_fGridY PURE;
+
 	bool m_bDead = false;
 	float m_fSpeed = 1.f;
 	float m_fAspeed = 1.f;

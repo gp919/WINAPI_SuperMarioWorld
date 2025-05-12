@@ -76,8 +76,8 @@ int CMonster::Update()
 
 void CMonster::Late_Update()
 {
-	//	화면(1224)아래로 가면 사망
-	if (m_tInfo.fY >= 1224.f)
+	//	화면(1224)아래로 가면, 중심좌표가 0이면 사망
+	if (m_tInfo.fY >= 1700.f * SCALE_FACTOR || m_tInfo.fX == 0.f)
 		m_bDead = true;
 	// 중력 적용
 	m_tInfo.fY += 0.5f;
@@ -129,8 +129,8 @@ void CMonster::Render(HDC hDC)
 	float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
 
 	GdiTransparentBlt(hDC,
-		(int)(m_tRect.left - fScrollX),
-		(int)(m_tRect.top - fScrollY),
+		(int)(m_tInfo.fX - m_tInfo.fCX * 0.5f - fScrollX),
+		(int)(m_tInfo.fY - m_tInfo.fCY * 0.5f - fScrollY),
 		(int)(m_tInfo.fCX),  // ← 몬스터 너비
 		(int)(m_tInfo.fCY),  // ← 몬스터 높이
 		hMemDC,
@@ -166,20 +166,6 @@ void CMonster::On_Stomped()
 		break;
 	}
 	m_dwDeathTime = GetTickCount();  // 죽은 시간 기록
-	//switch (m_tInfo.iType)
-	//{
-	//case MON_KOOPA:
-	//	m_tFrame.iStart = 0;
-	//	m_tFrame.iEnd = 0;
-	//	m_tFrame.iMotion = 2;  // ← 납작한 모션 (스프라이트에 따라 조정)
-	//	break;
-	//case MON_GOOMBA:
-	//	m_tFrame.iStart = 0;
-	//	m_tFrame.iEnd = 3;
-	//	m_tFrame.iMotion = 2;  // ← 납작한 모션 (스프라이트에 따라 조정)
-	//	break;
-	//}
-	
 }
 
 void CMonster::Update_AI()

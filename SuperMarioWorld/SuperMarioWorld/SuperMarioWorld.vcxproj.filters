@@ -70,6 +70,9 @@
     <Filter Include="01. Scene\Editor">
       <UniqueIdentifier>{49754816-d72b-48d4-8471-c26996b1da98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Object\Item">
+      <UniqueIdentifier>{4fe85e2d-db10-4496-a326-4c0a978d3018}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -153,6 +156,9 @@
     <ClInclude Include="CEditor.h">
       <Filter>01. Scene\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>02. Object\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -223,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="CEditor.cpp">
       <Filter>01. Scene\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>02. Object\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
