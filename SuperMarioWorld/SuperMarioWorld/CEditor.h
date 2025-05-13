@@ -21,7 +21,6 @@ public:
     CEditor();
     virtual ~CEditor();
 
-
 public:
     void Initialize()override;
     int Update()override;
@@ -36,6 +35,7 @@ public:
     void Key_Input();
     void Place_Object(float, float);
     void Place_Line(float, float);
+    void Place_Point(float, float, float, float);
 
     // 그리드 좌표계 변환 함수
     void Screen_To_World(float , float, float* , float* );
@@ -49,7 +49,7 @@ private:
     // 이하 enum : 여기에 새로운 오브젝트 추가
     EDITMODE m_eCurEdit = MODE_TILE;
     TILEID m_eCurTile = TILE_Q;
-    MONSTERID m_eCurMon = MON_KOOPA;
+    MONSTERID m_eCurMon = MON_GOOMBA;
     ITEMID m_eCurItem = ITEM_COIN;
     LINEDIR m_eCurLine = LINE_VER;
     // 몬스터, 타일을 통합해서 출력을 위한 타입 저장 변수
@@ -73,6 +73,10 @@ private:
     // 그리드의 중심좌표 관리 변수
     float       m_fGridX;
     float       m_fGridY;
+
+    bool        m_bClick = false;
+    LINEPOINT p1;
+    LINEPOINT p2;
 
 private:
     static CEditor* m_pInstance;

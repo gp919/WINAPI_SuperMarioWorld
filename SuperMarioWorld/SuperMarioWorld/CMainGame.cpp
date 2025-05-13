@@ -23,25 +23,33 @@ void CMainGame::Initialize()
 
 	CSoundMgr::Get_Instance()->Initialize();
 
+	// 배경
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/BackGround.bmp", L"BackGround");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tutorial/Yoshi.bmp", L"Tutorial");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Scene1.bmp", L"Scene1");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/back01.bmp", L"BackGround01");
 	
+	// 오브젝트
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tile.bmp", L"Tile");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Item.bmp", L"Item");
 
+	// 마리오 이미지 (좌우)
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SmallMario_L.bmp", L"Player_LEFT");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SmallMario_R.bmp", L"Player_RIGHT");
 
+	// HUD
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/MarioText.bmp", L"MarioText");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/XMark.bmp", L"X_Mark");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/Time_Text.bmp", L"Time_Text");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/Coin_Icon.bmp", L"Coin_Icon");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/Number.bmp", L"Number");
 
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Koopa.bmp", L"Koopa");
+	// 몬스터 목록
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Goomba.bmp", L"Goomba");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Green_Koopa.bmp", L"GKoopa");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Red_Koopa.bmp", L"RKoopa");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Monty_Mole.bmp", L"Mole");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Piranha.bmp", L"Piranha");
 	
 	CLineMgr::Get_Instance()->Initialize();
 	CSceneMgr::Get_Instance()->Initialize();

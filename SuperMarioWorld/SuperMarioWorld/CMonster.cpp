@@ -31,18 +31,41 @@ void CMonster::Initialize()
 
 	switch (m_tInfo.iType)
 	{
-	case MON_KOOPA:
-		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 1;
-		m_tFrame.iMotion = 0;
-		m_tFrame.dwSpeed = 200.f;
-		break;
 	case MON_GOOMBA:
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 3;
 		m_tFrame.iMotion = 0;
 		m_tFrame.dwSpeed = 100.f;
 		break;
+	case MON_GREENKOOPA:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 1;
+		m_tFrame.iMotion = 3;
+		m_tFrame.dwSpeed = 200.f;
+		m_tInfo.fCX = TILECX * SCALE_FACTOR;
+		m_tInfo.fCY = TILECY * SCALE_FACTOR * 2.f;
+		break;
+	case MON_REDKOOPA:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 1;
+		m_tFrame.iMotion = 3;
+		m_tFrame.dwSpeed = 200.f;
+		m_tInfo.fCX = TILECX * SCALE_FACTOR;
+		m_tInfo.fCY = TILECY * SCALE_FACTOR * 2.f;
+		break;
+	case MON_MOLE:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 1;
+		m_tFrame.iMotion = 0;
+		m_tFrame.dwSpeed = 200.f;
+		break;
+	case MON_PIRANHA:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 1;
+		m_tFrame.iMotion = 0;
+		m_tFrame.dwSpeed = 200.f;
+		break;
+
 	}
 
 }
@@ -114,15 +137,25 @@ void CMonster::Late_Update()
 
 void CMonster::Render(HDC hDC)
 {
-	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Koopa");
+	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Goomba");
 	switch (m_tInfo.iType)
 	{
-	case MON_KOOPA:
-		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Koopa");
-		break;
 	case MON_GOOMBA:
 		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Goomba");
 		break;
+	case MON_GREENKOOPA:
+		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"GKoopa");
+		break;
+	case MON_REDKOOPA:
+		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"RKoopa");
+		break;
+	case MON_MOLE:
+		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Mole");
+		break;
+	case MON_PIRANHA:
+		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Piranha");
+		break;
+
 	}
 
 	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
@@ -146,6 +179,11 @@ void CMonster::Release()
 
 }
 
+void CMonster::Update_State()
+{
+
+}
+
 void CMonster::On_Stomped()
 {
 	m_eState = MONSTER_STOMPED;
@@ -153,17 +191,23 @@ void CMonster::On_Stomped()
 
 	switch (m_tInfo.iType)
 	{
-	case MON_KOOPA:
-		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 0;
-		m_tFrame.iMotion = 1;  // 죽는 모션 프레임 (납작한 등)
-		break;
 	case MON_GOOMBA:
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 3;
 		m_tFrame.iMotion = 1;  // 죽는 모션 프레임 (납작한 등)
 		m_tFrame.dwSpeed = 25.f;
 		break;
+	case MON_GREENKOOPA:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 0;
+		m_tFrame.iMotion = 1;  // 죽는 모션 프레임 (납작한 등)
+		break;
+	case MON_REDKOOPA:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 0;
+		m_tFrame.iMotion = 1;  // 죽는 모션 프레임 (납작한 등)
+		break;
+
 	}
 	m_dwDeathTime = GetTickCount();  // 죽은 시간 기록
 }

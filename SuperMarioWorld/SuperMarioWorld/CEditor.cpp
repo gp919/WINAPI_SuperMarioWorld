@@ -198,7 +198,7 @@ void CEditor::Render(HDC hDC)
                 MoveToEx(hDC, int(fCursorX), int(fCursorY - GRID_SIZE / 2), NULL);
                 LineTo(hDC, int(fCursorX + GRID_SIZE / 4), int(fCursorY - GRID_SIZE / 4));
             }
-            else
+            else if(m_iType == LINE_VER)
             {
                 // 세로 라인임을 나타내는 화살표 모양(→)
                 // 오른쪽 선
@@ -215,6 +215,28 @@ void CEditor::Render(HDC hDC)
 
                 MoveToEx(hDC, int(fCursorX + GRID_SIZE / 2), int(fCursorY), NULL);
                 LineTo(hDC, int(fCursorX + GRID_SIZE / 4), int(fCursorY + GRID_SIZE / 4));
+            }
+            else
+            {
+                // 임의 라인 가상 선 표시
+                if (m_bClick)
+                {
+                    // 첫 점에서 커서까지 선
+                    MoveToEx(hDC, int(p1.fX - m_fScrollX), int(p1.fY - m_fScrollY), nullptr);
+                    LineTo(hDC, int(fCursorX), int(fCursorY));
+
+                    // 첫 점을 작은 원으로 표시
+                    Ellipse(hDC,
+                        int(p1.fX - m_fScrollX - 4), int(p1.fY - m_fScrollY - 4),
+                        int(p1.fX - m_fScrollX + 4), int(p1.fY - m_fScrollY + 4));
+                }
+                else
+                {
+                    // 현재 커서 위치에 점 미리보기
+                    Ellipse(hDC,
+                        int(fCursorX - 4), int(fCursorY - 4),
+                        int(fCursorX + 4), int(fCursorY + 4));
+                }
             }
         }
     }
@@ -348,7 +370,12 @@ void CEditor::Handle_Mouse_Input()
     {
         if (m_eCurEdit == MODE_LINE)
         {
-            Place_Line(m_fGridX, m_fGridY);
+            if (m_eCurLine != LINE_ANG)
+            {
+                Place_Line(m_fGridX, m_fGridY);
+            }
+            else
+                Place_Point(m_fWorldX, m_fWorldY, m_fGridX, m_fGridY);
         }
         else
             Place_Object(m_fGridX, m_fGridY);
@@ -379,7 +406,7 @@ void CEditor::Key_Input()
     else if (CKeyMgr::Get_Instance()->Key_Pressing('2'))
     {
         m_eCurEdit = MODE_MONSTER;
-        m_eCurMon = MON_KOOPA;
+        m_eCurMon = MON_GOOMBA;
         m_wcMode = L"MONSTER";
         m_iType = m_eCurMon;
     }
@@ -411,7 +438,7 @@ void CEditor::Key_Input()
         }
         else if (m_eCurEdit == MODE_MONSTER)
         {
-            if (m_eCurMon != MON_KOOPA)
+            if (m_eCurMon != MON_GOOMBA)
             {
                 m_eCurMon = (MONSTERID)(m_eCurMon - 1);
             }
@@ -451,7 +478,7 @@ void CEditor::Key_Input()
                 m_eCurMon = (MONSTERID)(m_eCurMon + 1);
             }
             else
-                m_eCurMon = MON_KOOPA;
+                m_eCurMon = MON_GOOMBA;
             m_iType = m_eCurMon;
         }
         else if (m_eCurEdit == MODE_ITEM)
@@ -466,14 +493,16 @@ void CEditor::Key_Input()
         }
     }
 
-    // 라인 타입 변경 : 가로 <-> 세로
+    // 라인 타입 변경 : 수평 -> 수직 -> 임의 루프
     if (CKeyMgr::Get_Instance()->Key_Down('E'))
     {
         if(m_eCurEdit == MODE_LINE)
         {
             if (m_eCurLine == LINE_HOR)
                 m_eCurLine = LINE_VER;
-            else
+            else if (m_eCurLine == LINE_VER)
+                m_eCurLine = LINE_ANG;
+            else if (m_eCurLine == LINE_ANG)
                 m_eCurLine = LINE_HOR;
 
             m_iType = m_eCurLine;
@@ -527,6 +556,48 @@ void CEditor::Place_Line(float _fx, float _fy)
     CLineMgr::Get_Instance()->Add_Line({ f1X,f1Y }, { f2X,f2Y });
 }
 
+// 그리드 기준 
+void CEditor::Place_Point(float _wx, float _wy, float _gx, float _gy)
+{
+    if (!m_bClick)
+    {
+        p1 = { 0,0 };
+        // 중심좌표 기준 왼쪽이면 왼쪽 X , 오른쪽이면 오른쪽 X
+        if (_wx <= _gx)
+            p1.fX = _gx - TILECX * SCALE_FACTOR * 0.5f;
+        else
+            p1.fX = _gx + TILECX * SCALE_FACTOR * 0.5f;
+        // y도 마찬가지 : gdi좌표계에 주의
+        // 아래에 있는경우
+        if (_wy > _gy)
+            p1.fY = _gy + TILECY * SCALE_FACTOR * 0.5f;
+        // 위에 있는경우
+        else
+            p1.fY = _gy - TILECY * SCALE_FACTOR * 0.5f;
+        m_bClick = true;
+    }
+    else
+    {
+        p2 = { 0, 0 };
+        // 중심좌표 기준 왼쪽이면 왼쪽 X , 오른쪽이면 오른쪽 X
+        if (_wx <= _gx)
+            p2.fX = _gx - TILECX * SCALE_FACTOR * 0.5f;
+        else
+            p2.fX = _gx + TILECX * SCALE_FACTOR * 0.5f;
+        // y도 마찬가지 : gdi좌표계에 주의
+        // 아래에 있는경우
+        if (_wy > _gy)
+            p2.fY = _gy + TILECY * SCALE_FACTOR * 0.5f;
+        // 위에 있는경우
+        else
+            p2.fY = _gy - TILECY * SCALE_FACTOR * 0.5f;
+        m_bClick = false;
+        // 두 좌표가 같지 않으면 라인 추가
+        if ((p1.fX != p2.fX) && (p1.fY != p2.fY))
+            CLineMgr::Get_Instance()->Add_Line(p1, p2);
+    }
+}
+
 void CEditor::Screen_To_World(float screenX, float screenY, float* worldX, float* worldY)
 {
     m_fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
@@ -566,9 +637,6 @@ void CEditor::Save_Data()
 {
     const wchar_t* wc_Dir = L"../Data/";
     const wchar_t* wc_Dat = L".dat";
-    // 임시 임의 라인 추가
-
-    CLineMgr::Get_Instance()->Add_Line({ 2856,1080 }, { 3096,984 });
     for (auto i = 0; i < MODE_END; i++)
     {
         // 0. 타일 1. 몬스터 2. 라인 3. 아이템
