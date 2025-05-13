@@ -71,6 +71,7 @@ void CItem::Initialize()
 		m_tFrame.iMotion = 5;
 		break;
 	}
+	Allign_Bottom(m_tInfo.fX, m_tInfo.fY);
 }
 
 int CItem::Update()

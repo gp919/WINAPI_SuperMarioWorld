@@ -36,6 +36,7 @@ public:
 protected:
 	void		Update_Rect();
 	void		Move_Frame();
+	void		Allign_Bottom(float, float);
 
 protected:
 	float		m_fScrollX PURE;

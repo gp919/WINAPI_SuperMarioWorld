@@ -68,6 +68,8 @@ void CMonster::Initialize()
 
 	}
 
+	Allign_Bottom(m_tInfo.fX, m_tInfo.fY);
+
 }
 
 int CMonster::Update()
@@ -170,7 +172,7 @@ void CMonster::Render(HDC hDC)
 		m_tFrame.iStart * TILECX,
 		m_tFrame.iMotion * TILECY,
 		TILECX,
-		TILECY,
+		(m_tInfo.fCY / (SCALE_FACTOR)),
 		RGB(0, 255, 0));
 }
 
@@ -186,30 +188,50 @@ void CMonster::Update_State()
 
 void CMonster::On_Stomped()
 {
-	m_eState = MONSTER_STOMPED;
-	m_bDead = true;
-
-	switch (m_tInfo.iType)
+	// 껍질에서 튀어 나오기 : 죽음 X
+	if (
+		((m_tInfo.iType == MON_GREENKOOPA) || (m_tInfo.iType == MON_REDKOOPA))
+		&&	(m_eState != MONSTER_EJECTED)
+		)
 	{
-	case MON_GOOMBA:
+		m_eState = MONSTER_EJECTED;
 		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 3;
-		m_tFrame.iMotion = 1;  // 죽는 모션 프레임 (납작한 등)
-		m_tFrame.dwSpeed = 25.f;
-		break;
-	case MON_GREENKOOPA:
-		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 0;
-		m_tFrame.iMotion = 1;  // 죽는 모션 프레임 (납작한 등)
-		break;
-	case MON_REDKOOPA:
-		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 0;
-		m_tFrame.iMotion = 1;  // 죽는 모션 프레임 (납작한 등)
-		break;
-
+		m_tFrame.iEnd = 1;
+		m_tFrame.iMotion = 0;
+		m_tFrame.dwSpeed = 200.f;
+		m_tInfo.fCY = TILECY * SCALE_FACTOR;
 	}
-	m_dwDeathTime = GetTickCount();  // 죽은 시간 기록
+	// 죽음
+	else
+	{
+		m_eState = MONSTER_STOMPED;
+		m_bDead = true;
+		switch (m_tInfo.iType)
+		{
+		case MON_GOOMBA:
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 3;
+			m_tFrame.iMotion = 1;  // 죽는 모션 프레임
+			m_tFrame.dwSpeed = 25.f;
+			break;
+		case MON_GREENKOOPA:
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 0;
+			m_tFrame.iMotion = 1;  // 죽는 모션 프레임
+			m_tInfo.fCY = TILECY * SCALE_FACTOR;
+			break;
+		case MON_REDKOOPA:
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 0;
+			m_tFrame.iMotion = 1;  // 죽는 모션 프레임
+			m_tInfo.fCY = TILECY * SCALE_FACTOR;
+			break;
+
+		}
+		
+		m_dwDeathTime = GetTickCount();  // 죽은 시간 기록
+	}
+
 }
 
 void CMonster::Update_AI()
