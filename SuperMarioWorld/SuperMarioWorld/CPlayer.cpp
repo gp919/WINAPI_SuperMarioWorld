@@ -64,7 +64,7 @@ int CPlayer::Update()
 void CPlayer::Late_Update()
 {
 
-	Change_Motion();
+	Change_State();
 	CObject::Move_Frame();
 	CObject::Update_Rect();
 	Offset();
@@ -358,7 +358,7 @@ void CPlayer::Key_Input()
 }
 		
 
-void CPlayer::Change_Motion()
+void CPlayer::Change_State()
 {
 	if (m_eDir == DIR_RIGHT)
 		m_pFrameKey = L"Player_RIGHT";
