@@ -96,7 +96,6 @@ int CTile::Update()
 		if (m_tInfo.fY >= m_fOriginY)
 		{
 			m_tInfo.fY = m_fOriginY;
-
 			m_eTileId = TILE_EMPTY;
 			m_tInfo.iType = TILE_EMPTY;
 			m_tFrame.iStart = 0;
@@ -141,25 +140,40 @@ void CTile::Release()
 {
 }
 
-void CTile::On_Hit()
+void CTile::On_Hit(OBJECTDIR _dir)
 {
 
 	if (m_bHit) return;
 
 	m_bHit = true;
 
-	if (m_eTileId == TILE_Q || m_eTileId == TILE_E)
+	if (m_eTileId == TILE_Q)
 	{
-		// TODO : 살짝 위로(타일사이즈의 절반) 튀어 오르는 기능 구현
 		m_bBounce = true;  // 튀는 애니메이션
 		m_fBounceY = m_tInfo.fY - 24.f; // 위로 24px 튀기기
+	}
 
-		// 아이템 생성 예약
-		CItem* pItem = new CItem(m_tInfo.fX, m_tInfo.fY - TILECY, ITEM_MUSH);
+	else if (m_eTileId == TILE_E)
+	{
+		// 아이템 생성
+		CItem* pItem = nullptr;
+		// TODO : 코드 리팩터링
+		switch (m_eTileId)
+		{
+		//case TILE_Q: pItem = new CItem(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * 0.5f, ITEM_LEV); break;
+		case TILE_E: pItem = new CItem(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * 0.5f, ITEM_MUSH); break;
+		}
 		pItem->Set_Pop(true);
+		pItem->Set_Dir(_dir);
 		CObjectMgr::Get_Instance()->Add_Object(OBJ_ITEM, pItem);
 		CObjectMgr::Get_Instance()->AfterInit(pItem);
-		
+
+		// 빈 타일로 변경
+		m_eTileId = TILE_EMPTY;
+		m_tInfo.iType = TILE_EMPTY;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 0;
+		m_tFrame.iMotion = 4;
 	}
 	
 	else if (m_eTileId == TILE_ROT)

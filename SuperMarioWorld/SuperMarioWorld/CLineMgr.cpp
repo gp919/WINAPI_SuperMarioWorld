@@ -36,16 +36,15 @@ bool CLineMgr::Collision_Line(INFO _info, float* pY)
 
 			float slope = (fRy - fLy) / (fRx - fLx);
 			float fx_contact = (slope >= 0.f) ? (_info.fX + _info.fCX * 0.5f) : (_info.fX - _info.fCX * 0.5f);
-
-
-
 			// X 범위 내 확인
 			if (fx_contact >= fLx && fx_contact <= fRx)
 			{
 				float fLineY = slope * (fx_contact - fLx) + fLy;
 				float fBottom = _info.fY + _info.fCY * 0.5f;
-
-				if (fabsf(fBottom - fLineY) < 20.f)
+				float fMargin = 0.f;
+				/*if (_info.iType == ITEM_MUSH || _info.iType == ITEM_LEV)	fMargin = 28.f;*/
+				// 마진 수정
+				if (fabsf(fBottom - fLineY) < 20.f + fMargin)
 				{
 
 					*pY = fLineY;

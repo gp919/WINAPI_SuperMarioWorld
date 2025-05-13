@@ -137,7 +137,6 @@ void CSceneMgr::Load_Data()
         }
 
         CloseHandle(hFile);
-        MessageBox(g_hWnd, L"Load ¿Ï·á", _T("Success"), MB_OK);
         CObjectMgr::Get_Instance()->Initialize();
     }
 }

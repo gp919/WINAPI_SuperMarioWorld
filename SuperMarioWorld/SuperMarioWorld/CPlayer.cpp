@@ -181,9 +181,16 @@ void CPlayer::On_Collision(EOBJECTID _id)
 
 					m_tInfo.fY = pTarget->Get_Rect()->top - m_tInfo.fCY * 0.5f;
 				}
+				// 타일을 아래서 때린 경우
 				else if (pTarget && Get_Col() == COL_TOP)
 				{
-					static_cast<CTile*>(pTarget)->On_Hit();
+					// 타일 충돌 처리
+					if (m_tInfo.fX <= pTarget->Get_Info()->fX)
+						static_cast<CTile*>(pTarget)->On_Hit(DIR_RIGHT);
+					else
+						static_cast<CTile*>(pTarget)->On_Hit(DIR_LEFT);
+					
+					// 플레이어 움직임 변경
 					if (m_fJumpSpeed < 0.f)
 						m_fJumpSpeed *= -1.f;
 				}
@@ -449,8 +456,6 @@ void CPlayer::Change_Motion()
 // 점프 및 중력 처리
 void CPlayer::Update_Gravity()
 {
-
-
 	// y = y0 + vt
 	m_tInfo.fY += m_fJumpSpeed * m_fJumpTime;
 	// v = v0 + at

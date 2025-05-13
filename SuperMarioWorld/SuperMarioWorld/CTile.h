@@ -21,7 +21,7 @@ public:
 	void Render(HDC)override;
 	void Release()override;
 
-	void On_Hit();
+	void On_Hit(OBJECTDIR);
 
 private:
 	bool m_bHit = false;

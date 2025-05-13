@@ -21,6 +21,10 @@ public:
 	void Render(HDC)override;
 	void Release()override;
 
+	void On_Collision(EOBJECTID);
+	void Line_Collision();
+	void Update_Gravitiy();
+
 	void Catch_Item(CObject*);
 	void Set_Pop(bool _pop)
 	{
@@ -34,5 +38,7 @@ private:
 	bool m_bPopUp = false;     // 등장 중
 	int  m_iPopFrame = 0;     // 몇 프레임 올랐는지
 	float m_fStartY;          // 시작 위치 기억
+
+	bool m_bMoveReady = false;
 };
 

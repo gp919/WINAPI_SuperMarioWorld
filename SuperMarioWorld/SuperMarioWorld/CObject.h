@@ -23,12 +23,15 @@ public:
 	EOBJECTID Get_ID() { return m_eId; }
 	COLLISIONDIR Get_Col() { return m_eColDir; ; };
 	bool Get_Dead() { return m_bDead; };
-	void Set_Dead() { m_bDead = true; };
+
 	void Set_PosX(float _fx) { m_tInfo.fX += _fx; };
 	void Set_PosY(float _fy) { m_tInfo.fY += _fy; };
-	void Set_TileCol() { m_bTileCol = true; };
 	void Set_ID(EOBJECTID _id) { m_eId = _id; };
 	void Set_Col(COLLISIONDIR _dir) { m_eColDir = _dir; };
+	void Set_Dead() { m_bDead = true; };
+	void Set_TileCol() { m_bTileCol = true; };
+	void Set_Dir(OBJECTDIR _dir) { m_eDir = _dir; };
+	
 
 protected:
 	void		Update_Rect();

@@ -21,9 +21,14 @@ CItem::~CItem()
 void CItem::Initialize()
 {
 	m_bDead = false;
+	m_bJump = false;
+	m_bMove = false;
+	m_fJumpSpeed = 0.f;
+	m_fJumpTime = 0.f;
+
 	m_tInfo.fCX = TILECX * SCALE_FACTOR;
 	m_tInfo.fCY = TILECY * SCALE_FACTOR;
-	m_fSpeed = 1.f;
+	m_fSpeed = 2.f;
 
 	switch (m_tInfo.iType)
 	{
@@ -70,6 +75,13 @@ void CItem::Initialize()
 
 int CItem::Update()
 {
+	if (m_bMoveReady)
+	{
+		m_bMoveReady = false;
+		m_bMove = true;
+		// 다음 프레임부터 m_bMove 조건이 발동되도록 지연
+	}
+
 	if (m_bDead)
 	{
 		CUiMgr::Get_Instance()->Set_Score(100);
@@ -78,24 +90,38 @@ int CItem::Update()
 
 	if (m_bPopUp)
 	{
-		m_tInfo.fY -= 1.6f;
+		m_tInfo.fY -= 1.f;
 		m_iPopFrame++;
 
-		if (m_iPopFrame >= 19)
+		if (m_iPopFrame >= 23)
 		{
 			m_bPopUp = false;
-			m_bMove = true; // 이후 중력 적용 시작
+			m_iPopFrame = 0.f;
+			if (m_tInfo.iType == ITEM_MUSH || m_tInfo.iType == ITEM_LEV)
+			{
+				m_bMoveReady = true;
+				m_bJump = true;
+				m_fJumpTime = 0.1f;
+				m_fJumpSpeed = 8.f;
+			}
+				
 		}
-
-		return NOEVENT;
 	}
 	
-	if (m_bMove)
+	if (m_bMove && !m_bPopUp)
 	{
 		// TODO : 움직임 함수(일부 아이템에만)
+		if (m_eDir == DIR_RIGHT)
+		{
+			m_tInfo.fX += m_fSpeed;
+		}
+		else
+		{
+			m_tInfo.fX -= m_fSpeed;
+		}
 	}
 
-	CObject::Move_Frame();
+	
 
 	return NOEVENT;
 }
@@ -106,12 +132,20 @@ void CItem::Late_Update()
 	if (m_tInfo.fY >= 1700.f * SCALE_FACTOR || m_tInfo.fX == 0)
 		m_bDead = true;
 
-	// 버섯, 레벨업 만
-	// TODO : 중력 적용
+	if (m_bDead) return;
+	if(!m_bPopUp && m_bMove)
+		On_Collision(OBJ_TILE);
+	// 버섯, 레벨업 만 중력 적용
+	if (m_bMove && m_bJump && !m_bPopUp && (m_tInfo.iType == ITEM_MUSH || m_tInfo.iType == ITEM_LEV))
+	{
+		Update_Gravitiy();
+	}
+	if (m_bMove)
+		Line_Collision();
 
 	// TODO : 라인 충돌 검사
 
-
+	CObject::Move_Frame();
 	CObject::Update_Rect();
 }
 
@@ -148,6 +182,102 @@ void CItem::Render(HDC hDC)
 
 void CItem::Release()
 {
+}
+
+void CItem::On_Collision(EOBJECTID _id)
+{
+	if (m_bDead) return;
+	CObject* pTarget = nullptr;
+	switch (_id)
+	{
+	case OBJ_TILE:
+		pTarget = CCollisionMgr::Collision_RectEx(
+			CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_ITEM),
+			CObjectMgr::Get_Instance()->Get_ObjectList(_id)
+		);
+		if (pTarget && Get_Col() == COL_BOTTOM)
+		{
+			m_bJump = false;
+			m_fJumpTime = 0.f;
+			m_fJumpSpeed = 0.f;
+			m_tInfo.fY = pTarget->Get_Rect()->top - m_tInfo.fCY * 0.5f;
+		}
+		else if (pTarget && (Get_Col() == COL_LEFT || Get_Col() == COL_RIGHT))
+		{
+			if (Get_Col() == COL_LEFT)
+				m_eDir = DIR_RIGHT;
+			else
+				m_eDir = DIR_LEFT;
+			
+			m_bJump = true;
+			m_fJumpTime = 0.1f;
+			m_fJumpSpeed = 8.f;
+		}
+		// TODO : fix
+		else if (!pTarget)
+		{
+			m_bJump = true;
+			m_fJumpTime = 0.1f;
+			m_fJumpSpeed = 8.f;
+		}
+		break;
+	}
+}
+
+void CItem::Line_Collision()
+{
+	float fX(0);
+	float fY(0);
+	if (CLineMgr::Get_Instance()->Collision_Vertical(this->m_tInfo, &fX))
+	{
+		float fLeft = m_tInfo.fX - m_tInfo.fCX * 0.5f;
+		float fRight = m_tInfo.fX + m_tInfo.fCX * 0.5f;
+
+		if (m_eDir == DIR_LEFT && fX >= fLeft && fX < fRight - 0.00013f)
+		{
+			m_tInfo.fX = fX + m_tInfo.fCX * 0.5f;
+			m_eDir = DIR_RIGHT;
+		}
+		else if (m_eDir == DIR_RIGHT && fX <= fRight && fX > fLeft + 0.00013f)
+		{
+			m_tInfo.fX = fX - m_tInfo.fCX * 0.5f;
+			m_eDir = DIR_LEFT;
+		}
+	}
+	if (m_fJumpSpeed > 0.f)
+	{
+
+		if (CLineMgr::Get_Instance()->Collision_Line(this->m_tInfo, &fY))
+		{
+			m_tInfo.fY = fY - m_tInfo.fCY * 0.5f;
+			m_bJump = false;
+			m_fJumpTime = 0.f;
+			m_fJumpSpeed = 0.f;
+		}
+		else
+		{
+			m_bJump = true;
+			m_fJumpTime = 0.1f;
+			m_fJumpSpeed = 8.f;
+		}
+	}
+}
+
+void CItem::Update_Gravitiy()
+{
+	// y = y0 + vt
+	m_tInfo.fY += m_fJumpSpeed * m_fJumpTime;
+	// v = v0 + at
+	if (m_fJumpSpeed >= 24.0f)
+		m_fJumpSpeed = 24.0f;
+	else if (m_fJumpSpeed <= -2.f)
+		m_fJumpSpeed = -2.f;
+	else
+	{
+		m_fJumpSpeed += GRAVITY * m_fJumpTime;
+	}
+	// t++
+	m_fJumpTime += 0.1f;
 }
 
 

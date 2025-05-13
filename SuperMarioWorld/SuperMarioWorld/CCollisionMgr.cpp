@@ -124,6 +124,14 @@ bool CCollisionMgr::Check_Rect(CObject* pDst, CObject* pSrc, float* pX, float* p
 	float	fRadiusX = (pDst->Get_Info()->fCX + pSrc->Get_Info()->fCX) * 0.5f;
 	float	fRadiusY = (pDst->Get_Info()->fCY + pSrc->Get_Info()->fCY) * 0.5f;
 
+	// 아이템이 타일과 충돌할 경우 판정을 위한 마진 
+	if (pDst->Get_ID() == OBJ_ITEM)
+	{
+		fRadiusX += 12.f;
+		fRadiusY += 12.f;
+
+	}
+
 	if (fDistanceX < fRadiusX && fDistanceY < fRadiusY)
 	{
 		*pX = fRadiusX - fDistanceX;
