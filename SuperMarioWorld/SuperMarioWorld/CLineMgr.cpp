@@ -92,7 +92,6 @@ bool CLineMgr::Collision_Vertical(INFO _info, float* pX)
 	
 void CLineMgr::Add_Line(LINEPOINT _src, LINEPOINT _dst)
 {
-	
 	if (_src.fX > _dst.fX)
 	{
 		swap(_src.fX, _dst.fX);
@@ -106,7 +105,11 @@ void CLineMgr::Sub_Line(float _fx, float _fy)
 	for (auto iter = m_Linelist.begin(); iter != m_Linelist.end();)
 	{
 		LINE* pLine = (*iter)->Get_Line();
-		if (pLine->tLPoint.fX == (_fx - (TILECX * SCALE_FACTOR) / 2.f))
+
+		if (((pLine->tLPoint.fX >= _fx - 24.f && pLine->tLPoint.fX <= _fx + 24.f) &&
+			(pLine->tLPoint.fY >= _fy - 24.f && pLine->tLPoint.fY <= _fy + 24.f)) ||
+			((pLine->tRPoint.fX >= _fx - 24.f && pLine->tRPoint.fX <= _fx + 24.f) &&
+				(pLine->tRPoint.fY >= _fy - 24.f && pLine->tRPoint.fY <= _fy + 24.f)))
 		{
 			Safe_Delete<CLine*>(*iter);
 			iter = m_Linelist.erase(iter);
