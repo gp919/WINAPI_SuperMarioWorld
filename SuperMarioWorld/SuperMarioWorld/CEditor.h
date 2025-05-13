@@ -13,7 +13,7 @@
 
 // 새로운 오브젝트 추가시 변경
 enum EDITMODE { MODE_TILE, MODE_MONSTER, MODE_LINE, MODE_ITEM, MODE_END };
-enum LINEDIR { LINE_HOR, LINE_VER, LINE_END };
+enum LINEDIR { LINE_HOR, LINE_VER, LINE_ANG, LINE_END };
 
 class CEditor : public CScene
 {

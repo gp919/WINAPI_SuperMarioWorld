@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLineMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CLineMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSceneMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CSceneMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CEditor.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CEditor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CEditor.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLineMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CLineMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSceneMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CSceneMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CPlayer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -216,7 +216,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 26,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -264,26 +264,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "CEditor.cpp",
               "DocumentMoniker": "C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CEditor.cpp",
               "ToolTip": "C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.cpp",
               "RelativeToolTip": "SuperMarioWorld\\CEditor.cpp",
-              "ViewState": "AgIAAEUBAAAAAAAAAAAewGgBAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABACAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-09T03:38:15.861Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "CEditor.h",
               "DocumentMoniker": "C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CEditor.h",
               "ToolTip": "C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.h",
               "RelativeToolTip": "SuperMarioWorld\\CEditor.h",
-              "ViewState": "AgIAABcAAAAAAAAAAAAhwCIAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-09T03:37:22.09Z",
               "EditorCaption": ""
@@ -358,8 +358,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CPlayer.h",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-29T10:57:42.873Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T10:57:42.873Z"
             },
             {
               "$type": "Document",
@@ -399,7 +398,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "CSceneMgr.cpp",
               "DocumentMoniker": "C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSceneMgr.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CSceneMgr.cpp",
@@ -407,8 +406,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CSceneMgr.cpp",
               "ViewState": "AgIAAG0AAAAAAAAAAAAAAHwAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-29T09:56:59.714Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T09:56:59.714Z"
             },
             {
               "$type": "Document",
@@ -520,7 +518,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "CLineMgr.cpp",
               "DocumentMoniker": "C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLineMgr.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CLineMgr.cpp",
