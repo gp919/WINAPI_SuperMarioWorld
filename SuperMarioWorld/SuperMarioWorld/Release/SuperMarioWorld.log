@@ -1,22 +1,22 @@
-﻿  CItem.cpp
+﻿  CEditor.cpp
 C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CItem.cpp'을(를) 컴파일하는 중)
+  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
   
 C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CItem.cpp'을(를) 컴파일하는 중)
+  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
   
-C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CItem.cpp(39,22): warning C4244: '=': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CItem.cpp'을(를) 컴파일하는 중)
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CMonster.h(30,24): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
   
-C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CItem.cpp(45,22): warning C4244: '=': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CItem.cpp'을(를) 컴파일하는 중)
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CEditor.cpp(343,32): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
   
-C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CItem.cpp(99,18): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CItem.cpp'을(를) 컴파일하는 중)
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CEditor.cpp(343,21): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CEditor.cpp'을(를) 컴파일하는 중)
   
   코드를 생성하고 있습니다.
-  2 of 811 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  9 of 811 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    15 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   SuperMarioWorld.vcxproj -> C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\Release\SuperMarioWorld.exe

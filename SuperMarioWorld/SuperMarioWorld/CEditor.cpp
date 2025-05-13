@@ -18,6 +18,7 @@ void CEditor::Initialize()
     CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
     CScrollMgr::Get_Instance()->Set_ScrollY(0.f);
     CScrollMgr::Get_Instance()->Set_Size(5120.f * SCALE_FACTOR, 432.f * SCALE_FACTOR);
+    
 
 }
 
@@ -565,7 +566,9 @@ void CEditor::Save_Data()
 {
     const wchar_t* wc_Dir = L"../Data/";
     const wchar_t* wc_Dat = L".dat";
-    
+    // 임시 임의 라인 추가
+
+    CLineMgr::Get_Instance()->Add_Line({ 2856,1080 }, { 3096,984 });
     for (auto i = 0; i < MODE_END; i++)
     {
         // 0. 타일 1. 몬스터 2. 라인 3. 아이템
