@@ -531,7 +531,6 @@ void CEditor::Place_Object(float _fx, float _fy)
             CObjectMgr::Get_Instance()->Add_Object(OBJ_ITEM, pObject);
             break;
     }
-    if (pObject) CObjectMgr::Get_Instance()->AfterInit(pObject);
 }
 
 void CEditor::Place_Line(float _fx, float _fy)
@@ -782,7 +781,6 @@ void CEditor::Load_Data( )
 
         CloseHandle(hFile);
         MessageBox(g_hWnd, L"Load ¿Ï·á", _T("Success"), MB_OK);
-        CObjectMgr::Get_Instance()->Initialize();
     }
 }
 

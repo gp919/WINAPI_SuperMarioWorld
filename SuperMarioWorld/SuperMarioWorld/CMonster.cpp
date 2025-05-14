@@ -89,37 +89,86 @@ void CMonster::Initialize()
 {
     m_eMonID = (MONSTERID)m_tInfo.iType;
 
-    switch (m_eMonID)
+    // 상태가 이미 설정되어 있으면 그대로 유지 (EJECTED 등)
+    if (m_eState != MONSTER_IDLE)
     {
-    case MON_GREENKOOPA:
-    case MON_REDKOOPA:
-        m_tInfo.fCX = TILECX * SCALE_FACTOR;
-        m_tInfo.fCY = TILECY * SCALE_FACTOR * 2.f;
-        break;
-    default:
-        m_tInfo.fCX = TILECX * SCALE_FACTOR;
-        m_tInfo.fCY = TILECY * SCALE_FACTOR;
-        break;
-    }
+        // 이미 상태가 설정되어 있는 경우 (예: EJECTED)
+        // 해당 상태에 맞는 크기 설정
+        switch (m_eState)
+        {
+        case MONSTER_EJECTED:
+        case MONSTER_SHELL_IDLE:
+        case MONSTER_SHELL_MOVE:
+        case MONSTER_STOMPED:
+            m_tInfo.fCX = TILECX * SCALE_FACTOR;
+            m_tInfo.fCY = TILECX * SCALE_FACTOR;  // 미니쿠파 크기
+            break;
+        default:
+            // 일반 크기
+            switch (m_eMonID)
+            {
+            case MON_GREENKOOPA:
+            case MON_REDKOOPA:
+                m_tInfo.fCX = TILECX * SCALE_FACTOR;
+                m_tInfo.fCY = TILECY * SCALE_FACTOR * 2.f;
+                break;
+            default:
+                m_tInfo.fCX = TILECX * SCALE_FACTOR;
+                m_tInfo.fCY = TILECY * SCALE_FACTOR;
+                break;
+            }
+            break;
+        }
 
-    m_fSpeed = 1.f;
-
-    switch (m_eMonID)
-    {
-    case MON_MOLE:
-    case MON_PIRANHA:
-        Set_State(MONSTER_IDLE);
-        m_bMove = false;
-        break;
-    default:
-        Set_State(MONSTER_WALK);
-        // 디버그 모드(에디터)에서는 움직이지 않음
-        #ifdef _DEBUG
-            m_bMove = false;
-        #else
+        // 상태별 속도 및 설정
+        switch (m_eState)
+        {
+        case MONSTER_EJECTED:
+            m_fSpeed = 2.f;
             m_bMove = true;
-        #endif
-        break;
+            break;
+        case MONSTER_SHELL_MOVE:
+            m_fSpeed = 8.f;
+            m_bMove = true;
+            break;
+        case MONSTER_SHELL_IDLE:
+            m_fSpeed = 0.f;
+            m_dwTime = GetTickCount();
+            break;
+        }
+    }
+    else
+    {
+        // 상태가 설정되지 않은 경우 기본 초기화
+        // 크기 설정
+        switch (m_eMonID)
+        {
+        case MON_GREENKOOPA:
+        case MON_REDKOOPA:
+            m_tInfo.fCX = TILECX * SCALE_FACTOR;
+            m_tInfo.fCY = TILECY * SCALE_FACTOR * 2.f;
+            break;
+        default:
+            m_tInfo.fCX = TILECX * SCALE_FACTOR;
+            m_tInfo.fCY = TILECY * SCALE_FACTOR;
+            break;
+        }
+
+        m_fSpeed = 1.f;
+
+        // 상태 설정
+        switch (m_eMonID)
+        {
+        case MON_MOLE:
+        case MON_PIRANHA:
+            Set_State(MONSTER_IDLE);
+            m_bMove = false;
+            break;
+        default:
+            Set_State(MONSTER_WALK);
+            m_bMove = false;
+            break;
+        }
     }
 
     Update_ImageKey();
@@ -179,19 +228,36 @@ int CMonster::Update()
         }
     }
 
-    // 디버그 모드에서는 AI 업데이트 스킵
-    #ifdef _DEBUG
-    // 에디터 모드: 애니메이션만 업데이트
-        Move_Frame();
-        return NOEVENT;
-    #else
-    // 게임 모드: 정상 업데이트
-        if (m_bMove)
-            Update_AI();
+    // 화면 범위 체크
+#ifndef _DEBUG
+// 화면에 들어왔을 때 움직임 시작 (한 번만 체크)
+    if (!m_bMove && In_Screen())
+    {
+        switch (m_eMonID)
+        {
+        case MON_MOLE:
+        case MON_PIRANHA:
+            // 이 몬스터들은 특별한 조건에만 움직임
+            break;
+        default:
+            // WALK 상태이거나 특수 상태일 때만 움직임 시작
+            if (m_eState == MONSTER_WALK || m_eState == MONSTER_EJECTED || m_eState == MONSTER_SHELL_MOVE)
+                m_bMove = true;
+            break;
+        }
+    }
+#else
+// 디버그 모드에서는 움직이지 않음 (단, 특수 상태는 예외)
+    if (m_eState == MONSTER_EJECTED || m_eState == MONSTER_SHELL_MOVE)
+        m_bMove = true;
+#endif
 
-        Move_Frame();
-        return NOEVENT;
-    #endif
+    // 움직임 업데이트
+    if (m_bMove)
+        Update_AI();
+
+    Move_Frame();
+    return NOEVENT;
 }
 
 void CMonster::Update_AI()
@@ -221,7 +287,14 @@ void CMonster::Late_Update()
     }
 
     On_Collision(OBJ_MONSTER);
-    if (m_tInfo.fY >= WINCY * 2.5f || m_tInfo.fX <= 0.f)
+    if (m_tInfo.fY >= 1272.f || m_tInfo.fX <= 0.f)
+    {
+        m_bDead = true;
+        return;
+    }
+
+    // 등껍질 상태일 때 화면 밖으로 나가면 삭제
+    if ((m_eState == MONSTER_SHELL_IDLE || m_eState == MONSTER_SHELL_MOVE) && !In_Screen())
     {
         m_bDead = true;
         return;
@@ -299,60 +372,63 @@ void CMonster::On_Collision(EOBJECTID _id)
     {
     case OBJ_MONSTER:
     {
-        CObject* pTarget = CCollisionMgr::Collision_RectEx(
-            CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER),
-            CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER)
-        );
+        list<CObject*>& rMonsterList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER);
 
-        if (!pTarget || pTarget == this) break;
-
-        CMonster* pOtherMonster = static_cast<CMonster*>(pTarget);
-
-        // 움직이는 껍질 vs 일반 몬스터
-        if (m_eState == MONSTER_SHELL_MOVE && pOtherMonster->Get_State() != MONSTER_SHELL_MOVE)
+        // 자신과 다른 몬스터들 간의 충돌을 체크
+        for (auto& pMonster : rMonsterList)
         {
-            pOtherMonster->Set_Dead();
-            // 껍질은 죽지 않음
-            return;
-        }
+            if (pMonster == this || pMonster->Get_Dead())
+                continue;
 
-        // 일반 몬스터 vs 움직이는 껍질
-        if (m_eState != MONSTER_SHELL_MOVE && pOtherMonster->Get_State() == MONSTER_SHELL_MOVE)
-        {
-            m_bDead = true;
-            // 껍질은 죽지 않음
-            return;
-        }
+            CMonster* pOtherMonster = static_cast<CMonster*>(pMonster);
 
-        // 움직이는 껍질 vs 움직이는 껍질
-        if (m_eState == MONSTER_SHELL_MOVE && pOtherMonster->Get_State() == MONSTER_SHELL_MOVE)
-        {
-            // 둘 다 죽음
-            m_bDead = true;
-            pOtherMonster->Set_Dead();
-            return;
-        }
-
-        // 일반 몬스터끼리 충돌 시 방향 전환 (좌우 충돌일 때만)
-        if (m_eState == MONSTER_WALK && pOtherMonster->Get_State() == MONSTER_WALK)
-        {
-            // CCollisionMgr가 이미 방향을 설정했으므로 그걸 활용
-            if (Get_Col() == COL_LEFT || Get_Col() == COL_RIGHT)
+            // Check_Rect를 사용하여 충돌 확인
+            float fWidth = 0.f, fHeight = 0.f;
+            if (CCollisionMgr::Check_Rect(this, pOtherMonster, &fWidth, &fHeight))
             {
-                // 자신의 방향 전환
-                m_eDir = (m_eDir == DIR_LEFT) ? DIR_RIGHT : DIR_LEFT;
-
-                // 상대방도 방향 전환
-                // 상대방의 충돌 방향은 반대
-                if (Get_Col() == COL_LEFT)
+                // 움직이는 껍질 vs 일반 몬스터
+                if (m_eState == MONSTER_SHELL_MOVE && pOtherMonster->Get_State() != MONSTER_SHELL_MOVE)
                 {
-                    // 내가 왼쪽에서 충돌했으면 상대는 오른쪽에서 충돌
-                    pOtherMonster->Set_Dir(DIR_RIGHT);
+                    pOtherMonster->Set_Dead();
+                    continue;
                 }
-                else
+
+                // 일반 몬스터 vs 움직이는 껍질
+                if (m_eState != MONSTER_SHELL_MOVE && pOtherMonster->Get_State() == MONSTER_SHELL_MOVE)
                 {
-                    // 내가 오른쪽에서 충돌했으면 상대는 왼쪽에서 충돌
-                    pOtherMonster->Set_Dir(DIR_LEFT);
+                    m_bDead = true;
+                    return;
+                }
+
+                // 움직이는 껍질 vs 움직이는 껍질
+                if (m_eState == MONSTER_SHELL_MOVE && pOtherMonster->Get_State() == MONSTER_SHELL_MOVE)
+                {
+                    // 충돌 시 양쪽 다 죽음
+                    m_bDead = true;
+                    pOtherMonster->Set_Dead();
+                    return;
+                }
+
+                // 일반 몬스터끼리 충돌 시 방향 전환 (좌우 충돌일 때만)
+                if (m_eState == MONSTER_WALK && pOtherMonster->Get_State() == MONSTER_WALK)
+                {
+                    // 충돌 방향 판단
+                    if (fWidth > fHeight) // 상하 충돌은 무시
+                        continue;
+
+                    // 좌우 충돌 시 방향 전환
+                    if (m_tInfo.fX < pOtherMonster->Get_Info()->fX)
+                    {
+                        // 내가 왼쪽에 있으면 왼쪽으로 전환
+                        m_eDir = DIR_LEFT;
+                        pOtherMonster->Set_Dir(DIR_RIGHT);
+                    }
+                    else
+                    {
+                        // 내가 오른쪽에 있으면 오른쪽으로 전환
+                        m_eDir = DIR_RIGHT;
+                        pOtherMonster->Set_Dir(DIR_LEFT);
+                    }
                 }
             }
         }
@@ -397,6 +473,7 @@ void CMonster::Set_State(MONSTER_STATE _eState)
 
     case MONSTER_SHELL_MOVE:
         m_fSpeed = 8.f;
+        m_bMove = true;  // 껍질 움직임은 항상 활성화
         break;
 
     case MONSTER_EJECTED:
@@ -422,7 +499,6 @@ void CMonster::Init_Frame()
 
 void CMonster::On_Stomped()
 {
-    
     // 이미 처리 중이면 return (중복 방지)
     static DWORD dwLastStompTime = 0;
     if (GetTickCount() - dwLastStompTime < 100)
@@ -453,16 +529,23 @@ void CMonster::On_Stomped()
             // 현재 쿠파를 껍질로 변경
             Set_State(MONSTER_SHELL_IDLE);
 
-            // EJECTED 쿠파 생성
-            CMonster* pEjected = new CMonster(fCurrentX, fCurrentY, m_eMonID);
-            pEjected->Initialize();
-            pEjected->Set_State(MONSTER_EJECTED);
-            pEjected->Set_Dir(pushDir);
-
-            // 밀려나가는 거리 설정
+            // EJECTED 쿠파 생성 - 밀려난 위치로 직접 생성
             float fPushDistance = 30.f;
-            pEjected->Set_PosX((pushDir == DIR_RIGHT) ? fPushDistance : -fPushDistance);
+            float fEjectedX = fCurrentX + ((pushDir == DIR_RIGHT) ? fPushDistance : -fPushDistance);
 
+            // EJECTED 쿠파 생성 - 상태를 생성자에서 직접 설정
+            CMonster* pEjected = new CMonster();
+            pEjected->m_tInfo.fX = fEjectedX;
+            pEjected->m_tInfo.fY = fCurrentY;
+            pEjected->m_tInfo.iType = m_eMonID;
+            pEjected->m_eMonID = m_eMonID;
+            pEjected->Set_State(MONSTER_EJECTED);  // Initialize 전에 상태 설정
+            pEjected->Set_Dir(pushDir);
+            pEjected->m_bMove = true;  // 바로 움직이도록 설정
+
+            // 여기서는 Add_Object를 통한 자동 초기화를 피하기 위해
+            // Initialize()를 직접 호출하지 않습니다.
+            // AfterInit이 호출되면 그 때 처리됩니다.
             CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pEjected);
 
             return;
@@ -494,7 +577,6 @@ void CMonster::On_Stomped()
 
     Set_State(MONSTER_STOMPED);
 }
-
 void CMonster::Release_From_Holder()
 {
     if (!m_pHolder)

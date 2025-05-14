@@ -87,6 +87,8 @@ void CObjectMgr::Add_Object(EOBJECTID _id, CObject* _pObj)
 {
 	m_listObject[_id].push_back(_pObj);
 	m_listObject[_id].back()->Set_ID(_id);
+	AfterInit(_pObj);
+	
 }
 
 void CObjectMgr::AfterInit(CObject* _obj)

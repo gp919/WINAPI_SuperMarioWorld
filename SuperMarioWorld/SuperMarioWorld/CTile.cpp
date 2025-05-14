@@ -166,7 +166,6 @@ void CTile::On_Hit(OBJECTDIR _dir)
 		pItem->Set_Pop(true);
 		pItem->Set_Dir(_dir);
 		CObjectMgr::Get_Instance()->Add_Object(OBJ_ITEM, pItem);
-		CObjectMgr::Get_Instance()->AfterInit(pItem);
 		CSoundMgr::Get_Instance()->PlaySoundW(L"sprout-item.wav", SOUND_EFFECT, 0.1f);
 
 		// 빈 타일로 변경
