@@ -151,6 +151,7 @@ void CTile::On_Hit(OBJECTDIR _dir)
 	{
 		m_bBounce = true;  // 튀는 애니메이션
 		m_fBounceY = m_tInfo.fY - 24.f; // 위로 24px 튀기기
+		CSoundMgr::Get_Instance()->PlaySoundW(L"coin.wav", SOUND_EFFECT, 0.1f);
 	}
 
 	else if (m_eTileId == TILE_E)

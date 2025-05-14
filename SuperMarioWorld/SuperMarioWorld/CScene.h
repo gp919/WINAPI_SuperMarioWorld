@@ -29,6 +29,8 @@ private:
 	float		m_fGridX PURE;
 	float		m_fGridY PURE;
 
+	bool		m_bClear = false;
+
 	// 사운드 재생 관련 변수
 protected:
 	vector<wstring> m_vecBGM;

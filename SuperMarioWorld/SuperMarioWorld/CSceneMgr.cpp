@@ -27,9 +27,10 @@ void CSceneMgr::Initialize()
 
 int CSceneMgr::Update()
 {
-    if (m_pCurrentScene->Update())
+
+
+    if (m_pCurrentScene->Update() || Get_Clear())
     {
-        CSoundMgr::Get_Instance()->StopAll();
         switch (m_eCurScene)
         {
         case SC_LOGO:
@@ -40,8 +41,24 @@ int CSceneMgr::Update()
             break;
         case SC_STAGE_ONE:
         case SC_STAGE_TWO:
-            Change_Scene(SC_WORLD);  // 스테이지1,2 종료 후 월드맵으로
-            break;
+        // 클리어 상태이고 클리어 음악을 아직 재생하지 않았으면
+            if (Get_Clear() && !m_bMusic)
+            {
+                // 모든 이펙트 사운드와 BGM 중지
+                CSoundMgr::Get_Instance()->StopAll();
+                CSoundMgr::Get_Instance()->PlayBGM(L"47. Course Clear.mp3", 0.5f);
+                m_bMusic = true;
+            }
+        // 클리어 음악이 재생되었고, 음악이 끝났으면
+            else if (m_bMusic && !CSoundMgr::Get_Instance()->Is_ChannelPlaying(SOUND_BGM))
+            {
+                CSoundMgr::Get_Instance()->PlayBGM(L"48. Fade Out!.mp3", 0.5f);
+                // 상태 초기화
+                Set_Clear(false);
+                m_bMusic = false;
+                Change_Scene(SC_LOGO);
+            }
+        break;
         case SC_STAGE_FINAL:
             Change_Scene(SC_BOSS);   // 최종 스테이지 → 보스
             break;
@@ -174,6 +191,10 @@ void CSceneMgr::Change_Scene(SCENEID eID)
         m_pCurrentScene->Release();
         Safe_Delete(m_pCurrentScene);
     }
+
+    // 씬 변경 시 클리어 관련 상태 초기화
+    Set_Clear(false);
+    m_bMusic = false;
 
     switch (eID)
     {

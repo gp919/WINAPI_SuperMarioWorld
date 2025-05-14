@@ -312,9 +312,11 @@ void CItem::Catch_Item(CObject* _obj)
 			break;
 		case ITEM_CHECK:
 			CUiMgr::Get_Instance()->Set_Score(10000);
+			CSoundMgr::Get_Instance()->PlaySoundW(L"checkpoint.wav", SOUND_EFFECT, 0.1f);
 			break;
 		case ITEM_CLEAR:
 			CUiMgr::Get_Instance()->Set_Score(10000);
+			CSceneMgr::Get_Instance()->Set_Clear(true);
 			break;
 	}
 	m_bDead = true;

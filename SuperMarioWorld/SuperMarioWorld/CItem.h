@@ -6,6 +6,7 @@
 #include "CScrollMgr.h"
 #include "CUiMgr.h"
 #include "CSoundMgr.h"
+#include "CSceneMgr.h"
 
 
 class CItem : public CObject

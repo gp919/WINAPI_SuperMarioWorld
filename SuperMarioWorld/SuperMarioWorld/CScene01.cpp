@@ -13,6 +13,7 @@ CScene01::~CScene01()
 
 void CScene01::Initialize()
 {
+	CSoundMgr::Get_Instance()->StopAll();
 	m_vecBGM = { L"12. Overworld.mp3"};
 	m_iCurBGMIndex = 0;
 

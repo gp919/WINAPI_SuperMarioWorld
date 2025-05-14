@@ -1,8 +1,10 @@
-﻿  CMonster.cpp
+﻿  CObjectMgr.cpp
+  CSceneMgr.cpp
 C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CMonster.cpp'을(를) 컴파일하는 중)
+  (소스 파일 '/CSceneMgr.cpp'을(를) 컴파일하는 중)
   
 C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CMonster.cpp'을(를) 컴파일하는 중)
+  (소스 파일 '/CSceneMgr.cpp'을(를) 컴파일하는 중)
   
+  코드를 생성하고 있습니다...
   SuperMarioWorld.vcxproj -> C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\Debug\SuperMarioWorld.exe

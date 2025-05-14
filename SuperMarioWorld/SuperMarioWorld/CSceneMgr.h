@@ -40,6 +40,8 @@ public:
 	void Release();
 	void Key_Input();
 	void Load_Data();
+	void Set_Clear(bool _clear) { m_bClear = _clear; };
+	bool Get_Clear() { return m_bClear; };
 
 public:
 	void Change_Scene(SCENEID);
@@ -48,6 +50,8 @@ public:
 	static CSceneMgr* m_pInstance;
 
 private:
+	bool m_bClear = false;
+	bool m_bMusic = false;
 	CScene* m_pCurrentScene;
 	SCENEID m_eCurScene = SC_END;
 };

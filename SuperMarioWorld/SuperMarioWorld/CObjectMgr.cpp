@@ -140,8 +140,8 @@ void CObjectMgr::Sub_Object(float _fx, float _fy)
 		INFO* pInfo = (*iter)->Get_Info();
 
 		// 아이템도 크기에 따른 동적 범위
-		float fRangeX = max(24.0f, pInfo->fCX * 0.5f);
-		float fRangeY = max(24.0f, pInfo->fCY * 0.5f);
+		float fRangeX = max(36.0f, pInfo->fCX * 0.5f);
+		float fRangeY = max(36.0f, pInfo->fCY * 0.5f);
 
 		if (abs(pInfo->fX - _fx) < fRangeX && abs(pInfo->fY - _fy) < fRangeY)
 		{
