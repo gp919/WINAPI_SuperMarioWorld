@@ -1,5 +1,9 @@
 #pragma once
 #include "CScene.h"
+#include "CBmpMgr.h"
+#include "CScrollMgr.h"
+#include "CKeyMgr.h"
+
 class CMenu : public CScene
 {
 public:
@@ -21,6 +25,10 @@ private:
 	float		m_fWorldY PURE;
 	float		m_fGridX PURE;
 	float		m_fGridY PURE;
+
+private:
+	int m_iSelected;              // 현재 선택된 메뉴 인덱스 (0~3)
+	int m_iIndex;
 
 };
 

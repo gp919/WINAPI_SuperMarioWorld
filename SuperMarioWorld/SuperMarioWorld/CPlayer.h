@@ -27,7 +27,10 @@ public:
 	void On_Collision(EOBJECTID _id)override;
 
 public:
-	bool Is_Grab() { return m_bGrab; };
+	bool Is_Grab() 
+	{ 
+		return m_bGrab;
+	};
 
 private:
 	void Key_Input();

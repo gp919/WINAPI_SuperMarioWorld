@@ -33,5 +33,17 @@ private:
 protected:
 	vector<wstring> m_vecBGM;
 	int m_iCurBGMIndex = 0;
-	bool m_bLoopBGM = true;
+	bool m_bLoopBGM = false;
+
+	bool m_bLogo = true;
+	DWORD m_dwLogoStartTime = 0;
+	const DWORD m_dwLogoDuration = 1000;
+
+	// 페이드
+	bool m_bFadeIn = false; // 페이드인 시작 여부
+	DWORD m_dwFadeInStartTime;
+	const DWORD m_dwFadeInDuration = 500; // 0.5초
+	bool m_bFadeOut = false;        // 페이드아웃 시작 여부
+	DWORD m_dwFadeStartTime = 0;  // 페이드아웃 시작 시간
+	const DWORD m_dwFadeDuration = 500; // 페이드아웃 지속 시간 (.5초)
 };

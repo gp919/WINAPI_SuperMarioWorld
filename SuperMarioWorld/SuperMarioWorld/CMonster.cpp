@@ -58,6 +58,7 @@ CMonster::CMonster()
     , m_fFallSpeed(0.f)
     , m_dwDeadTime(0)
     , m_dwTime(0)
+    , m_pHolder(nullptr)
 {
     m_eId = OBJ_MONSTER;
     m_eDir = DIR_LEFT;
@@ -281,7 +282,7 @@ void CMonster::Render(HDC hDC)
         hMemDC,
         m_tFrame.iStart * TILECX,
         m_tFrame.iMotion * TILECX,
-        TILECX,
+        (int)(m_tInfo.fCX / SCALE_FACTOR),
         (int)(m_tInfo.fCY / SCALE_FACTOR),
         RGB(0, 255, 0));
 }

@@ -26,7 +26,12 @@ void CMainGame::Initialize()
 	// 배경
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/BackGround.bmp", L"BackGround");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Tutorial/Yoshi.bmp", L"Tutorial");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Menu/Menu.bmp", L"Menu");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Menu/Cursor.bmp", L"Cursor");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Menu/Logo_menu.bmp", L"BackLogo");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Logo/Logo.bmp", L"Logo");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Scene1.bmp", L"Scene1");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Logo_1.bmp", L"Logo1");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/back01.bmp", L"BackGround01");
 	
 	// 오브젝트

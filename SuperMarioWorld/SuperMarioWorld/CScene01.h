@@ -33,6 +33,8 @@ private:
 	float		m_fGridX PURE;
 	float		m_fGridY PURE;
 
+	
+
 
 };
 

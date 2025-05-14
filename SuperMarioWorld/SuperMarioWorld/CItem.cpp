@@ -64,7 +64,7 @@ void CItem::Initialize()
 		m_tFrame.iMotion = 4;
 		break;
 	case ITEM_CLEAR:
-		m_tInfo.fCX = TILECX * SCALE_FACTOR * 1.5f;
+		m_tInfo.fCX = TILECX * SCALE_FACTOR * 2.f;
 		m_tInfo.fCY = TILECY * SCALE_FACTOR * 0.5f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 0;
@@ -164,7 +164,7 @@ void CItem::Render(HDC hDC)
 	case ITEM_MUSH:  iCutY = 48; break;
 	case ITEM_LEV:   iCutY = 64; break;
 	case ITEM_CHECK: iCutY = 80; break;
-	case ITEM_CLEAR: iCutY = 96; break;
+	case ITEM_CLEAR: iCutY = 88; break;
 	}
 
 	GdiTransparentBlt(

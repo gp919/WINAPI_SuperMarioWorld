@@ -6,6 +6,13 @@ CSceneMgr* CSceneMgr::m_pInstance = nullptr;
 
 CSceneMgr::CSceneMgr() : m_pCurrentScene(nullptr)
 {
+    #ifdef _DEBUG
+        m_pCurrentScene = new CEditor;
+        m_eCurScene = SC_EDIT;
+    #else
+        m_pCurrentScene = new CLogo;
+        m_eCurScene = SC_LOGO;
+    #endif
 }
 
 CSceneMgr::~CSceneMgr()
@@ -15,18 +22,37 @@ CSceneMgr::~CSceneMgr()
 
 void CSceneMgr::Initialize()
 {	
-	#ifdef _DEBUG
-	m_pCurrentScene = new CEditor;
-	#else
-	m_pCurrentScene = new CScene01;
-	#endif
-	
 	m_pCurrentScene->Initialize();
 }
 
 int CSceneMgr::Update()
 {
-	m_pCurrentScene->Update();
+    if (m_pCurrentScene->Update())
+    {
+        CSoundMgr::Get_Instance()->StopAll();
+        switch (m_eCurScene)
+        {
+        case SC_LOGO:
+            Change_Scene(SC_MENU);
+            break;
+        case SC_MENU:
+            Change_Scene(SC_STAGE_ONE);
+            break;
+        case SC_STAGE_ONE:
+        case SC_STAGE_TWO:
+            Change_Scene(SC_WORLD);  // 스테이지1,2 종료 후 월드맵으로
+            break;
+        case SC_STAGE_FINAL:
+            Change_Scene(SC_BOSS);   // 최종 스테이지 → 보스
+            break;
+        case SC_BOSS:
+            Change_Scene(SC_END);    // 보스 클리어 후 엔딩
+            break;
+        case SC_END:
+            Change_Scene(SC_MENU);   // 엔딩 이후 메뉴로
+            break;
+        }
+    }
 	return NOEVENT;
 }
 
@@ -139,4 +165,47 @@ void CSceneMgr::Load_Data()
         CloseHandle(hFile);
         CObjectMgr::Get_Instance()->Initialize();
     }
+}
+
+void CSceneMgr::Change_Scene(SCENEID eID)
+{
+    if (m_pCurrentScene)
+    {
+        m_pCurrentScene->Release();
+        Safe_Delete(m_pCurrentScene);
+    }
+
+    switch (eID)
+    {
+    case SC_LOGO:
+        m_pCurrentScene = new CLogo;
+        break;
+    case SC_MENU:
+        m_pCurrentScene = new CMenu;
+        break;
+    case SC_EDIT:
+        m_pCurrentScene = new CEditor;
+        break;
+    case SC_WORLD:
+     //   m_pCurrentScene = new CWorld;
+        break;
+    case SC_STAGE_ONE:
+        m_pCurrentScene = new CScene01;
+        break;
+    case SC_STAGE_TWO:
+     //   m_pCurrentScene = new CScene02;
+        break;
+    case SC_STAGE_FINAL:
+     //   m_pCurrentScene = new CSceneFinal;
+        break;
+    case SC_BOSS:
+     //   m_pCurrentScene = new CBossStage;
+        break;
+    case SC_END:
+     //   m_pCurrentScene = new CEnding;
+        break;
+    }
+
+    m_eCurScene = eID;
+    m_pCurrentScene->Initialize();
 }

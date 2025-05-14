@@ -6,6 +6,8 @@
 #include "CTutorial.h"
 #include "CScene01.h"
 #include "CEditor.h"
+#include "CMenu.h"
+#include "CLogo.h"
 
 
 
@@ -47,4 +49,5 @@ public:
 
 private:
 	CScene* m_pCurrentScene;
+	SCENEID m_eCurScene = SC_END;
 };

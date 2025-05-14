@@ -35,6 +35,11 @@
 
 //#pragma comment(lib, "fmodL_vc.lib")     // 디버그 모드
 
+#pragma comment(lib, "Msimg32.lib")
+
+
+
+
 using namespace std;
 
 #ifdef _DEBUG
