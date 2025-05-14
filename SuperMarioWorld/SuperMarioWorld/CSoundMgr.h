@@ -37,6 +37,8 @@ public:
 	void StopAll();
 	void SetChannelVolume(CHANNELID eID, float fVolume);
 
+	bool Is_ChannelPlaying(CHANNELID);
+
 private:
 	void LoadSoundFile();
 

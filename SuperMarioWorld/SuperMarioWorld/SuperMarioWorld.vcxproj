@@ -139,7 +139,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CEditor.h" />
+    <ClInclude Include="CEffect.h" />
     <ClInclude Include="CItem.h" />
+    <ClInclude Include="CMenu.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CScene01.h" />
     <ClInclude Include="CScrollMgr.h" />
@@ -169,7 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CEditor.cpp" />
+    <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CItem.cpp" />
+    <ClCompile Include="CMenu.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CScene01.cpp" />
     <ClCompile Include="CScrollMgr.cpp" />

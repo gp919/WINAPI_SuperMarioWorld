@@ -421,12 +421,14 @@ void CMonster::Init_Frame()
 
 void CMonster::On_Stomped()
 {
+    
     // 이미 처리 중이면 return (중복 방지)
     static DWORD dwLastStompTime = 0;
     if (GetTickCount() - dwLastStompTime < 100)
         return;
     dwLastStompTime = GetTickCount();
 
+    CSoundMgr::Get_Instance()->PlaySoundW(L"stomp.wav", SOUND_EFFECT, 0.1f);
     if (Is_Koopa())
     {
         switch (m_eState)
@@ -519,6 +521,7 @@ void CMonster::On_Kicked(OBJECTDIR _dir)
     if (m_eState != MONSTER_SHELL_IDLE)
         return;
 
+    CSoundMgr::Get_Instance()->PlaySoundW(L"kick.wav", SOUND_EFFECT, 0.1f);
     Set_State(MONSTER_SHELL_MOVE);
     m_eDir = _dir;
     m_bMove = true;

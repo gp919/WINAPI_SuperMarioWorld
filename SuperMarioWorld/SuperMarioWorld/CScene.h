@@ -19,6 +19,8 @@ public:
 	
 	virtual pair<float, float> Get_MapSize()PURE;
 
+
+
 private:
 	float		m_fScrollX PURE;
 	float		m_fScrollY PURE;
@@ -26,4 +28,10 @@ private:
 	float		m_fWorldY PURE;
 	float		m_fGridX PURE;
 	float		m_fGridY PURE;
+
+	// 사운드 재생 관련 변수
+protected:
+	vector<wstring> m_vecBGM;
+	int m_iCurBGMIndex = 0;
+	bool m_bLoopBGM = true;
 };

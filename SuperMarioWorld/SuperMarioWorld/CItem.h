@@ -5,6 +5,7 @@
 #include "CUiMgr.h"
 #include "CScrollMgr.h"
 #include "CUiMgr.h"
+#include "CSoundMgr.h"
 
 
 class CItem : public CObject

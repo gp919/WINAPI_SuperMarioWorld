@@ -73,6 +73,12 @@
     <Filter Include="02. Object\Item">
       <UniqueIdentifier>{4fe85e2d-db10-4496-a326-4c0a978d3018}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\Menu">
+      <UniqueIdentifier>{e0337b5e-3d6d-4dc2-9942-d66c4a76b762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Object\Effect">
+      <UniqueIdentifier>{6a8a6f12-bf4b-49d5-8e3a-77e697ab51ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -159,6 +165,12 @@
     <ClInclude Include="CItem.h">
       <Filter>02. Object\Item</Filter>
     </ClInclude>
+    <ClInclude Include="CMenu.h">
+      <Filter>01. Scene\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect.h">
+      <Filter>02. Object\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -232,6 +244,12 @@
     </ClCompile>
     <ClCompile Include="CItem.cpp">
       <Filter>02. Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CMenu.cpp">
+      <Filter>01. Scene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect.cpp">
+      <Filter>02. Object\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -294,17 +294,21 @@ void CItem::Catch_Item(CObject* _obj)
 		case ITEM_COIN:
 			CUiMgr::Get_Instance()->Set_Score(100);
 			CUiMgr::Get_Instance()->Set_Coin(1);
+			CSoundMgr::Get_Instance()->PlaySoundW(L"coin.wav", SOUND_EFFECT, 0.1f);
 			break;
 		case ITEM_YOSHI:
 			CUiMgr::Get_Instance()->Set_Score(1000);
 			CUiMgr::Get_Instance()->Set_Coin(1);
+			CSoundMgr::Get_Instance()->PlaySoundW(L"coin-special.wav", SOUND_EFFECT, 0.1f);
 			break;
 		case ITEM_MUSH:
 			CUiMgr::Get_Instance()->Set_Score(500);
+			CSoundMgr::Get_Instance()->PlaySoundW(L"powerup.wav", SOUND_EFFECT, 0.1f);
 			break;
 		case ITEM_LEV:
 			CUiMgr::Get_Instance()->Set_Score(500);
 			CUiMgr::Get_Instance()->Set_Life(1);
+			CSoundMgr::Get_Instance()->PlaySoundW(L"1up.wav", SOUND_EFFECT, 0.1f);
 			break;
 		case ITEM_CHECK:
 			CUiMgr::Get_Instance()->Set_Score(10000);

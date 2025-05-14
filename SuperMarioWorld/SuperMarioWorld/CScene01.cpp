@@ -13,7 +13,9 @@ CScene01::~CScene01()
 
 void CScene01::Initialize()
 {
-	//CSoundMgr::Get_Instance()->PlayBGM(L"overworld.wav", 0.5f);
+	m_vecBGM = { L"12. Overworld.mp3"};
+	m_iCurBGMIndex = 0;
+	CSoundMgr::Get_Instance()->PlayBGM(m_vecBGM[m_iCurBGMIndex].c_str(), 0.5f);
 
 	CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
 	CScrollMgr::Get_Instance()->Set_ScrollY(0.f);
@@ -39,7 +41,21 @@ void CScene01::Initialize()
 int CScene01::Update()
 {
 	CObjectMgr::Get_Instance()->Update();
-	return 0;
+	// BGM 순차 재생
+	if (!CSoundMgr::Get_Instance()->Is_ChannelPlaying(SOUND_BGM))
+	{
+		++m_iCurBGMIndex;
+		if (m_iCurBGMIndex >= m_vecBGM.size())
+		{
+			if (m_bLoopBGM)
+				m_iCurBGMIndex = 0;
+			else
+				return NOEVENT; // 끝
+		}
+
+		CSoundMgr::Get_Instance()->PlayBGM(m_vecBGM[m_iCurBGMIndex].c_str(), 0.5f);
+	}
+	return NOEVENT;
 }
 
 void CScene01::Late_Update()
@@ -100,3 +116,4 @@ void CScene01::Release()
 	CLineMgr::Get_Instance()->Destroy_Instance();
 	CObjectMgr::Get_Instance()->Destroy_Instance();
 }
+

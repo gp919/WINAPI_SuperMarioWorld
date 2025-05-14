@@ -59,20 +59,6 @@ void CMainGame::Initialize()
 	CSceneMgr::Get_Instance()->Initialize();
 	
 	CBmpMgr::Get_Instance()->PreWarm(hMemDC);
-
-
-	//#ifdef _DEBUG
-
-	//	if (::AllocConsole() == TRUE)
-	//	{
-	//		FILE* nfp[3];
-	//		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
-	//		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
-	//		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
-	//		std::ios::sync_with_stdio();
-	//	}
-
-	//#endif // _DEBUG
 }
 
 void CMainGame::Update()
@@ -112,11 +98,6 @@ void CMainGame::Render()
 
 void CMainGame::Release()
 {
-	//#ifdef _DEBUG
-	//
-	//	FreeConsole();
-	//
-	//#endif // _DEBUG
 	CSoundMgr::Destroy_Instance();
 	CSceneMgr::Destroy_Instance();
 	CBmpMgr::Destroy_Instance();

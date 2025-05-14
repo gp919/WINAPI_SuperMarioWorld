@@ -23,6 +23,8 @@ public:
 	void Release()override;
 	pair<float, float> Get_MapSize() { return { 5120.f, 432.f }; };
 
+
+
 private:
 	float		m_fScrollX PURE;
 	float		m_fScrollY PURE;
@@ -30,5 +32,7 @@ private:
 	float		m_fWorldY PURE;
 	float		m_fGridX PURE;
 	float		m_fGridY PURE;
+
+
 };
 

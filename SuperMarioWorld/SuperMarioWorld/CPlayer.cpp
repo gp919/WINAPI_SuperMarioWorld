@@ -197,6 +197,12 @@ void CPlayer::On_Collision(EOBJECTID _id)
 
 			if (m_fJumpSpeed < 0.f)
 				m_fJumpSpeed *= -1.f;
+
+			if ((pTarget->Get_Info()->iType) == TILE_EMPTY)
+			{
+				CSoundMgr::Get_Instance()->PlaySoundW(L"bump.wav", SOUND_EFFECT, 0.1f);
+			}
+				
 		}
 	}
 	break;
@@ -265,6 +271,7 @@ void CPlayer::On_Collision(EOBJECTID _id)
 			m_fJumpTime = 0.f;
 			m_fJumpSpeed = -BOUNCE_SPEED;
 			pMonster->On_Stomped();
+
 		}
 		else
 		{
@@ -400,6 +407,7 @@ void CPlayer::Key_Input()
 		m_fJumpTime = 0.1f;
 		m_fJumpSpeed = -13.63f;
 		m_eCurState = SPIN_JUMP;
+		CSoundMgr::Get_Instance()->PlaySoundW(L"spin.wav", SOUND_EFFECT, 0.1f);
 	}
 
 	// 잡기 키 (예: X키)
