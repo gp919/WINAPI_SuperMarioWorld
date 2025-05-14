@@ -162,79 +162,131 @@ void CPlayer::Release()
 void CPlayer::On_Collision(EOBJECTID _id)
 {
 	if (m_bDead) return;
+
+	// 충돌 전 위치 저장
+	float fOriginalX = m_tInfo.fX;
+	float fOriginalY = m_tInfo.fY;
+
 	CObject* pTarget;
+
 	switch (_id)
 	{
 		// 1. 타일
-		case OBJ_TILE:
-				pTarget = CCollisionMgr::Collision_RectEx(
-				CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER),
-				CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_TILE)
-				);
-				if (pTarget && Get_Col() == COL_BOTTOM)
-				{
-					m_bJump = false;
-					m_bSpin = false;
-					m_fJumpSpeed = 0.f;
-					m_fJumpTime = 0.f;
-					m_eCurState = IDLE;
+	case OBJ_TILE:
+	{
+		pTarget = CCollisionMgr::Collision_RectEx(
+			CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER),
+			CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_TILE)
+		);
 
-					m_tInfo.fY = pTarget->Get_Rect()->top - m_tInfo.fCY * 0.5f;
-				}
-				// 타일을 아래서 때린 경우
-				else if (pTarget && Get_Col() == COL_TOP)
-				{
-					// 타일 충돌 처리
-					if (m_tInfo.fX <= pTarget->Get_Info()->fX)
-						static_cast<CTile*>(pTarget)->On_Hit(DIR_RIGHT);
-					else
-						static_cast<CTile*>(pTarget)->On_Hit(DIR_LEFT);
-					
-					// 플레이어 움직임 변경
-					if (m_fJumpSpeed < 0.f)
-						m_fJumpSpeed *= -1.f;
-				}
-			break;
-		// 2. 몬스터(보스패턴)
-		case OBJ_MONSTER:
-				pTarget = CCollisionMgr::Collision_RectEx(
-				CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER),
-				CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER)
-			);
-			if (!pTarget) break;
-			// 위에서 밟은 경우
-			if (Get_Col() == COL_BOTTOM)
-			{
-				// 플레이어 반동 점프
-				m_bJump = true;
-				m_fJumpTime = 0.f;
-				m_fJumpSpeed = -BOUNCE_SPEED;  // 튕겨오르는 속도 상수
-
-				// 몬스터 스톰프 처리
-				static_cast<CMonster*>(pTarget)->On_Stomped();
-			}
+		if (pTarget && Get_Col() == COL_BOTTOM)
+		{
+			m_bJump = false;
+			m_bSpin = false;
+			m_fJumpSpeed = 0.f;
+			m_fJumpTime = 0.f;
+			m_eCurState = IDLE;
+			m_tInfo.fY = pTarget->Get_Rect()->top - m_tInfo.fCY * 0.5f;
+		}
+		else if (pTarget && Get_Col() == COL_TOP)
+		{
+			if (m_tInfo.fX <= pTarget->Get_Info()->fX)
+				static_cast<CTile*>(pTarget)->On_Hit(DIR_RIGHT);
 			else
-			{
-				m_bDead = true;
-			}
+				static_cast<CTile*>(pTarget)->On_Hit(DIR_LEFT);
 
-			break;
-
-		case OBJ_ITEM:
-			pTarget = CCollisionMgr::Collision_RectEx(
-				CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER),
-				CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_ITEM)
-			);
-			if (!pTarget) break;
-			// 아이템과 충돌한 경우
-			else
-			{
-				static_cast<CItem*>(pTarget)->Catch_Item(pTarget);
-			}
-			break;
+			if (m_fJumpSpeed < 0.f)
+				m_fJumpSpeed *= -1.f;
+		}
 	}
+	break;
 
-	// 4. 지형(용암,낭떠러지)
+	// 2. 몬스터
+	case OBJ_MONSTER:
+	{
+		pTarget = CCollisionMgr::Collision_RectEx(
+			CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER),
+			CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER)
+		);
+
+		if (!pTarget) break;
+
+		CMonster* pMonster = static_cast<CMonster*>(pTarget);
+
+		// 이미 이 플레이어가 잡고 있는 껍질이면 위치 복원
+		if (pMonster->Get_Holder() == this)
+		{
+			m_tInfo.fX = fOriginalX;
+			m_tInfo.fY = fOriginalY;
+			Update_Rect();
+			break;
+		}
+
+		MONSTER_STATE monsterState = pMonster->Get_State();
+
+		// 움직이는 껍질과의 충돌은 무시
+		if (monsterState == MONSTER_SHELL_MOVE)
+		{
+			break;
+		}
+
+		// 정지된 껍질인 경우
+		if (monsterState == MONSTER_SHELL_IDLE)
+		{
+			if (m_bGrab)
+			{
+				if (!pMonster->Is_Held())
+				{
+					pMonster->Set_Holder(this);
+				}
+				break;
+			}
+			else
+			{
+				if (Get_Col() == COL_BOTTOM)
+				{
+					m_bJump = true;
+					m_fJumpTime = 0.f;
+					m_fJumpSpeed = -BOUNCE_SPEED;
+					pMonster->On_Stomped();
+				}
+				else
+				{
+					pMonster->On_Kicked(m_eDir);
+				}
+			}
+			break;
+		}
+
+		// 일반 몬스터 처리
+		if (Get_Col() == COL_BOTTOM)
+		{
+			m_bJump = true;
+			m_fJumpTime = 0.f;
+			m_fJumpSpeed = -BOUNCE_SPEED;
+			pMonster->On_Stomped();
+		}
+		else
+		{
+			m_bDead = true;
+		}
+	}
+	break;
+
+	// 3. 아이템
+	case OBJ_ITEM:
+	{
+		pTarget = CCollisionMgr::Collision_RectEx(
+			CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER),
+			CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_ITEM)
+		);
+
+		if (!pTarget) break;
+
+		static_cast<CItem*>(pTarget)->Catch_Item(pTarget);
+	}
+	break;
+	}
 }
 
 void CPlayer::Key_Input()
@@ -348,6 +400,24 @@ void CPlayer::Key_Input()
 		m_fJumpTime = 0.1f;
 		m_fJumpSpeed = -13.63f;
 		m_eCurState = SPIN_JUMP;
+	}
+
+	// 잡기 키 (예: X키)
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_GRAB))
+	{
+		m_bGrab = true;
+		// 현재 상태를 HOLD 상태로 전환
+		Update_Hold(true);
+	}
+	else
+	{
+		// 잡기 키를 놓았을 때
+		if (CKeyMgr::Get_Instance()->Key_Up(VK_GRAB))
+		{
+			m_bGrab = false;
+			// 일반 상태로 복귀
+			Update_Hold(false);
+		}
 	}
 
 	// 방향키가 아무것도 눌리지 않고 공중도 아닐 때 → IDLE
@@ -520,4 +590,57 @@ void CPlayer::Offset()
 	//ScrollMgr::Get_Instance()->Set_ScrollY(fDeltaY);
 
 	CScrollMgr::Get_Instance()->Scroll_Lock();
+}
+
+void CPlayer::Update_Hold(bool _hold)
+{
+	if (_hold)  // 잡기 상태로 전환
+	{
+		switch (m_eCurState)
+		{
+		case IDLE:
+			m_eCurState = HOLD_IDLE;
+			break;
+		case WALK:
+			m_eCurState = HOLD_WALK;
+			break;
+		case RUN:
+			m_eCurState = HOLD_RUN;
+			break;
+		case JUMP:
+		case FALL:
+			m_eCurState = HOLD_JUMP;
+			break;
+		case DUCK:
+			m_eCurState = HOLD_DUCK;
+			break;
+		case LOOK_UP:
+			m_eCurState = HOLD_LOOKUP;
+			break;
+		}
+	}
+	else  // 일반 상태로 복귀
+	{
+		switch (m_eCurState)
+		{
+		case HOLD_IDLE:
+			m_eCurState = IDLE;
+			break;
+		case HOLD_WALK:
+			m_eCurState = WALK;
+			break;
+		case HOLD_RUN:
+			m_eCurState = RUN;
+			break;
+		case HOLD_JUMP:
+			m_eCurState = m_bJump ? JUMP : FALL;
+			break;
+		case HOLD_DUCK:
+			m_eCurState = DUCK;
+			break;
+		case HOLD_LOOKUP:
+			m_eCurState = LOOK_UP;
+			break;
+		}
+	}
 }

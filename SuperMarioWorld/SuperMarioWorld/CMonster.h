@@ -1,5 +1,6 @@
 #pragma once
 #include "CObject.h"
+#include "CPlayer.h"
 
 enum MONSTER_STATE
 {
@@ -37,17 +38,27 @@ public:
 
     MONSTER_STATE Get_State() const { return m_eState; }
     MONSTERID Get_MonsterID() const { return m_eMonID; }
+    CObject* Get_Holder() const { return m_pHolder; }
 
 public:
     void On_Stomped();
+    void Set_Holder(CObject* pHolder) { m_pHolder = pHolder; }
+    bool Is_Held() const { return m_pHolder != nullptr; }
+    void Release_From_Holder();
+    void On_Kicked(OBJECTDIR);
+
 
 private:
     void Update_AI();
+    void Update_ImageKey();
     void Init_Frame();
     void Apply_Gravity();
     bool Is_Koopa() const { return m_eMonID == MON_GREENKOOPA || m_eMonID == MON_REDKOOPA; }
+    bool In_Screen();
+
 
 private:
+    CObject* m_pHolder;  // 들고 있는 플레이어
     MONSTERID     m_eMonID;
     MONSTER_STATE m_eState;
     bool          m_bMove;
@@ -57,5 +68,5 @@ private:
 
     // Static 데이터
     static const map<pair<MONSTERID, MONSTER_STATE>, FRAME> m_mapFrame;
-    static const map<MONSTERID, LPCTSTR> m_mapImage;
+    static const map<pair<MONSTERID, OBJECTDIR>, const TCHAR*> m_mapImage;
 };

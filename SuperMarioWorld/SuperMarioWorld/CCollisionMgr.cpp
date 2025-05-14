@@ -70,6 +70,7 @@ CObject* CCollisionMgr::Collision_RectEx(list<CObject*>& _Dst, list<CObject*>& _
 		for (auto& Src : _Src)
 		{
 			if (Src->Get_Dead()) continue;	// 죽은 객체 충돌 무시
+			if (Dst == Src) continue;	// 자기 자신 충돌 무시
 			if (Check_Rect(Dst, Src, &fWidth, &fHeight))
 			{
 
@@ -118,6 +119,7 @@ CObject* CCollisionMgr::Collision_RectEx(list<CObject*>& _Dst, list<CObject*>& _
 
 bool CCollisionMgr::Check_Rect(CObject* pDst, CObject* pSrc, float* pX, float* pY)
 {
+
 	float	fDistanceX = fabsf(pDst->Get_Info()->fX - pSrc->Get_Info()->fX);
 	float	fDistanceY = fabsf(pDst->Get_Info()->fY - pSrc->Get_Info()->fY);
 

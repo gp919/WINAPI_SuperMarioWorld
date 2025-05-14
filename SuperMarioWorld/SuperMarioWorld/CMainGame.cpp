@@ -45,10 +45,14 @@ void CMainGame::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/Number.bmp", L"Number");
 
 	// 몬스터 목록
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Goomba.bmp", L"Goomba");
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Green_Koopa.bmp", L"GKoopa");
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Red_Koopa.bmp", L"RKoopa");
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Monty_Mole.bmp", L"Mole");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Goomba_L.bmp", L"Goomba_LEFT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Green_Koopa_L.bmp", L"GKoopa_LEFT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Red_Koopa_L.bmp", L"RKoopa_LEFT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Monty_Mole_L.bmp", L"Mole_LEFT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Goomba_R.bmp", L"Goomba_RIGHT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Green_Koopa_R.bmp", L"GKoopa_RIGHT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Red_Koopa_R.bmp", L"RKoopa_RIGHT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Monty_Mole_R.bmp", L"Mole_RIGHT");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Piranha.bmp", L"Piranha");
 	
 	CLineMgr::Get_Instance()->Initialize();

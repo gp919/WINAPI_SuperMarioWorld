@@ -27,7 +27,7 @@ public:
 	void On_Collision(EOBJECTID _id)override;
 
 public:
-
+	bool Is_Grab() { return m_bGrab; };
 
 private:
 	void Key_Input();
@@ -35,12 +35,14 @@ private:
 	void Update_Gravity();
 	void Update_Speed();
 	void Offset();
+	void Update_Hold(bool);
 
 private:
 	PLAYERSTATE     m_eCurState;
 	PLAYERSTATE     m_ePreState;
 	bool m_bSpin = false;
 	bool m_bDuck = false;
+	bool m_bGrab = false;
 	float fOffsetBoxLeft;
 	float fOffsetBoxRight;
 

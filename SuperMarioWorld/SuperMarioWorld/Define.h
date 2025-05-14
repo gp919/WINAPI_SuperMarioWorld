@@ -38,6 +38,7 @@
 #define VK_JUMP	'X'
 #define VK_SPIN VK_LSHIFT
 #define VK_RUN 'C'
+#define VK_GRAB 'Z'
 
 
 #define			NOEVENT		0

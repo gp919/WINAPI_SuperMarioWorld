@@ -96,12 +96,16 @@ void CObjectMgr::AfterInit(CObject* _obj)
 
 void CObjectMgr::Sub_Object(float _fx, float _fy)
 {
-	
+	// 몬스터 삭제
 	for (auto iter = m_listObject[OBJ_MONSTER].begin(); iter != m_listObject[OBJ_MONSTER].end(); )
 	{
 		INFO* pInfo = (*iter)->Get_Info();
-		// 지정된 좌표 근처에 있는 몬스터 찾기
-		if (abs(pInfo->fX - _fx) < 24.0f && abs(pInfo->fY - _fy) < 24.0f)
+
+		// 몬스터 크기에 따른 동적 범위 설정
+		float fRangeX = max(24.0f, pInfo->fCX * 0.5f);
+		float fRangeY = max(24.0f, pInfo->fCY * 0.5f);
+
+		if (abs(pInfo->fX - _fx) < fRangeX && abs(pInfo->fY - _fy) < fRangeY)
 		{
 			Safe_Delete<CObject*>(*iter);
 			iter = m_listObject[OBJ_MONSTER].erase(iter);
@@ -112,10 +116,11 @@ void CObjectMgr::Sub_Object(float _fx, float _fy)
 		}
 	}
 
+	// 타일 삭제 (크기 고정)
 	for (auto iter = m_listObject[OBJ_TILE].begin(); iter != m_listObject[OBJ_TILE].end(); )
 	{
 		INFO* pInfo = (*iter)->Get_Info();
-		// 지정된 좌표 근처에 있는 타일 찾기
+
 		if (abs(pInfo->fX - _fx) < 24.0f && abs(pInfo->fY - _fy) < 24.0f)
 		{
 			Safe_Delete<CObject*>(*iter);
@@ -127,11 +132,16 @@ void CObjectMgr::Sub_Object(float _fx, float _fy)
 		}
 	}
 
+	// 아이템 삭제 (크기에 따른 범위)
 	for (auto iter = m_listObject[OBJ_ITEM].begin(); iter != m_listObject[OBJ_ITEM].end(); )
 	{
 		INFO* pInfo = (*iter)->Get_Info();
-		// 지정된 좌표 근처에 있는 오브젝트 찾기
-		if (abs(pInfo->fX - _fx) < 24.0f && abs(pInfo->fY - _fy) < 24.0f)
+
+		// 아이템도 크기에 따른 동적 범위
+		float fRangeX = max(24.0f, pInfo->fCX * 0.5f);
+		float fRangeY = max(24.0f, pInfo->fCY * 0.5f);
+
+		if (abs(pInfo->fX - _fx) < fRangeX && abs(pInfo->fY - _fy) < fRangeY)
 		{
 			Safe_Delete<CObject*>(*iter);
 			iter = m_listObject[OBJ_ITEM].erase(iter);
@@ -141,7 +151,6 @@ void CObjectMgr::Sub_Object(float _fx, float _fy)
 			++iter;
 		}
 	}
-
 }
 
 void CObjectMgr::Delete_Object(EOBJECTID _id)
