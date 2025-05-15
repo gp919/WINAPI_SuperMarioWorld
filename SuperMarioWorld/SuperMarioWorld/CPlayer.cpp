@@ -40,6 +40,11 @@ void CPlayer::Initialize()
 
 int CPlayer::Update()
 {
+	DWORD dwCurrent = GetTickCount();
+	// 무적 상태 해제
+	if (m_bInvi && (dwCurrent - m_dwHitTime >= m_fCoolTime * 1000.f))
+		m_bInvi = false;
+
 	if (m_bDead)
 	{
 		if (m_eCurState != DEATH)
@@ -151,8 +156,8 @@ void CPlayer::Late_Update()
 
 void CPlayer::Render(HDC hDC)
 {
-	//// 무적시 깜빡임 
-	//if (m_bInvi && (GetTickCount() % 2))	return;
+	// 무적시 깜빡임 
+	if (m_bInvi && (GetTickCount() % 2))	return;
 
 
 	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
@@ -291,6 +296,8 @@ void CPlayer::On_Collision(EOBJECTID _id)
 			break;
 		}
 
+		if (m_bInvi) break;
+
 		// 일반 몬스터 처리
 		if (Get_Col() == COL_BOTTOM)
 		{
@@ -303,11 +310,14 @@ void CPlayer::On_Collision(EOBJECTID _id)
 		else
 		{
 				if (m_eMarioState == MARIO_FLOWER)
-					m_eMarioState = MARIO_BIG;
+					Change_Mario(MARIO_BIG);
 				else if (m_eMarioState == MARIO_BIG)
-					m_eMarioState = MARIO_SMALL;
+					Change_Mario(MARIO_SMALL);
 				else
 					m_bDead = true;
+
+				m_bInvi = true;
+				m_dwHitTime = GetTickCount();
 		}
 	}
 	break;
@@ -781,4 +791,5 @@ void CPlayer::Change_Mario(MARIOSTATE _state)
 		break;
 		
 	}
+	CObject::Update_Rect();
 }

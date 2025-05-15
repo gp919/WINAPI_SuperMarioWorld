@@ -50,9 +50,12 @@ private:
 	bool m_bSpin = false;
 	bool m_bDuck = false;
 	bool m_bGrab = false;
-	bool m_bInvi = false;
 	DWORD m_dwFadeStartTime = 0.f;
 	float fOffsetBoxLeft;
 	float fOffsetBoxRight;
+
+	bool m_bInvi = false;               // 무적 상태 여부
+	DWORD m_dwHitTime = 0;             // 마지막 피격 시간
+	float m_fCoolTime = 1.5f;          // 무적 지속 시간 (1.5초)
 
 };
