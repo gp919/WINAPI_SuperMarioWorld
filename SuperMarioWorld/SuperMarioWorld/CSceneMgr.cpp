@@ -27,8 +27,6 @@ void CSceneMgr::Initialize()
 
 int CSceneMgr::Update()
 {
-
-
     if (m_pCurrentScene->Update() || Get_Clear())
     {
         switch (m_eCurScene)

@@ -82,6 +82,9 @@
     <Filter Include="01. Scene\Logo">
       <UniqueIdentifier>{78e3ab17-c108-41b4-ac4d-aaa95512787d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\World">
+      <UniqueIdentifier>{1335a4c5-6f51-49ad-908a-b5f00e1b17d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -177,6 +180,9 @@
     <ClInclude Include="CLogo.h">
       <Filter>01. Scene\Logo</Filter>
     </ClInclude>
+    <ClInclude Include="CWorld.h">
+      <Filter>01. Scene\World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -259,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="CLogo.cpp">
       <Filter>01. Scene\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="CWorld.cpp">
+      <Filter>01. Scene\World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

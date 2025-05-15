@@ -162,6 +162,7 @@
     <ClInclude Include="CSceneMgr.h" />
     <ClInclude Include="CTutorial.h" />
     <ClInclude Include="CUiMgr.h" />
+    <ClInclude Include="CWorld.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="CSceneMgr.cpp" />
     <ClCompile Include="CTutorial.cpp" />
     <ClCompile Include="CUiMgr.cpp" />
+    <ClCompile Include="CWorld.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

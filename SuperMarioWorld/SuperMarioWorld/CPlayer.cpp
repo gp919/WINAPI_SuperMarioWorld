@@ -64,36 +64,35 @@ int CPlayer::Update()
 void CPlayer::Late_Update()
 {
 
-	Change_State();
-	CObject::Move_Frame();
-	CObject::Update_Rect();
-	Offset();
-	// 여기서 파워업때 무적설정 : 타이머 2초
-	if (m_eCurState == POWERUP)
+	// 무적 상태는 상태 변경 전에 먼저 체크
+	if (m_eCurState == INVINCIBLE)
+	{
+		if (GetTickCount() - m_dwFadeStartTime >= 2000)
+		{
+			m_bInvi = false;
+			m_eCurState = IDLE;
+		}
+	}
+	// 파워업/파워다운 시작도 상태 변경 전에 처리
+	else if (m_eCurState == POWERUP)
 	{
 		m_dwFadeStartTime = GetTickCount();
 		CSoundMgr::Get_Instance()->PlaySound(L"powerup.wav", SOUND_POWER, 0.5f);
-		m_ePreState = m_eCurState;
 		m_eCurState = INVINCIBLE;
+		m_bInvi = true;
 	}
 	else if (m_eCurState == POWERDOWN)
 	{
 		m_dwFadeStartTime = GetTickCount();
 		CSoundMgr::Get_Instance()->PlaySound(L"pipe.wav", SOUND_POWER, 0.5f);
-		m_ePreState = m_eCurState;
 		m_eCurState = INVINCIBLE;
+		m_bInvi = true;
 	}
 
-	if (m_eCurState == INVINCIBLE)
-	{
-		//CObject::Move_Frame();
-		if (GetTickCount() - m_dwFadeStartTime >= 2000)
-		{
-			m_bInvi = false;
-			m_ePreState = m_eCurState;
-			m_eCurState = IDLE;
-		}
-	}
+	Change_State();
+	CObject::Move_Frame();
+	CObject::Update_Rect();
+	Offset();
 		
 
 	if (m_tInfo.fY > 1700.f * SCALE_FACTOR)
