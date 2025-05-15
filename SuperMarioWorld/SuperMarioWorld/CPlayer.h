@@ -8,7 +8,7 @@
 #include "CLineMgr.h"
 #include "CMonster.h"
 #include "CItem.h"
-
+#include "CBullet.h"
 
 class CPlayer : public CObject
 {
@@ -31,6 +31,8 @@ public:
 	{ 
 		return m_bGrab;
 	};
+
+	MARIOSTATE Get_Mario() { return m_eMarioState; };
 
 private:
 	void Key_Input();

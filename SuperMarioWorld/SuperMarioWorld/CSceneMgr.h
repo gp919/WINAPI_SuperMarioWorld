@@ -8,6 +8,7 @@
 #include "CEditor.h"
 #include "CMenu.h"
 #include "CLogo.h"
+#include "CWorld.h"
 
 
 

@@ -1,3 +1,4 @@
+
 #include "pch.h"
 #include "CMonster.h"
 #include "CBmpMgr.h"
@@ -181,6 +182,9 @@ int CMonster::Update()
     {
         if (GetTickCount() > m_dwDeadTime + 500)
         {
+            CObject* pEffect = new CEffect(m_tInfo.fX, m_tInfo.fY, EFFECT_DEATH_STAR);
+            CObjectMgr::Get_Instance()->Add_Object(OBJ_EFFECT, pEffect);
+
             CUiMgr::Get_Instance()->Set_Score(100);
             return DEAD;
         }
@@ -389,6 +393,12 @@ void CMonster::On_Collision(EOBJECTID _id)
                 // 움직이는 껍질 vs 일반 몬스터
                 if (m_eState == MONSTER_SHELL_MOVE && pOtherMonster->Get_State() != MONSTER_SHELL_MOVE)
                 {
+                    // 충돌한 몬스터가 죽을 때 이펙트 생성
+                    CObject* pEffect = new CEffect(pOtherMonster->Get_Info()->fX,
+                        pOtherMonster->Get_Info()->fY,
+                        EFFECT_DEATH_STAR);
+                    CObjectMgr::Get_Instance()->Add_Object(OBJ_EFFECT, pEffect);
+
                     pOtherMonster->Set_Dead();
                     continue;
                 }

@@ -69,4 +69,7 @@ protected:
 
 	bool m_bTileCol=false;
 	COLLISIONDIR m_eColDir=COL_NONE;
+
+	float m_fCoolTime = 0.3f;
+	DWORD m_dwStart = 0.f;
 };

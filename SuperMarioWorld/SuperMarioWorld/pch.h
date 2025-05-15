@@ -15,6 +15,7 @@
 #include <list>
 #include <map>
 #include <vector>
+#include <queue>
 #include <algorithm>
 
 #include <string>

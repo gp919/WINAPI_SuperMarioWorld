@@ -63,30 +63,21 @@ int CPlayer::Update()
 
 void CPlayer::Late_Update()
 {
-
-	// 무적 상태는 상태 변경 전에 먼저 체크
-	if (m_eCurState == INVINCIBLE)
-	{
-		if (GetTickCount() - m_dwFadeStartTime >= 2000)
-		{
-			m_bInvi = false;
-			m_eCurState = IDLE;
-		}
-	}
 	// 파워업/파워다운 시작도 상태 변경 전에 처리
-	else if (m_eCurState == POWERUP)
+	if (m_eCurState == POWERUP)
 	{
 		m_dwFadeStartTime = GetTickCount();
 		CSoundMgr::Get_Instance()->PlaySound(L"powerup.wav", SOUND_POWER, 0.5f);
-		m_eCurState = INVINCIBLE;
-		m_bInvi = true;
+		m_ePreState = m_eCurState;
+		m_eCurState = IDLE;
 	}
 	else if (m_eCurState == POWERDOWN)
 	{
 		m_dwFadeStartTime = GetTickCount();
 		CSoundMgr::Get_Instance()->PlaySound(L"pipe.wav", SOUND_POWER, 0.5f);
-		m_eCurState = INVINCIBLE;
-		m_bInvi = true;
+		m_ePreState = m_eCurState;
+		m_eCurState = IDLE;
+
 	}
 
 	Change_State();
@@ -160,8 +151,8 @@ void CPlayer::Late_Update()
 
 void CPlayer::Render(HDC hDC)
 {
-	// 무적시 깜빡임 
-	if (m_bInvi && (GetTickCount() % 2))	return;
+	//// 무적시 깜빡임 
+	//if (m_bInvi && (GetTickCount() % 2))	return;
 
 
 	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
@@ -311,25 +302,12 @@ void CPlayer::On_Collision(EOBJECTID _id)
 		}
 		else
 		{
-			if(!m_bInvi)
-			{
-				if (m_eMarioState == MARIO_SMALL)
-					m_bDead = true;
+				if (m_eMarioState == MARIO_FLOWER)
+					m_eMarioState = MARIO_BIG;
 				else if (m_eMarioState == MARIO_BIG)
-				{
-					Change_Mario(MARIO_SMALL);
-					m_ePreState = m_eCurState;
-					m_eCurState = POWERDOWN;
-					m_bInvi = true;
-				}
+					m_eMarioState = MARIO_SMALL;
 				else
-				{
-					Change_Mario(MARIO_BIG);
-					m_ePreState = m_eCurState;
-					m_eCurState = POWERDOWN;
-					m_bInvi = true;
-				}
-			}
+					m_bDead = true;
 		}
 	}
 	break;
@@ -354,6 +332,12 @@ void CPlayer::On_Collision(EOBJECTID _id)
 				m_eCurState = POWERUP;
 				Change_Mario(MARIO_BIG);
 			}
+		}
+		else if (pItem->Get_Info()->iType == ITEM_FLOWER)
+		{
+				m_ePreState = m_eCurState;
+				m_eCurState = POWERUP;
+				Change_Mario(MARIO_FLOWER);
 		}
 	}
 	break;
@@ -492,6 +476,33 @@ void CPlayer::Key_Input()
 		}
 	}
 
+	if (CKeyMgr::Get_Instance()->Key_Down(VK_FIRE))
+	{
+		if(m_eMarioState==MARIO_FLOWER)
+		{
+			// 최대 파이어볼 개수 체크 (일반적으로 2개)
+			list<CObject*>& bulletList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_BULLET);
+			if (bulletList.size() < 2)  // 화면에 2개 미만일 때만 발사
+			{
+				// 파이어볼 위치 조정 (플레이어보다 약간 앞쪽)
+				float fBulletX = m_tInfo.fX;
+				float fBulletY = m_tInfo.fY - 10.f;  // 플레이어 중심보다 약간 위
+
+				// 방향에 따른 오프셋
+				if (m_eDir == DIR_LEFT)
+					fBulletX -= 15.f;
+				else
+					fBulletX += 15.f;
+
+				CBullet* pBullet = new CBullet(fBulletX, fBulletY, m_eDir);
+				CObjectMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBullet);
+
+				// 발사 사운드 재생
+				CSoundMgr::Get_Instance()->PlaySound(L"Fire.wav", SOUND_EFFECT, 0.5f);
+			}
+		}
+	}
+
 	// 방향키가 아무것도 눌리지 않고 공중도 아닐 때 → IDLE
 	if (!bPressed && !m_bJump && m_eCurState != IDLE && m_eCurState != DEATH && m_eCurState != LOOK_UP && m_eCurState != DUCK)
 	{
@@ -518,9 +529,9 @@ void CPlayer::Change_State()
 		break;
 	case MARIO_FLOWER:
 		if (m_eDir == DIR_RIGHT)
-			m_pFrameKey = L"SPlayer_RIGHT";
+			m_pFrameKey = L"FPlayer_RIGHT";
 		else if (m_eDir == DIR_LEFT)
-			m_pFrameKey = L"SPlayer_LEFT";
+			m_pFrameKey = L"FPlayer_LEFT";
 		break;
 	}
 	
@@ -618,12 +629,10 @@ void CPlayer::Change_State()
 
 		case POWERUP:
 		case POWERDOWN:
-		case INVINCIBLE:
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 2;
 			m_tFrame.iMotion = 19;
 			m_tFrame.dwSpeed = 666;
-			m_bInvi = true;
 			break;
 		case DEATH:
 			m_tFrame.iStart = 0;

@@ -30,6 +30,9 @@ void CMainGame::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Menu/Cursor.bmp", L"Cursor");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Menu/Logo_menu.bmp", L"BackLogo");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Logo/Logo.bmp", L"Logo");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/World/World1.bmp", L"World1");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/World/world2.bmp", L"World2");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/World/worldplayer.bmp", L"WorldPlayer");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Scene1.bmp", L"Scene1");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Logo_1.bmp", L"Logo1");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/back01.bmp", L"BackGround01");
@@ -44,6 +47,10 @@ void CMainGame::Initialize()
 	// ½´ÆÛ¸¶¸®¿À ÀÌ¹ÌÁö (ÁÂ¿ì)
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SuperMario_L.bmp", L"SPlayer_LEFT");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SuperMario_R.bmp", L"SPlayer_RIGHT");
+	// ºÒ²É¸¶¸®¿À ÀÌ¹ÌÁö (ÁÂ¿ì)
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/FlowerMario_L.bmp", L"FPlayer_LEFT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/FlowerMario_R.bmp", L"FPlayer_RIGHT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Bullet.bmp", L"Bullet");
 	// HUD
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/MarioText.bmp", L"MarioText");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/XMark.bmp", L"X_Mark");
@@ -61,6 +68,8 @@ void CMainGame::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Red_Koopa_R.bmp", L"RKoopa_RIGHT");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Monty_Mole_R.bmp", L"Mole_RIGHT");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Piranha.bmp", L"Piranha");
+
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Death_Star.bmp", L"Death_Star");
 	
 	CLineMgr::Get_Instance()->Initialize();
 	CSceneMgr::Get_Instance()->Initialize();

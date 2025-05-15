@@ -1,20 +1,22 @@
-﻿  CSceneMgr.cpp
-  CWorld.cpp
-C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CSceneMgr.cpp'을(를) 컴파일하는 중)
+﻿  CBullet.cpp
+C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CObject.h(74,20): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CBullet.cpp'을(를) 컴파일하는 중)
   
-C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CSceneMgr.cpp'을(를) 컴파일하는 중)
+C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(39,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CBullet.cpp'을(를) 컴파일하는 중)
   
-C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CPlayer.h(52,28): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/CSceneMgr.cpp'을(를) 컴파일하는 중)
+C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(40,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CBullet.cpp'을(를) 컴파일하는 중)
   
-C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CWorld.cpp(39,22): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/CWorld.cpp'을(를) 컴파일하는 중)
+C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CPlayer.h(54,28): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CBullet.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CBullet.cpp(30,34): warning C4244: '=': 'ULONGLONG'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CBullet.cpp'을(를) 컴파일하는 중)
   
   코드를 생성하고 있습니다.
-  11 of 1112 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
-    8 functions were new in current compilation
-    44 functions had inline decision re-evaluated but remain unchanged
+  3 of 1461 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
-  SuperMarioWorld.vcxproj -> C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\Release\SuperMarioWorld.exe
+  SuperMarioWorld.vcxproj -> C:\Users\User\Documents\GitHub\WINAPI_SuperMarioWorld\SuperMarioWorld\Release\SuperMarioWorld.exe

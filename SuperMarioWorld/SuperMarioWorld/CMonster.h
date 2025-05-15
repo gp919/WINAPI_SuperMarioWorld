@@ -1,6 +1,7 @@
 #pragma once
 #include "CObject.h"
 #include "CPlayer.h"
+#include "CEffect.h"
 
 enum MONSTER_STATE
 {
@@ -32,7 +33,7 @@ public:
     virtual void On_Collision(EOBJECTID _id) override;
 
 public:
-    void Set_State(MONSTER_STATE _eState);
+    void Set_State(MONSTER_STATE);
     void Set_MonsterID(MONSTERID _eID) { m_eMonID = _eID; }
     void Set_Move(bool _bMove) { m_bMove = _bMove; }
 
@@ -46,6 +47,7 @@ public:
     bool Is_Held() const { return m_pHolder != nullptr; }
     void Release_From_Holder();
     void On_Kicked(OBJECTDIR);
+    bool In_Screen();
 
 
 private:
@@ -54,7 +56,7 @@ private:
     void Init_Frame();
     void Apply_Gravity();
     bool Is_Koopa() const { return m_eMonID == MON_GREENKOOPA || m_eMonID == MON_REDKOOPA; }
-    bool In_Screen();
+    
 
 
 private:
@@ -65,6 +67,9 @@ private:
     float         m_fFallSpeed;
     DWORD         m_dwDeadTime;
     DWORD         m_dwTime;
+
+    float   m_fDeathFallSpeed;  // 죽을 때 떨어지는 속도
+    bool    m_bDeathFalling;    // 죽어서 떨어지는 중인지
 
     // Static 데이터
     static const map<pair<MONSTERID, MONSTER_STATE>, FRAME> m_mapFrame;

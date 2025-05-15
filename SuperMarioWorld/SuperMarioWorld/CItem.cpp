@@ -70,6 +70,11 @@ void CItem::Initialize()
 		m_tFrame.iEnd = 0;
 		m_tFrame.iMotion = 5;
 		break;
+	case ITEM_FLOWER:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 1;
+		m_tFrame.iMotion = 6;
+		m_tFrame.dwSpeed = 200;
 	}
 	Allign_Bottom(m_tInfo.fX, m_tInfo.fY);
 }
@@ -165,6 +170,7 @@ void CItem::Render(HDC hDC)
 	case ITEM_LEV:   iCutY = 64; break;
 	case ITEM_CHECK: iCutY = 80; break;
 	case ITEM_CLEAR: iCutY = 88; break;
+	case ITEM_FLOWER: iCutY = 96; break;
 	}
 
 	GdiTransparentBlt(
@@ -317,6 +323,10 @@ void CItem::Catch_Item(CObject* _obj)
 		case ITEM_CLEAR:
 			CUiMgr::Get_Instance()->Set_Score(10000);
 			CSceneMgr::Get_Instance()->Set_Clear(true);
+			break;
+		case ITEM_FLOWER:
+			CUiMgr::Get_Instance()->Set_Score(1000);
+			CSoundMgr::Get_Instance()->PlaySoundW(L"powerup.wav", SOUND_EFFECT, 0.1f);
 			break;
 	}
 	m_bDead = true;

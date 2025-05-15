@@ -71,6 +71,12 @@ void CObjectMgr::Render(HDC hDC)
 
 	for (auto& obj : m_listObject[OBJ_PLAYER])
 		obj->Render(hDC);
+
+	/*for (auto& obj : m_listObject[OBJ_EFFECT])
+		obj->Render(hDC);*/
+
+	for (auto& obj : m_listObject[OBJ_BULLET])
+		obj->Render(hDC);
 	
 }
 

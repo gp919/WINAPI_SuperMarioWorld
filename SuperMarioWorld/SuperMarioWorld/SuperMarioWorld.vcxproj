@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBullet.h" />
     <ClInclude Include="CEditor.h" />
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CItem.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="CTutorial.h" />
     <ClInclude Include="CUiMgr.h" />
     <ClInclude Include="CWorld.h" />
+    <ClInclude Include="CWorldPlayer.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -172,6 +174,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CEditor.cpp" />
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CItem.cpp" />
@@ -198,6 +201,7 @@
     <ClCompile Include="CTutorial.cpp" />
     <ClCompile Include="CUiMgr.cpp" />
     <ClCompile Include="CWorld.cpp" />
+    <ClCompile Include="CWorldPlayer.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

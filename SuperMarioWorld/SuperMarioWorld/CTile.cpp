@@ -162,7 +162,13 @@ void CTile::On_Hit(OBJECTDIR _dir)
 		switch (m_eTileId)
 		{
 		//case TILE_Q: pItem = new CItem(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * 0.5f, ITEM_LEV); break;
-		case TILE_E: pItem = new CItem(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * 0.5f, ITEM_MUSH); break;
+		case TILE_E:
+			CPlayer* pPlayer = static_cast<CPlayer*>(CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER).front());
+			if(pPlayer->Get_Mario()==MARIO_SMALL)
+				pItem = new CItem(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * 0.5f, ITEM_MUSH);
+			else
+				pItem = new CItem(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * 0.5f, ITEM_FLOWER);
+			break;
 		}
 		pItem->Set_Pop(true);
 		pItem->Set_Dir(_dir);

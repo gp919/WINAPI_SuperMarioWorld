@@ -7,7 +7,7 @@ CSceneMgr* CSceneMgr::m_pInstance = nullptr;
 CSceneMgr::CSceneMgr() : m_pCurrentScene(nullptr)
 {
     #ifdef _DEBUG
-        m_pCurrentScene = new CEditor;
+        m_pCurrentScene = new SC_EDIT;
         m_eCurScene = SC_EDIT;
     #else
         m_pCurrentScene = new CLogo;
@@ -35,11 +35,12 @@ int CSceneMgr::Update()
             Change_Scene(SC_MENU);
             break;
         case SC_MENU:
-            Change_Scene(SC_STAGE_ONE);
+            Change_Scene(SC_WORLD);
             break;
         case SC_STAGE_ONE:
         case SC_STAGE_TWO:
-        // 클리어 상태이고 클리어 음악을 아직 재생하지 않았으면
+        case SC_STAGE_FINAL:
+            // 모든 스테이지의 클리어 처리를 통합
             if (Get_Clear() && !m_bMusic)
             {
                 // 모든 이펙트 사운드와 BGM 중지
@@ -47,18 +48,20 @@ int CSceneMgr::Update()
                 CSoundMgr::Get_Instance()->PlayBGM(L"47. Course Clear.mp3", 0.5f);
                 m_bMusic = true;
             }
-        // 클리어 음악이 재생되었고, 음악이 끝났으면
+            // 클리어 음악이 재생되었고, 음악이 끝났으면
             else if (m_bMusic && !CSoundMgr::Get_Instance()->Is_ChannelPlaying(SOUND_BGM))
             {
                 CSoundMgr::Get_Instance()->PlayBGM(L"48. Fade Out!.mp3", 0.5f);
                 // 상태 초기화
                 Set_Clear(false);
                 m_bMusic = false;
-                Change_Scene(SC_LOGO);
+
+                // 다음 씬으로 이동
+                if (m_eCurScene == SC_STAGE_FINAL)
+                    Change_Scene(SC_BOSS);
+                else
+                    Change_Scene(SC_WORLD);
             }
-        break;
-        case SC_STAGE_FINAL:
-            Change_Scene(SC_BOSS);   // 최종 스테이지 → 보스
             break;
         case SC_BOSS:
             Change_Scene(SC_END);    // 보스 클리어 후 엔딩
@@ -68,7 +71,7 @@ int CSceneMgr::Update()
             break;
         }
     }
-	return NOEVENT;
+    return NOEVENT;
 }
 
 void CSceneMgr::Late_Update()
@@ -206,7 +209,7 @@ void CSceneMgr::Change_Scene(SCENEID eID)
         m_pCurrentScene = new CEditor;
         break;
     case SC_WORLD:
-     //   m_pCurrentScene = new CWorld;
+        m_pCurrentScene = new CWorld;
         break;
     case SC_STAGE_ONE:
         m_pCurrentScene = new CScene01;
