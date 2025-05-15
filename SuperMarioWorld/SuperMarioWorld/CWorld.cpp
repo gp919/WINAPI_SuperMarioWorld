@@ -11,6 +11,7 @@ CWorld::~CWorld()
 
 void CWorld::Initialize()
 {
+	//test
 	// 스크롤 고정 (필요 시)
 	CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
 	CScrollMgr::Get_Instance()->Set_ScrollY(0.f);
