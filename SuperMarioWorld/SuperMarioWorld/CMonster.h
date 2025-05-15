@@ -12,6 +12,9 @@ enum MONSTER_STATE
     MONSTER_SHELL_IDLE,
     MONSTER_SHELL_MOVE,
     MONSTER_EJECTED,
+    MONSTER_HIDDEN,
+    MONSTER_UP,
+    MONSTER_DOWN,
     MONSTER_DEAD,
     MONSTER_END
 };
@@ -48,7 +51,8 @@ public:
     void Release_From_Holder();
     void On_Kicked(OBJECTDIR);
     bool In_Screen();
-
+    bool Player_In_Range(float range);
+    bool Player_Distance_High();
 
 private:
     void Update_AI();
@@ -74,4 +78,8 @@ private:
     // Static 데이터
     static const map<pair<MONSTERID, MONSTER_STATE>, FRAME> m_mapFrame;
     static const map<pair<MONSTERID, OBJECTDIR>, const TCHAR*> m_mapImage;
+
+    float m_fPipeTopY = 0.f;     // 피라냐가 나오는 최대 높이
+    float m_fPipeBottomY = 0.f;  // 피라냐가 숨는 위치
+    float m_fUpTargetY = 0.f;    // 두더지가 튀어나올 목표 위치
 };

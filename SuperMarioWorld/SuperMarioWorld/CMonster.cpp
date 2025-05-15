@@ -27,10 +27,17 @@ const map<pair<MONSTERID, MONSTER_STATE>, FRAME> CMonster::m_mapFrame = {
     {{MON_REDKOOPA, MONSTER_WALK}, {0, 1, 3, 200, 0}},
 
     // Mole
-    {{MON_MOLE, MONSTER_IDLE}, {0, 1, 0, 200, 0}},
+    {{MON_MOLE, MONSTER_IDLE},      {0, 1, 0, 300, 0}}, // 1열
+    {{MON_MOLE, MONSTER_UP},        {0, 1, 1, 200, 0}}, // 2열
+    {{MON_MOLE, MONSTER_EJECTED},   {0, 0, 2, 0, 0}},   // 3열
+    {{MON_MOLE, MONSTER_WALK},      {0, 1, 3, 200, 0}}, // 4열
+    {{MON_MOLE, MONSTER_STOMPED},   {0, 4, 4, 100, 0}}, // 5열
 
     // Piranha
-    {{MON_PIRANHA, MONSTER_IDLE}, {0, 1, 0, 200, 0}}
+    {{MON_PIRANHA, MONSTER_IDLE},   {0, 1, 0, 300, 0}}, // 기본 움직임 (2개)
+    {{MON_PIRANHA, MONSTER_UP},     {0, 0, 0, 0, 0}},   // 정지 이미지 재사용
+    {{MON_PIRANHA, MONSTER_DOWN},   {0, 0, 0, 0, 0}},
+    {{MON_PIRANHA, MONSTER_HIDDEN}, {0, 0, 0, 0, 0}},
 };
 
 // Static 데이터 - 방향별 이미지 키
@@ -161,8 +168,14 @@ void CMonster::Initialize()
         switch (m_eMonID)
         {
         case MON_MOLE:
-        case MON_PIRANHA:
             Set_State(MONSTER_IDLE);
+            m_fUpTargetY = m_tInfo.fY - 30.f;
+            m_bMove = false;
+            break;
+        case MON_PIRANHA:
+            Set_State(MONSTER_HIDDEN);
+            m_fPipeBottomY = m_tInfo.fY;
+            m_fPipeTopY = m_tInfo.fY - 40.f;
             m_bMove = false;
             break;
         default:
@@ -170,6 +183,20 @@ void CMonster::Initialize()
             m_bMove = false;
             break;
         }
+    }
+
+    // 몬스터별 추가 위치 세팅
+    if (m_eMonID == MON_PIRANHA)
+    {
+        m_fPipeBottomY = m_tInfo.fY;        // 현재 위치를 파이프 아래로 지정
+        m_fPipeTopY = m_tInfo.fY - 40.f;    // 올라올 최대 위치
+        Set_State(MONSTER_HIDDEN);
+    }
+
+    if (m_eMonID == MON_MOLE)
+    {
+        m_fUpTargetY = m_tInfo.fY - 30.f;   // 두더지가 튀어오를 목표 높이
+        Set_State(MONSTER_IDLE);
     }
 
     Update_ImageKey();
@@ -256,8 +283,9 @@ int CMonster::Update()
         m_bMove = true;
 #endif
 
-    // 움직임 업데이트
-    if (m_bMove)
+    if (m_eMonID == MON_MOLE || m_eMonID == MON_PIRANHA)
+        Update_AI();
+    else if (m_bMove)
         Update_AI();
 
     Move_Frame();
@@ -266,6 +294,66 @@ int CMonster::Update()
 
 void CMonster::Update_AI()
 {
+    // 두더지
+    if (m_eMonID == MON_MOLE)
+    {
+        switch (m_eState)
+        {
+        case MONSTER_IDLE:
+            if (Player_In_Range(150.f))
+                Set_State(MONSTER_UP);
+            break;
+
+        case MONSTER_UP:
+            m_tInfo.fY -= 2.f;
+            if (m_tInfo.fY <= m_fUpTargetY)
+                Set_State(MONSTER_WALK);
+            break;
+
+        case MONSTER_WALK:
+            if (m_eDir == DIR_LEFT) m_tInfo.fX -= m_fSpeed;
+            else m_tInfo.fX += m_fSpeed;
+
+            if (GetTickCount() > m_dwTime + 4000)  // 4초 지나면 삭제
+                m_bDead = true;
+            break;
+        }
+        return;
+    }
+
+    // 피라냐
+    if (m_eMonID == MON_PIRANHA)
+    {
+        switch (m_eState)
+        {
+        case MONSTER_HIDDEN:
+            if (Player_Distance_High())
+            {
+                if (GetTickCount() > m_dwTime + 2000)
+                    Set_State(MONSTER_UP);
+            }
+            break;
+
+        case MONSTER_UP:
+            m_tInfo.fY -= 1.5f;
+            if (m_tInfo.fY <= m_fPipeTopY)
+                Set_State(MONSTER_IDLE);
+            break;
+
+        case MONSTER_IDLE:
+            if (GetTickCount() > m_dwTime + 3000)
+                Set_State(MONSTER_DOWN);
+            break;
+
+        case MONSTER_DOWN:
+            m_tInfo.fY += 1.5f;
+            if (m_tInfo.fY >= m_fPipeBottomY)
+                Set_State(MONSTER_HIDDEN);
+            break;
+        }
+        return;
+    }
+
     if (m_eDir == DIR_LEFT)
         m_tInfo.fX -= m_fSpeed;
     else
@@ -450,7 +538,21 @@ void CMonster::On_Collision(EOBJECTID _id)
 void CMonster::Set_State(MONSTER_STATE _eState)
 {
     if (m_eState == _eState)
-        return;
+    {
+        // 피라냐나 두더지의 경우 같은 상태여도 프레임 재설정이 필요함
+        switch (_eState)
+        {
+        case MONSTER_IDLE:
+        case MONSTER_HIDDEN:
+        case MONSTER_UP:
+        case MONSTER_DOWN:
+            Init_Frame();  // 재시작
+            m_dwTime = GetTickCount();  // 타이머 초기화
+            return;
+        default:
+            return;
+        }
+    }
 
     m_eState = _eState;
     Init_Frame();
@@ -495,7 +597,22 @@ void CMonster::Set_State(MONSTER_STATE _eState)
         m_bDead = true;
         m_dwDeadTime = GetTickCount();
         break;
+
+    case MONSTER_UP:
+    case MONSTER_DOWN:
+    case MONSTER_HIDDEN:
+    case MONSTER_IDLE:
+        m_dwTime = GetTickCount();
+        break;
+
+    case MONSTER_WALK:
+        m_fSpeed = 2.f;
+        m_dwTime = GetTickCount();
+        break;
+
     }
+
+
 }
 
 void CMonster::Init_Frame()
@@ -624,4 +741,24 @@ void CMonster::On_Kicked(OBJECTDIR _dir)
         m_tInfo.fX += 20.f;
     else
         m_tInfo.fX -= 20.f;
+}
+
+bool CMonster::Player_In_Range(float range)
+{
+    list<CObject*>& playerList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER);
+    if (playerList.empty()) return false;
+
+    CObject* pPlayer = playerList.front();
+    float dx = fabs(pPlayer->Get_Info()->fX - m_tInfo.fX);
+    return dx < range;
+}
+
+bool CMonster::Player_Distance_High()
+{
+    list<CObject*>& playerList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER);
+    if (playerList.empty()) return true;
+
+    CObject* pPlayer = playerList.front();
+    float dx = fabs(pPlayer->Get_Info()->fX - m_tInfo.fX);
+    return dx > 50.f;
 }
