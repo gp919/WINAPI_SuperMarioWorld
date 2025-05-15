@@ -283,8 +283,7 @@
               "ViewState": "AgIAAB0AAAAAAAAAAAAcwC4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-04-29T10:57:42.873Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -297,8 +296,7 @@
               "ViewState": "AgIAAOYCAAAAAAAAAAAswOoCAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-10T06:29:29.554Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -318,8 +316,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CWorld.cpp",
               "ViewState": "AgIAAEIAAAAAAAAAAAAAAEkAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-15T06:59:09.791Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-15T06:59:09.791Z"
             },
             {
               "$type": "Document",
@@ -331,8 +328,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CWorld.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-15T06:58:57.787Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-15T06:58:57.787Z"
             },
             {
               "$type": "Document",
@@ -344,8 +340,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CSceneMgr.cpp",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAACYAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-29T09:56:59.714Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T09:56:59.714Z"
             },
             {
               "$type": "Document",
@@ -405,8 +400,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CScene.h",
               "ViewState": "AgIAAB0AAAAAAAAAAAAnwB8AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-29T10:04:31.557Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T10:04:31.557Z"
             },
             {
               "$type": "Document",
@@ -466,8 +460,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CSoundMgr.h",
               "ViewState": "AgIAABgAAAAAAAAAAAAAAA4AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-08T23:40:50.365Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T23:40:50.365Z"
             },
             {
               "$type": "Document",
@@ -477,7 +470,7 @@
               "RelativeDocumentMoniker": "SuperMarioWorld\\CSoundMgr.cpp",
               "ToolTip": "C:\\Users\\nern2\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSoundMgr.cpp",
               "RelativeToolTip": "SuperMarioWorld\\CSoundMgr.cpp",
-              "ViewState": "AgIAAF8AAAAAAAAAAAAuwHMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAuwGkAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-08T23:41:39.018Z",
               "EditorCaption": ""
@@ -492,8 +485,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CSceneMgr.h",
               "ViewState": "AgIAABoAAAAAAAAAAAAnwCwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-29T09:56:55.097Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T09:56:55.097Z"
             },
             {
               "$type": "Document",
@@ -505,8 +497,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CLogo.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-14T18:36:30.961Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-14T18:36:30.961Z"
             },
             {
               "$type": "Document",
@@ -530,8 +521,7 @@
               "RelativeToolTip": "SuperMarioWorld\\Define.h",
               "ViewState": "AgIAACEAAAAAAAAAAAAAADUAAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-01T16:39:42.978Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-01T16:39:42.978Z"
             },
             {
               "$type": "Document",
@@ -567,8 +557,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CEditor.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-09T03:38:15.861Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T03:38:15.861Z"
             },
             {
               "$type": "Document",
@@ -616,8 +605,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CMenu.cpp",
               "ViewState": "AgIAABoAAAAAAAAAAAAuwBUAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-14T15:01:38.464Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-14T15:01:38.464Z"
             },
             {
               "$type": "Document",
@@ -641,8 +629,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CLogo.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-14T18:36:27.919Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-14T18:36:27.919Z"
             },
             {
               "$type": "Document",
@@ -654,8 +641,7 @@
               "RelativeToolTip": "SuperMarioWorld\\CMenu.h",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-14T15:00:47.652Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-14T15:00:47.652Z"
             },
             {
               "$type": "Document",
@@ -799,8 +785,7 @@
               "RelativeToolTip": "SuperMarioWorld\\pch.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-29T09:32:46.745Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T09:32:46.745Z"
             },
             {
               "$type": "Document",
