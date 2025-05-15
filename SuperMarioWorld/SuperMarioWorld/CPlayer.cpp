@@ -508,7 +508,7 @@ void CPlayer::Key_Input()
 				CObjectMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBullet);
 
 				// 발사 사운드 재생
-				CSoundMgr::Get_Instance()->PlaySound(L"Fire.wav", SOUND_EFFECT, 0.5f);
+				CSoundMgr::Get_Instance()->PlaySound(L"fireball.wav", SOUND_EFFECT, 0.5f);
 			}
 		}
 	}

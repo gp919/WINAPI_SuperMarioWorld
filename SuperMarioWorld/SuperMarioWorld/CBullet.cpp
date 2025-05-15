@@ -20,7 +20,7 @@ void CBullet::Initialize()
 	m_tInfo.fCY = 8.f * SCALE_FACTOR;  // 3배 확대
 
 	// 파이어볼의 초기 속도 설정
-	m_fSpeedY = -3.f; // 위쪽으로 살짝 던지는 효과
+	m_fSpeedY = 3.f; // 위쪽으로 살짝 던지는 효과
 
 	// 프레임 설정 (4개의 이미지가 이어붙여진 상태)
 	m_tFrame.iStart = 0;

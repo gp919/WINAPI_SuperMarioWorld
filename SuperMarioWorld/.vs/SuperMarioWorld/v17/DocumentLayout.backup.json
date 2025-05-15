@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CBullet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CBullet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMonster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CMonster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -11,12 +15,28 @@
       "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CMonster.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CPlayer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CPlayer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CPlayer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CPlayer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CPlayer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CPlayer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\Define.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\Define.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CEditor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMainGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CMainGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSceneMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CSceneMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -27,16 +47,8 @@
       "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CBullet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CBullet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CBullet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CBullet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\Define.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\Define.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CTile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -91,10 +103,6 @@
       "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CMenu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSceneMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CSceneMgr.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CWorldPlayer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CWorldPlayer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -133,10 +141,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLogo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CLogo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CEditor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLogo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -230,10 +234,6 @@
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt\\corecrt_wstdio.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMainGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CMainGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMouse.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A7BC5541-2761-42EB-B7C0-09BA9A71B03D}|SuperMarioWorld\\SuperMarioWorld.vcxproj|solutionrelative:SuperMarioWorld\\CMouse.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -264,17 +264,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CMonster.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMonster.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CMonster.cpp",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMonster.cpp",
               "RelativeToolTip": "SuperMarioWorld\\CMonster.cpp",
-              "ViewState": "AgIAAAsBAAAAAAAAAAAnwB4BAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAACIBAAAAAAAAAAAnwCwBAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-07T00:18:36.41Z",
               "IsPinned": true,
@@ -282,13 +282,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "CMonster.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMonster.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CMonster.h",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMonster.h",
               "RelativeToolTip": "SuperMarioWorld\\CMonster.h",
-              "ViewState": "AgIAACQAAAAAAAAAAAAcwCYAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAEwAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-07T00:13:46.932Z",
               "IsPinned": true,
@@ -296,16 +296,17 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "CPlayer.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CPlayer.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CPlayer.h",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CPlayer.h",
               "RelativeToolTip": "SuperMarioWorld\\CPlayer.h",
-              "ViewState": "AgIAABcAAAAAAAAAAAAMwDwAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAMwBoAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-04-29T10:57:42.873Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -315,10 +316,11 @@
               "RelativeDocumentMoniker": "SuperMarioWorld\\CPlayer.cpp",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CPlayer.cpp",
               "RelativeToolTip": "SuperMarioWorld\\CPlayer.cpp",
-              "ViewState": "AgIAAPUAAAAAAAAAAAAnwEABAAADAAAAAAAAAA==",
+              "ViewState": "AgIAANgAAAAAAAAAAAAnwDIBAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-10T06:29:29.554Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -330,19 +332,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Define.h",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\Define.h",
-              "RelativeDocumentMoniker": "SuperMarioWorld\\Define.h",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\Define.h",
-              "RelativeToolTip": "SuperMarioWorld\\Define.h",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAnwCoAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-01T16:39:42.978Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "CObject.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CObject.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CObject.h",
@@ -355,6 +345,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "Define.h",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\Define.h",
+              "RelativeDocumentMoniker": "SuperMarioWorld\\Define.h",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\Define.h",
+              "RelativeToolTip": "SuperMarioWorld\\Define.h",
+              "ViewState": "AgIAACoAAAAAAAAAAAAnwDMAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-01T16:39:42.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CBullet.cpp",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CBullet.cpp",
+              "RelativeDocumentMoniker": "SuperMarioWorld\\CBullet.cpp",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CBullet.cpp",
+              "RelativeToolTip": "SuperMarioWorld\\CBullet.cpp",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-15T15:27:39.605Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "CObject.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CObject.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CObject.cpp",
@@ -366,7 +382,46 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CSceneMgr.cpp",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSceneMgr.cpp",
+              "RelativeDocumentMoniker": "SuperMarioWorld\\CSceneMgr.cpp",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSceneMgr.cpp",
+              "RelativeToolTip": "SuperMarioWorld\\CSceneMgr.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-04-29T09:56:59.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "CMainGame.h",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMainGame.h",
+              "RelativeDocumentMoniker": "SuperMarioWorld\\CMainGame.h",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMainGame.h",
+              "RelativeToolTip": "SuperMarioWorld\\CMainGame.h",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-04-29T09:52:07.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CEditor.cpp",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.cpp",
+              "RelativeDocumentMoniker": "SuperMarioWorld\\CEditor.cpp",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.cpp",
+              "RelativeToolTip": "SuperMarioWorld\\CEditor.cpp",
+              "ViewState": "AgIAABsBAAAAAAAAAAAIwA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-09T03:38:15.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "CBullet.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CBullet.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CBullet.h",
@@ -378,19 +433,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CBullet.cpp",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CBullet.cpp",
-              "RelativeDocumentMoniker": "SuperMarioWorld\\CBullet.cpp",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CBullet.cpp",
-              "RelativeToolTip": "SuperMarioWorld\\CBullet.cpp",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAAEMAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-15T15:27:39.605Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "CTile.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CTile.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CTile.cpp",
@@ -402,7 +445,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "CObjectMgr.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CObjectMgr.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CObjectMgr.cpp",
@@ -414,7 +457,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "CObjectMgr.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CObjectMgr.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CObjectMgr.h",
@@ -426,7 +469,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "CMainGame.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMainGame.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CMainGame.cpp",
@@ -438,7 +481,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "CItem.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CItem.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CItem.h",
@@ -450,7 +493,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "CItem.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CItem.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CItem.cpp",
@@ -462,7 +505,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "CEffect.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEffect.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CEffect.cpp",
@@ -474,7 +517,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "CEffect.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEffect.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CEffect.h",
@@ -486,7 +529,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "CUiMgr.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CUiMgr.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CUiMgr.h",
@@ -498,7 +541,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "CUiMgr.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CUiMgr.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CUiMgr.cpp",
@@ -510,7 +553,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "CWorld.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CWorld.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CWorld.cpp",
@@ -522,7 +565,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "CMenu.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMenu.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CMenu.cpp",
@@ -534,7 +577,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "CWorld.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CWorld.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CWorld.h",
@@ -546,19 +589,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "CSceneMgr.cpp",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSceneMgr.cpp",
-              "RelativeDocumentMoniker": "SuperMarioWorld\\CSceneMgr.cpp",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSceneMgr.cpp",
-              "RelativeToolTip": "SuperMarioWorld\\CSceneMgr.cpp",
-              "ViewState": "AgIAAMYAAAAAAAAAAAAnwNIAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-29T09:56:59.714Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "CWorldPlayer.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CWorldPlayer.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CWorldPlayer.cpp",
@@ -570,7 +601,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "CSceneMgr.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSceneMgr.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CSceneMgr.h",
@@ -582,7 +613,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "CWorldPlayer.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CWorldPlayer.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CWorldPlayer.h",
@@ -594,7 +625,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "pch.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\pch.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\pch.h",
@@ -606,7 +637,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "CScene.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CScene.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CScene.cpp",
@@ -618,7 +649,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "CScene01.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CScene01.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CScene01.cpp",
@@ -630,7 +661,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "CScene.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CScene.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CScene.h",
@@ -642,7 +673,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "CScene01.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CScene01.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CScene01.h",
@@ -654,7 +685,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 32,
               "Title": "CSoundMgr.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSoundMgr.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CSoundMgr.h",
@@ -666,7 +697,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "CSoundMgr.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CSoundMgr.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CSoundMgr.cpp",
@@ -678,7 +709,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 34,
               "Title": "CLogo.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLogo.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CLogo.cpp",
@@ -690,7 +721,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "CCollisionMgr.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CCollisionMgr.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CCollisionMgr.cpp",
@@ -702,7 +733,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "CCollisionMgr.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CCollisionMgr.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CCollisionMgr.h",
@@ -714,19 +745,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "CEditor.cpp",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.cpp",
-              "RelativeDocumentMoniker": "SuperMarioWorld\\CEditor.cpp",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.cpp",
-              "RelativeToolTip": "SuperMarioWorld\\CEditor.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-09T03:38:15.861Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "CEditor.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CEditor.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CEditor.h",
@@ -738,7 +757,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "CLogo.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLogo.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CLogo.h",
@@ -750,7 +769,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 33,
               "Title": "CMenu.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMenu.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CMenu.h",
@@ -762,7 +781,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "CKeyMgr.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CKeyMgr.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CKeyMgr.cpp",
@@ -774,7 +793,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "CTile.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CTile.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CTile.h",
@@ -786,7 +805,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "CLineMgr.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLineMgr.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CLineMgr.cpp",
@@ -798,7 +817,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 57,
               "Title": "corecrt_wstdio.h",
               "DocumentMoniker": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt\\corecrt_wstdio.h",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt\\corecrt_wstdio.h",
@@ -822,7 +841,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 55,
               "Title": "SuperMarioWorld.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\SuperMarioWorld.cpp",
@@ -834,7 +853,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "CTutorial.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CTutorial.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CTutorial.cpp",
@@ -846,19 +865,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
-              "Title": "CMainGame.h",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMainGame.h",
-              "RelativeDocumentMoniker": "SuperMarioWorld\\CMainGame.h",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMainGame.h",
-              "RelativeToolTip": "SuperMarioWorld\\CMainGame.h",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-29T09:52:07.043Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "pch.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\pch.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\pch.cpp",
@@ -894,7 +901,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "CBmpMgr.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CBmpMgr.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CBmpMgr.cpp",
@@ -906,7 +913,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 56,
               "Title": "CKeyMgr.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CKeyMgr.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CKeyMgr.h",
@@ -918,7 +925,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "CMyBmp.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CMyBmp.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CMyBmp.cpp",
@@ -930,7 +937,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 53,
               "Title": "CBmpMgr.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CBmpMgr.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CBmpMgr.h",
@@ -942,7 +949,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "CScrollMgr.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CScrollMgr.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CScrollMgr.cpp",
@@ -954,7 +961,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "CScrollMgr.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CScrollMgr.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CScrollMgr.h",
@@ -966,7 +973,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 54,
               "Title": "CTutorial.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CTutorial.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CTutorial.h",
@@ -990,7 +997,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "CLineMgr.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLineMgr.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CLineMgr.h",
@@ -1002,7 +1009,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "CLine.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLine.cpp",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CLine.cpp",
@@ -1014,7 +1021,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "CLine.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\WINAPI_SuperMarioWorld\\SuperMarioWorld\\SuperMarioWorld\\CLine.h",
               "RelativeDocumentMoniker": "SuperMarioWorld\\CLine.h",

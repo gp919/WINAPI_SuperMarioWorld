@@ -35,9 +35,9 @@ const map<pair<MONSTERID, MONSTER_STATE>, FRAME> CMonster::m_mapFrame = {
 
     // Piranha
     {{MON_PIRANHA, MONSTER_IDLE},   {0, 1, 0, 300, 0}}, // 기본 움직임 (2개)
-    {{MON_PIRANHA, MONSTER_UP},     {0, 0, 0, 0, 0}},   // 정지 이미지 재사용
-    {{MON_PIRANHA, MONSTER_DOWN},   {0, 0, 0, 0, 0}},
-    {{MON_PIRANHA, MONSTER_HIDDEN}, {0, 0, 0, 0, 0}},
+    {{MON_PIRANHA, MONSTER_UP},     {0, 1, 0, 300, 0}},  
+    {{MON_PIRANHA, MONSTER_DOWN},   {0, 1, 0, 300, 0}},
+    {{MON_PIRANHA, MONSTER_HIDDEN}, {0, 0, 0, 0, 0}}, // 정지 이미지 재사용
 };
 
 // Static 데이터 - 방향별 이미지 키
@@ -173,7 +173,6 @@ void CMonster::Initialize()
             m_bMove = false;
             break;
         case MON_PIRANHA:
-            Set_State(MONSTER_HIDDEN);
             m_fPipeBottomY = m_tInfo.fY;
             m_fPipeTopY = m_tInfo.fY - 40.f;
             m_bMove = false;
@@ -189,13 +188,13 @@ void CMonster::Initialize()
     if (m_eMonID == MON_PIRANHA)
     {
         m_fPipeBottomY = m_tInfo.fY;        // 현재 위치를 파이프 아래로 지정
-        m_fPipeTopY = m_tInfo.fY - 40.f;    // 올라올 최대 위치
+        m_fPipeTopY = m_tInfo.fY - 100.f;    // 올라올 최대 위치
         Set_State(MONSTER_HIDDEN);
     }
 
     if (m_eMonID == MON_MOLE)
     {
-        m_fUpTargetY = m_tInfo.fY - 30.f;   // 두더지가 튀어오를 목표 높이
+        m_fUpTargetY = m_tInfo.fY - 60.f;   // 두더지가 튀어오를 목표 높이
         Set_State(MONSTER_IDLE);
     }
 
@@ -305,9 +304,17 @@ void CMonster::Update_AI()
             break;
 
         case MONSTER_UP:
-            m_tInfo.fY -= 2.f;
+            m_tInfo.fY -= 3.f;
+            if (!m_bSpringSoundPlayed && m_tInfo.fY >= 0.f)
+            {
+                CSoundMgr::Get_Instance()->PlaySoundW(L"spring.wav", SOUND_EFFECT, 0.5f);
+                m_bSpringSoundPlayed = true;
+            }
             if (m_tInfo.fY <= m_fUpTargetY)
+            {
                 Set_State(MONSTER_WALK);
+            }
+                
             break;
 
         case MONSTER_WALK:
@@ -329,13 +336,14 @@ void CMonster::Update_AI()
         case MONSTER_HIDDEN:
             if (Player_Distance_High())
             {
-                if (GetTickCount() > m_dwTime + 2000)
+                DWORD now = GetTickCount();
+                if (now - m_dwTime > 2000)
                     Set_State(MONSTER_UP);
             }
             break;
 
         case MONSTER_UP:
-            m_tInfo.fY -= 1.5f;
+            m_tInfo.fY -= 2.5f;
             if (m_tInfo.fY <= m_fPipeTopY)
                 Set_State(MONSTER_IDLE);
             break;
@@ -346,7 +354,7 @@ void CMonster::Update_AI()
             break;
 
         case MONSTER_DOWN:
-            m_tInfo.fY += 1.5f;
+            m_tInfo.fY += 2.5f;
             if (m_tInfo.fY >= m_fPipeBottomY)
                 Set_State(MONSTER_HIDDEN);
             break;
@@ -392,7 +400,22 @@ void CMonster::Late_Update()
         return;
     }
 
-    Apply_Gravity();
+#ifndef _DEBUG
+    // 두더지와 피라냐는 위로 올라오는 중이면 중력 무시
+    bool bIgnoreGravity =
+        (m_eMonID == MON_MOLE && m_eState == MONSTER_IDLE) ||
+        (m_eMonID == MON_MOLE && m_eState == MONSTER_UP) ||
+        (m_eMonID == MON_PIRANHA && m_eState == MONSTER_HIDDEN) ||
+        (m_eMonID == MON_PIRANHA && m_eState == MONSTER_UP);
+
+    if (!bIgnoreGravity)
+        Apply_Gravity();
+#else
+    // 디버그 모드에선 중력 무시
+    // 필요한 경우 MONSTER_SHELL_MOVE 등 예외 추가 가능
+
+#endif
+
     Update_Rect();
 }
 
@@ -488,6 +511,7 @@ void CMonster::On_Collision(EOBJECTID _id)
                     CObjectMgr::Get_Instance()->Add_Object(OBJ_EFFECT, pEffect);
 
                     pOtherMonster->Set_Dead();
+                    CSoundMgr::Get_Instance()->PlaySoundW(L"kick.wav",SOUND_EFFECT, 0.5f);
                     continue;
                 }
 
@@ -504,6 +528,7 @@ void CMonster::On_Collision(EOBJECTID _id)
                     // 충돌 시 양쪽 다 죽음
                     m_bDead = true;
                     pOtherMonster->Set_Dead();
+                    CSoundMgr::Get_Instance()->PlaySoundW(L"kick.wav", SOUND_EFFECT, 0.5f);
                     return;
                 }
 

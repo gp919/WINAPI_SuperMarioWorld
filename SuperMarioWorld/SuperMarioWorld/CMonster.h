@@ -74,6 +74,7 @@ private:
 
     float   m_fDeathFallSpeed;  // 죽을 때 떨어지는 속도
     bool    m_bDeathFalling;    // 죽어서 떨어지는 중인지
+    bool m_bSpringSoundPlayed = false;
 
     // Static 데이터
     static const map<pair<MONSTERID, MONSTER_STATE>, FRAME> m_mapFrame;

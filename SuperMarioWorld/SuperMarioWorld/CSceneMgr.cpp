@@ -7,7 +7,7 @@ CSceneMgr* CSceneMgr::m_pInstance = nullptr;
 CSceneMgr::CSceneMgr() : m_pCurrentScene(nullptr)
 {
     #ifdef _DEBUG
-        m_pCurrentScene = new SC_EDIT;
+        m_pCurrentScene = new CEditor;
         m_eCurScene = SC_EDIT;
     #else
         m_pCurrentScene = new CLogo;
