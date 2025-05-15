@@ -1,0 +1,10 @@
+# 캐시 및 임시 파일
+ipch/
+*.ipch
+*.VC.db
+*.VC.opendb
+*.sdf
+*.suo
+*.user
+*.cache
+.vs/

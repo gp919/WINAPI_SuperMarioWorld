@@ -516,11 +516,24 @@ void CPlayer::Change_State()
 			break;
 
 		case KICK:
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 0;
+			m_tFrame.iMotion = 12;
 			break;
 		case HOLD_IDLE:
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 0;
+			m_tFrame.iMotion = 15;
 			break;
+		// WALK, RUN, JUMP µø¿œ
 		case HOLD_WALK:
+		case HOLD_RUN:
+		case HOLD_JUMP:
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 2;
+			m_tFrame.iMotion = 18;
 			break;
+
 		case DEATH:
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 0;
