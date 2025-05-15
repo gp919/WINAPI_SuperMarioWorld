@@ -68,6 +68,33 @@ void CPlayer::Late_Update()
 	CObject::Move_Frame();
 	CObject::Update_Rect();
 	Offset();
+	// 여기서 파워업때 무적설정 : 타이머 2초
+	if (m_eCurState == POWERUP)
+	{
+		m_dwFadeStartTime = GetTickCount();
+		CSoundMgr::Get_Instance()->PlaySound(L"powerup.wav", SOUND_POWER, 0.5f);
+		m_ePreState = m_eCurState;
+		m_eCurState = INVINCIBLE;
+	}
+	else if (m_eCurState == POWERDOWN)
+	{
+		m_dwFadeStartTime = GetTickCount();
+		CSoundMgr::Get_Instance()->PlaySound(L"pipe.wav", SOUND_POWER, 0.5f);
+		m_ePreState = m_eCurState;
+		m_eCurState = INVINCIBLE;
+	}
+
+	if (m_eCurState == INVINCIBLE)
+	{
+		//CObject::Move_Frame();
+		if (GetTickCount() - m_dwFadeStartTime >= 2000)
+		{
+			m_bInvi = false;
+			m_ePreState = m_eCurState;
+			m_eCurState = IDLE;
+		}
+	}
+		
 
 	if (m_tInfo.fY > 1700.f * SCALE_FACTOR)
 	{
@@ -134,11 +161,21 @@ void CPlayer::Late_Update()
 
 void CPlayer::Render(HDC hDC)
 {
+	// 무적시 깜빡임 
+	if (m_bInvi && (GetTickCount() % 2))	return;
+
+
 	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
 	float fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
 
 	float drawX = m_tInfo.fX - m_tInfo.fCX * 0.5f - fScrollX;
 	float drawY = m_tInfo.fY - m_tInfo.fCY * 0.5f - fScrollY;
+
+	int srcY;
+	if (m_eMarioState == MARIO_SMALL)
+		srcY = SMALLY;
+	else
+		srcY = BIGY;
 
 	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_pFrameKey);
 	GdiTransparentBlt(
@@ -149,8 +186,8 @@ void CPlayer::Render(HDC hDC)
 		(int)m_tInfo.fCY,                              // 출력 크기 (3배)
 		hMemDC,
 		m_tFrame.iStart * SMALLX,                   // 열 인덱스 × 프레임 너비
-		m_tFrame.iMotion * SMALLY,                  // 행 인덱스 × 프레임 높이
-		SMALLX, SMALLY,                                 // 자를 원본 크기
+		m_tFrame.iMotion * srcY,                  // 행 인덱스 × 프레임 높이
+		SMALLX, srcY,                                 // 자를 원본 크기
 		RGB(0, 255, 0));
 }
 
@@ -275,7 +312,25 @@ void CPlayer::On_Collision(EOBJECTID _id)
 		}
 		else
 		{
-			m_bDead = true;
+			if(!m_bInvi)
+			{
+				if (m_eMarioState == MARIO_SMALL)
+					m_bDead = true;
+				else if (m_eMarioState == MARIO_BIG)
+				{
+					Change_Mario(MARIO_SMALL);
+					m_ePreState = m_eCurState;
+					m_eCurState = POWERDOWN;
+					m_bInvi = true;
+				}
+				else
+				{
+					Change_Mario(MARIO_BIG);
+					m_ePreState = m_eCurState;
+					m_eCurState = POWERDOWN;
+					m_bInvi = true;
+				}
+			}
 		}
 	}
 	break;
@@ -290,7 +345,17 @@ void CPlayer::On_Collision(EOBJECTID _id)
 
 		if (!pTarget) break;
 
-		static_cast<CItem*>(pTarget)->Catch_Item(pTarget);
+		CItem* pItem = static_cast<CItem*>(pTarget);
+		pItem->Catch_Item(pItem);
+		if (pItem->Get_Info()->iType == ITEM_MUSH)
+		{
+			if (this->m_eMarioState == MARIO_SMALL)
+			{
+				m_ePreState = m_eCurState;
+				m_eCurState = POWERUP;
+				Change_Mario(MARIO_BIG);
+			}
+		}
 	}
 	break;
 	}
@@ -438,10 +503,28 @@ void CPlayer::Key_Input()
 
 void CPlayer::Change_State()
 {
-	if (m_eDir == DIR_RIGHT)
-		m_pFrameKey = L"Player_RIGHT";
-	else if (m_eDir == DIR_LEFT)
-		m_pFrameKey = L"Player_LEFT";
+	switch (m_eMarioState)
+	{
+	case MARIO_SMALL:
+		if (m_eDir == DIR_RIGHT)
+			m_pFrameKey = L"Player_RIGHT";
+		else if (m_eDir == DIR_LEFT)
+			m_pFrameKey = L"Player_LEFT";
+		break;
+	case MARIO_BIG:
+		if (m_eDir == DIR_RIGHT)
+			m_pFrameKey = L"SPlayer_RIGHT";
+		else if (m_eDir == DIR_LEFT)
+			m_pFrameKey = L"SPlayer_LEFT";
+		break;
+	case MARIO_FLOWER:
+		if (m_eDir == DIR_RIGHT)
+			m_pFrameKey = L"SPlayer_RIGHT";
+		else if (m_eDir == DIR_LEFT)
+			m_pFrameKey = L"SPlayer_LEFT";
+		break;
+	}
+	
 
 	
 	if (m_ePreState != m_eCurState)
@@ -474,7 +557,7 @@ void CPlayer::Change_State()
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 2;
 			m_tFrame.iMotion = 3;
-			m_tFrame.dwSpeed = 130;
+			m_tFrame.dwSpeed = 100;
 			break;
 
 		case RUN:
@@ -534,11 +617,19 @@ void CPlayer::Change_State()
 			m_tFrame.iMotion = 18;
 			break;
 
+		case POWERUP:
+		case POWERDOWN:
+		case INVINCIBLE:
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 2;
+			m_tFrame.iMotion = 19;
+			m_tFrame.dwSpeed = 666;
+			m_bInvi = true;
+			break;
 		case DEATH:
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 0;
 			m_tFrame.iMotion = 22;
-			m_tFrame.dwSpeed = 500;
 			break;
 		}
 	}
@@ -663,5 +754,23 @@ void CPlayer::Update_Hold(bool _hold)
 			m_eCurState = LOOK_UP;
 			break;
 		}
+	}
+}
+
+void CPlayer::Change_Mario(MARIOSTATE _state)
+{
+	m_eMarioState = _state;
+	switch (m_eMarioState)
+	{
+	case MARIO_SMALL:
+		m_tInfo.fCX = TILECX * SCALE_FACTOR;
+		m_tInfo.fCY = TILECY * SCALE_FACTOR * 1.5f;
+		break;
+	case MARIO_BIG:
+	case MARIO_FLOWER:
+		m_tInfo.fCX = TILECX * SCALE_FACTOR;
+		m_tInfo.fCY = TILECY * SCALE_FACTOR * 2.f;
+		break;
+		
 	}
 }

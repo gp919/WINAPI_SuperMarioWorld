@@ -41,7 +41,9 @@ void CMainGame::Initialize()
 	// 마리오 이미지 (좌우)
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SmallMario_L.bmp", L"Player_LEFT");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SmallMario_R.bmp", L"Player_RIGHT");
-
+	// 슈퍼마리오 이미지 (좌우)
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SuperMario_L.bmp", L"SPlayer_LEFT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Player/SuperMario_R.bmp", L"SPlayer_RIGHT");
 	// HUD
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/MarioText.bmp", L"MarioText");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/UI/XMark.bmp", L"X_Mark");

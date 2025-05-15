@@ -39,13 +39,17 @@ private:
 	void Update_Speed();
 	void Offset();
 	void Update_Hold(bool);
+	void Change_Mario(MARIOSTATE);
 
 private:
+	MARIOSTATE		m_eMarioState = MARIO_SMALL;
 	PLAYERSTATE     m_eCurState;
 	PLAYERSTATE     m_ePreState;
 	bool m_bSpin = false;
 	bool m_bDuck = false;
 	bool m_bGrab = false;
+	bool m_bInvi = false;
+	DWORD m_dwFadeStartTime = 0.f;
 	float fOffsetBoxLeft;
 	float fOffsetBoxRight;
 
