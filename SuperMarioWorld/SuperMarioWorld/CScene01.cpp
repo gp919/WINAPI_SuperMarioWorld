@@ -41,6 +41,7 @@ void CScene01::Initialize()
 
 int CScene01::Update()
 {
+
 	if (m_bLogo)
 	{
 		DWORD dwCurTime = GetTickCount();
@@ -86,9 +87,18 @@ int CScene01::Update()
 
 void CScene01::Late_Update()
 {
+
 	if(!m_bLogo)
 	{
 		CObjectMgr::Get_Instance()->Late_Update();
+	}
+
+	// TODO : 내려가는 파이프 오브젝트와 충돌 했을시 캐릭터와 스크롤을 이동 <-> 다시 위로 복귀 
+	// 내려오는 파이프 좌상단 중심좌표 11640, 1368
+	// 나가는 파이프 우하단 중심좌표 13800, 1848
+	if (m_bPipe)
+	{
+
 	}
 }
 
