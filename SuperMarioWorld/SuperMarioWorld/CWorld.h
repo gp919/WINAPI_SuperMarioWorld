@@ -27,6 +27,8 @@ public:
 		m_fWorldX = _fx;
 		m_fWorldY = _fy;
 	}
+	float Get_WorldX() { return m_fWorldX; };
+	float Get_WorldY() { return m_fWorldY; };
 
 private:
 	int			m_iWorld = 0;

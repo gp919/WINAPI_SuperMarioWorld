@@ -10,7 +10,8 @@
 const map<pair<MONSTERID, MONSTER_STATE>, FRAME> CMonster::m_mapFrame = {
     // Goomba
     {{MON_GOOMBA, MONSTER_WALK}, {0, 3, 0, 100, 0}},
-    {{MON_GOOMBA, MONSTER_STOMPED}, {0, 3, 1, 25, 0}},
+    {{MON_GOOMBA, MONSTER_STOMPED}, {0, 0, 1, 0, 0}},
+    {{MON_GOOMBA, MONSTER_DEAD}, {0, 0, 1, 0, 0}},
 
     // Green Koopa
     {{MON_GREENKOOPA, MONSTER_EJECTED}, {0, 1, 0, 100, 0}},    // 1열: EJECTED 움직임
@@ -18,6 +19,7 @@ const map<pair<MONSTERID, MONSTER_STATE>, FRAME> CMonster::m_mapFrame = {
     {{MON_GREENKOOPA, MONSTER_SHELL_IDLE}, {0, 0, 2, 0, 0}},  // 3열: 껍질 idle
     {{MON_GREENKOOPA, MONSTER_SHELL_MOVE}, {0, 3, 2, 50, 0}}, // 3열: 껍질 회전
     {{MON_GREENKOOPA, MONSTER_WALK}, {0, 1, 3, 200, 0}},      // 4열: 걷기
+    {{MON_GREENKOOPA, MONSTER_DEAD}, {0, 0, 1, 0, 0}},
 
     // Red Koopa
     {{MON_REDKOOPA, MONSTER_EJECTED}, {0, 1, 0, 100, 0}},
@@ -25,6 +27,7 @@ const map<pair<MONSTERID, MONSTER_STATE>, FRAME> CMonster::m_mapFrame = {
     {{MON_REDKOOPA, MONSTER_SHELL_IDLE}, {0, 0, 2, 0, 0}},
     {{MON_REDKOOPA, MONSTER_SHELL_MOVE}, {0, 3, 2, 50, 0}},
     {{MON_REDKOOPA, MONSTER_WALK}, {0, 1, 3, 200, 0}},
+    {{MON_REDKOOPA, MONSTER_DEAD}, {0, 0, 1, 0, 0}},
 
     // Mole
     {{MON_MOLE, MONSTER_IDLE},      {0, 1, 0, 300, 0}}, // 1열
@@ -32,12 +35,14 @@ const map<pair<MONSTERID, MONSTER_STATE>, FRAME> CMonster::m_mapFrame = {
     {{MON_MOLE, MONSTER_EJECTED},   {0, 0, 2, 0, 0}},   // 3열
     {{MON_MOLE, MONSTER_WALK},      {0, 1, 3, 200, 0}}, // 4열
     {{MON_MOLE, MONSTER_STOMPED},   {0, 4, 4, 100, 0}}, // 5열
+    {{MON_MOLE, MONSTER_DEAD},   {0, 4, 4, 100, 0}},
 
     // Piranha
     {{MON_PIRANHA, MONSTER_IDLE},   {0, 1, 0, 300, 0}}, // 기본 움직임 (2개)
     {{MON_PIRANHA, MONSTER_UP},     {0, 1, 0, 300, 0}},  
     {{MON_PIRANHA, MONSTER_DOWN},   {0, 1, 0, 300, 0}},
     {{MON_PIRANHA, MONSTER_HIDDEN}, {0, 0, 0, 0, 0}}, // 정지 이미지 재사용
+    {{MON_REDKOOPA, MONSTER_DEAD}, {0, 0, 1, 0, 0}},
 };
 
 // Static 데이터 - 방향별 이미지 키
@@ -206,11 +211,13 @@ int CMonster::Update()
 {
     if (m_bDead)
     {
+        if (m_eState != MONSTER_DEAD)
+        {
+            Set_State(MONSTER_DEAD);
+        }
+
         if (GetTickCount() > m_dwDeadTime + 500)
         {
-            CObject* pEffect = new CEffect(m_tInfo.fX, m_tInfo.fY, EFFECT_DEATH_STAR);
-            CObjectMgr::Get_Instance()->Add_Object(OBJ_EFFECT, pEffect);
-
             CUiMgr::Get_Instance()->Set_Score(100);
             return DEAD;
         }
@@ -504,12 +511,6 @@ void CMonster::On_Collision(EOBJECTID _id)
                 // 움직이는 껍질 vs 일반 몬스터
                 if (m_eState == MONSTER_SHELL_MOVE && pOtherMonster->Get_State() != MONSTER_SHELL_MOVE)
                 {
-                    // 충돌한 몬스터가 죽을 때 이펙트 생성
-                    CObject* pEffect = new CEffect(pOtherMonster->Get_Info()->fX,
-                        pOtherMonster->Get_Info()->fY,
-                        EFFECT_DEATH_STAR);
-                    CObjectMgr::Get_Instance()->Add_Object(OBJ_EFFECT, pEffect);
-
                     pOtherMonster->Set_Dead();
                     CSoundMgr::Get_Instance()->PlaySoundW(L"kick.wav",SOUND_EFFECT, 0.5f);
                     continue;
@@ -574,6 +575,7 @@ void CMonster::Set_State(MONSTER_STATE _eState)
             Init_Frame();  // 재시작
             m_dwTime = GetTickCount();  // 타이머 초기화
             return;
+
         default:
             return;
         }
@@ -597,6 +599,12 @@ void CMonster::Set_State(MONSTER_STATE _eState)
         case MONSTER_EJECTED:
         case MONSTER_STOMPED:
             m_tInfo.fCY = TILECX * SCALE_FACTOR;
+            break;
+        case MONSTER_DEAD:
+            m_tInfo.fCY = TILECX * SCALE_FACTOR;
+            m_dwDeadTime = GetTickCount();  // 죽은 시점 기록
+            m_fSpeed = 0.f;
+            m_bMove = false;
             break;
         }
     }
@@ -633,6 +641,12 @@ void CMonster::Set_State(MONSTER_STATE _eState)
     case MONSTER_WALK:
         m_fSpeed = 2.f;
         m_dwTime = GetTickCount();
+        break;
+    case MONSTER_DEAD:
+        if (m_eMonID == MON_PIRANHA) m_tInfo.fCY = 16.f;
+        m_dwDeadTime = GetTickCount();  // 죽은 시점 기록
+        m_fSpeed = 0.f;
+        m_bMove = false;
         break;
 
     }
