@@ -34,6 +34,7 @@ void CMainGame::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/World/world2.bmp", L"World2");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/World/worldplayer.bmp", L"WorldPlayer");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Scene1.bmp", L"Scene1");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Scene1_bonus.bmp", L"Scene1b");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/Logo_1.bmp", L"Logo1");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Scene1/back01.bmp", L"BackGround01");
 	

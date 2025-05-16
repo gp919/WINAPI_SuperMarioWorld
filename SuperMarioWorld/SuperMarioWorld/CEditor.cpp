@@ -321,7 +321,7 @@ void CEditor::Move_Scroll()
     {
         // 맵 경계 제한
         float MAP_WIDTH = 5120.f * SCALE_FACTOR;
-        float MAP_HEIGHT = 432.f * SCALE_FACTOR;
+        float MAP_HEIGHT = 640.f * SCALE_FACTOR;
 
         // 예상 위치
         float fNewScrollX = m_fScrollX + fDeltaX;

@@ -44,6 +44,12 @@ public:
 	void Set_Clear(bool _clear) { m_bClear = _clear; };
 	bool Get_Clear() { return m_bClear; };
 
+	CScene* Get_CurrentScene()
+	{
+		if (m_pCurrentScene)
+			return m_pCurrentScene;
+	}
+
 public:
 	void Change_Scene(SCENEID);
 

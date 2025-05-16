@@ -57,5 +57,6 @@ private:
 	bool m_bInvi = false;               // 무적 상태 여부
 	DWORD m_dwHitTime = 0;             // 마지막 피격 시간
 	float m_fCoolTime = 1.5f;          // 무적 지속 시간 (1.5초)
+	bool m
 
 };

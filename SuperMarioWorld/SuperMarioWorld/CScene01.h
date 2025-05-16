@@ -21,9 +21,9 @@ public:
 	void Late_Update()override;
 	void Render(HDC)override;
 	void Release()override;
-	pair<float, float> Get_MapSize() { return { 5120.f, 432.f }; };
+	pair<float, float> Get_MapSize() { return { 5120.f, 640.f }; };
 
-
+	void Set_Pipe(bool _pipe) { m_bPipe = _pipe; };
 
 private:
 	float		m_fScrollX PURE;
@@ -32,6 +32,8 @@ private:
 	float		m_fWorldY PURE;
 	float		m_fGridX PURE;
 	float		m_fGridY PURE;
+
+	bool		m_bPipe = false;
 
 	
 

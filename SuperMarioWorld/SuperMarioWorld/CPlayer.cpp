@@ -156,8 +156,8 @@ void CPlayer::Late_Update()
 
 void CPlayer::Render(HDC hDC)
 {
-	// ¹«Àû½Ã ±ôºýÀÓ 
-	if (m_bInvi && (GetTickCount() % 2))	return;
+	// ¹«Àû½Ã ±ôºýÀÓ
+	if (m_bInvi && (GetTickCount() % 2) && (m_eCurState != DEATH))	return;
 
 
 	float fScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
