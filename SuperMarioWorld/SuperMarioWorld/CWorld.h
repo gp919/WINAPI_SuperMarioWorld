@@ -22,16 +22,26 @@ public:
 	pair<float, float> Get_MapSize() { return { 5120.f, 432.f }; }
 	void Set_Background(const wstring& str);
 
+	void Set_World(float _fx, float _fy)
+	{
+		m_fWorldX = _fx;
+		m_fWorldY = _fy;
+	}
+
 private:
 	int			m_iWorld = 0;
 	float		m_fScrollX;
 	float		m_fScrollY;
-	float		m_fWorldX;
-	float		m_fWorldY;
 	float		m_fGridX;
 	float		m_fGridY;
 	CWorldPlayer m_tPlayer;  
 	wstring m_strCurBackground = L"World1";
+
+
+	// 복귀 월드좌표로 사용
+	float		m_fWorldX;
+	float		m_fWorldY;
+	
 
 	// 페이드아웃 변수들
 	bool        m_bFadeOut = false;
