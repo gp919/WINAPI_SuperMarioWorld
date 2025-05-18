@@ -13,6 +13,7 @@ CSceneFinal::~CSceneFinal()
 void CSceneFinal::Initialize()
 {
 	CSoundMgr::Get_Instance()->StopAll();
+    CSoundMgr::Get_Instance()->PlayBGM(L"43. Boss Battle.mp3", 0.5f);
     CObjectMgr::Get_Instance()->Delete_Object(OBJ_MONSTER);
     CObjectMgr::Get_Instance()->Delete_Object(OBJ_TILE);
     CObjectMgr::Get_Instance()->Delete_Object(OBJ_ITEM);
@@ -33,7 +34,7 @@ void CSceneFinal::Initialize()
     for (int i = 0; i < 18; ++i)
     {
         float fX = (256.f + i * 16.f) * SCALE_FACTOR;
-        float fY = 416.f * SCALE_FACTOR + 48.f;
+        float fY = 416.f * SCALE_FACTOR + 32.f;
 
         CTile* pTile = new CTile(fX, fY, TILE_HIDDEN);
         CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, pTile);

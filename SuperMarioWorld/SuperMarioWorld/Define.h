@@ -165,3 +165,4 @@ extern HWND g_hWnd;
 extern int g_iHeight; 
 extern int g_iMaxHeight;
 
+

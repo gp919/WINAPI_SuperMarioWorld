@@ -178,6 +178,7 @@ void CScene01::Render(HDC hDC)
 	CLineMgr::Get_Instance()->Render(hDC);
 	CObjectMgr::Get_Instance()->Render(hDC);
 	CUiMgr::Get_Instance()->Render(hDC);
+	CUiMgr::Get_Instance()->Render_ScoreEffect(hDC, 0, 0);
 
 	// 페이드인 효과
 	if (m_bFadeIn)

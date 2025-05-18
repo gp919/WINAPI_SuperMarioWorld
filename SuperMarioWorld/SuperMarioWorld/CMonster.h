@@ -53,6 +53,11 @@ public:
     bool In_Screen();
     bool Player_In_Range(float range);
     bool Player_Distance_High();
+    bool Is_Descending() { return m_bDescending; };
+    bool Is_UpThrown() const { return m_bUpThrown; }
+    void Set_UpThrown(bool _bUpThrown) { m_bUpThrown = _bUpThrown; }
+    void Set_Descending(bool _bDescending) { m_bDescending = _bDescending; }
+    void Set_FallSpeed(float _fSpeed) { m_fFallSpeed = _fSpeed; }
 
 private:
     void Update_AI();
@@ -60,6 +65,7 @@ private:
     void Init_Frame();
     void Apply_Gravity();
     bool Is_Koopa() const { return m_eMonID == MON_GREENKOOPA || m_eMonID == MON_REDKOOPA; }
+    
     
 
 
@@ -83,4 +89,7 @@ private:
     float m_fPipeTopY = 0.f;     // 피라냐가 나오는 최대 높이
     float m_fPipeBottomY = 0.f;  // 피라냐가 숨는 위치
     float m_fUpTargetY = 0.f;    // 두더지가 튀어나올 목표 위치
+
+    bool m_bUpThrown=false;      // 위로 던졌는지 여부
+    bool m_bDescending=false;    // 하강 중인지 여부
 };

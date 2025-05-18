@@ -34,6 +34,7 @@ public:
     virtual void Late_Update() override;
     virtual void Render(HDC hDC) override;
     virtual void Release() override;
+    virtual void On_Collision(EOBJECTID)override;
 
     void Set_State(BOWSER_STATE eNewState);
     void Update_State();
@@ -69,6 +70,10 @@ private:
 
     float m_fTargetX;
     bool m_bMovingSide;
+
+    DWORD m_dwHitTime;        // 맞은 시간 저장 변수
+    bool m_bPhasePending;     // 페이즈 전환 보류 상태
+    bool m_bHurry = false;
 
     static const std::map<BOWSER_STATE, FRAME> m_mapBowserFrame;
 

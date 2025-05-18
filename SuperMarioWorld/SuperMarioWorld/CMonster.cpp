@@ -122,8 +122,17 @@ void CMonster::Initialize()
         case MONSTER_SHELL_IDLE:
         case MONSTER_SHELL_MOVE:
         case MONSTER_STOMPED:
-            m_tInfo.fCX = TILECX * SCALE_FACTOR;
-            m_tInfo.fCY = TILECX * SCALE_FACTOR;  // 미니쿠파 크기
+            // 메카쿠파일 경우 크기 예외 처리
+            if (m_eMonID == MON_MEKAKOOPA)
+            {
+                m_tInfo.fCX = 96.f;  // 명확한 크기 지정
+                m_tInfo.fCY = 72.f;  // 명확한 크기 지정
+            }
+            else
+            {
+                m_tInfo.fCX = TILECX * SCALE_FACTOR;
+                m_tInfo.fCY = TILECX * SCALE_FACTOR;  // 미니쿠파 크기
+            }
             break;
         
         default:
@@ -136,8 +145,9 @@ void CMonster::Initialize()
                 m_tInfo.fCY = TILECY * SCALE_FACTOR * 2.f;
                 break;
             case MON_MEKAKOOPA:
-                m_tInfo.fCX = TILECX * SCALE_FACTOR * 2.f;
-                m_tInfo.fCY = TILECY * SCALE_FACTOR * 1.5f;
+                m_tInfo.fCX = 96.f;  // 명확한 크기 지정
+                m_tInfo.fCY = 72.f;  // 명확한 크기 지정
+                m_fSpeed = 2.f;
                 break;
             default:
                 m_tInfo.fCX = TILECX * SCALE_FACTOR;
@@ -176,8 +186,11 @@ void CMonster::Initialize()
             m_tInfo.fCY = TILECY * SCALE_FACTOR * 2.f;
             break;
         case MON_MEKAKOOPA:
-            m_tInfo.fCX = TILECX * SCALE_FACTOR * 2.f;
-            m_tInfo.fCY = TILECY * SCALE_FACTOR * 1.5f;
+            m_tInfo.fCX = 96.f;  // 명확한 크기 지정
+            m_tInfo.fCY = 72.f;  // 명확한 크기 지정
+            m_fSpeed = 2.f;
+            m_bMove = true;
+            break;
         default:
             m_tInfo.fCX = TILECX * SCALE_FACTOR;
             m_tInfo.fCY = TILECY * SCALE_FACTOR;
@@ -198,6 +211,11 @@ void CMonster::Initialize()
             m_fPipeBottomY = m_tInfo.fY;
             m_fPipeTopY = m_tInfo.fY - 40.f;
             m_bMove = false;
+            break;
+        case MON_MEKAKOOPA:
+            Set_State(MONSTER_IDLE);
+            m_fSpeed = 2.f;
+            m_bMove = true;
             break;
         default:
             Set_State(MONSTER_WALK);
@@ -226,6 +244,17 @@ void CMonster::Initialize()
 
 int CMonster::Update()
 {
+    // 메카쿠파가 화면 밖에서 들어올 때 속도 제한
+    if (m_eMonID == MON_MEKAKOOPA && !m_bMove && In_Screen())
+    {
+        m_bMove = true;
+        if (m_eState == MONSTER_IDLE)
+        {
+            // 활성화되면 느린 속도로 시작
+            m_fSpeed = 1.5f;
+        }
+    }
+
     if (m_bDead)
     {
         if (m_eState != MONSTER_DEAD)
@@ -235,7 +264,7 @@ int CMonster::Update()
 
         if (GetTickCount() > m_dwDeadTime + 500)
         {
-            CUiMgr::Get_Instance()->Set_Score(100);
+            CUiMgr::Get_Instance()->Set_Score(1, m_tInfo.fX, m_tInfo.fY);
             return DEAD;
         }
 
@@ -338,7 +367,7 @@ void CMonster::Update_AI()
             {
                 Set_State(MONSTER_WALK);
             }
-                
+
             break;
 
         case MONSTER_WALK:
@@ -386,6 +415,94 @@ void CMonster::Update_AI()
         return;
     }
 
+    // 메카쿠파 처리
+    if (m_eMonID == MON_MEKAKOOPA)
+    {
+        // 위로 던져진 SHELL_MOVE 상태일 때만 특별 처리
+        if (m_bUpThrown && m_eState == MONSTER_SHELL_MOVE)
+        {
+            // 상승 단계
+            if (m_fFallSpeed < 0)
+            {
+                // 중력 적용
+                m_fFallSpeed += GRAVITY * 0.5f;
+                m_tInfo.fY += m_fFallSpeed;
+
+                // 최고점 도달 시 하강 모드로 전환
+                if (m_fFallSpeed >= 0)
+                {
+                    m_bDescending = true;
+                }
+            }
+            // 하강 단계
+            else if (m_bDescending)
+            {
+                // 화면 하단 체크만 수행 (라인, 타일, 플레이어 무시)
+                m_fFallSpeed += GRAVITY * 0.5f;
+
+                if (m_fFallSpeed > MAX_FALL_SPEED)
+                    m_fFallSpeed = MAX_FALL_SPEED;
+
+                m_tInfo.fY += m_fFallSpeed;
+
+                // 라인 충돌 체크
+                float fY = 0.f;
+                if (CLineMgr::Get_Instance()->Collision_Line(m_tInfo, &fY))
+                {
+                    if (m_tInfo.fY + m_tInfo.fCY * 0.5f >= fY)
+                    {
+                        m_tInfo.fY = fY - m_tInfo.fCY * 0.5f;
+                        m_fFallSpeed = 0.f;
+                        m_bUpThrown = false;
+                        m_bDescending = false;
+                        Set_State(MONSTER_IDLE);
+                        m_fSpeed = 2.f;
+                        return;
+                    }
+                }
+            }
+
+            // 기본 이동 (X축)
+            // 기존 코드...
+        }
+
+        // IDLE, SHELL_IDLE, 일반 SHELL_MOVE 상태 처리
+        // 파이널씬 경계 체크
+        float fLeftBound = 256.f * SCALE_FACTOR + m_tInfo.fCX * 0.5f;
+        float fRightBound = 512.f * SCALE_FACTOR - m_tInfo.fCX * 0.5f;
+        float fGroundY = (432.f - 16.f) * SCALE_FACTOR - m_tInfo.fCY * 0.5f;
+
+        // IDLE 상태 (일반 걷기)
+        if (m_eState == MONSTER_IDLE)
+        {
+            // 좌우 이동
+            if (m_eDir == DIR_LEFT)
+                m_tInfo.fX -= m_fSpeed;
+            else
+                m_tInfo.fX += m_fSpeed;
+
+            // 경계 체크
+            if (m_tInfo.fX <= fLeftBound)
+            {
+                m_tInfo.fX = fLeftBound;
+                m_eDir = DIR_RIGHT;
+                Update_ImageKey();
+            }
+            else if (m_tInfo.fX >= fRightBound)
+            {
+                m_tInfo.fX = fRightBound;
+                m_eDir = DIR_LEFT;
+                Update_ImageKey();
+            }
+
+            // 항상 땅 위에 있도록 함
+            m_tInfo.fY = fGroundY;
+        }
+
+        return; // 메카쿠파 처리 완료
+    }
+
+    // 일반 몬스터 이동
     if (m_eDir == DIR_LEFT)
         m_tInfo.fX -= m_fSpeed;
     else
@@ -411,6 +528,8 @@ void CMonster::Late_Update()
     }
 
     On_Collision(OBJ_MONSTER);
+
+    // 화면 밖으로 나가면 삭제
     if (m_tInfo.fY >= 1272.f || m_tInfo.fX <= 0.f)
     {
         m_bDead = true;
@@ -425,19 +544,25 @@ void CMonster::Late_Update()
     }
 
 #ifndef _DEBUG
-    // 두더지와 피라냐는 위로 올라오는 중이면 중력 무시
-    bool bIgnoreGravity =
-        (m_eMonID == MON_MOLE && m_eState == MONSTER_IDLE) ||
-        (m_eMonID == MON_MOLE && m_eState == MONSTER_UP) ||
-        (m_eMonID == MON_PIRANHA && m_eState == MONSTER_HIDDEN) ||
-        (m_eMonID == MON_PIRANHA && m_eState == MONSTER_UP);
+    // 위로 던진 SHELL_MOVE 상태일 때만 특별 처리
+    if (m_eMonID == MON_MEKAKOOPA && m_bUpThrown && m_eState == MONSTER_SHELL_MOVE)
+    {
+        // 중력 처리 스킵 (Update_AI에서 직접 처리)
+    }
+    else
+    {
+        // 두더지와 피라냐는 위로 올라오는 중이면 중력 무시
+        bool bIgnoreGravity =
+            (m_eMonID == MON_MOLE && m_eState == MONSTER_IDLE) ||
+            (m_eMonID == MON_MOLE && m_eState == MONSTER_UP) ||
+            (m_eMonID == MON_PIRANHA && m_eState == MONSTER_HIDDEN) ||
+            (m_eMonID == MON_PIRANHA && m_eState == MONSTER_UP);
 
-    if (!bIgnoreGravity)
-        Apply_Gravity();
+        if (!bIgnoreGravity)
+            Apply_Gravity();
+    }
 #else
     // 디버그 모드에선 중력 무시
-    // 필요한 경우 MONSTER_SHELL_MOVE 등 예외 추가 가능
-
 #endif
 
     Update_Rect();
@@ -445,20 +570,36 @@ void CMonster::Late_Update()
 
 void CMonster::Apply_Gravity()
 {
-    m_fFallSpeed += GRAVITY;
+    // 메카쿠파일 경우 충돌 검사 반복 횟수 증가
+    int nSteps = (m_eMonID == MON_MEKAKOOPA) ? 6 : 1;
+    float fStepSize = GRAVITY / nSteps;
 
-    if (m_fFallSpeed > MAX_FALL_SPEED)
-        m_fFallSpeed = MAX_FALL_SPEED;
-
-    m_tInfo.fY += m_fFallSpeed;
-
-    float fY = 0.f;
-    if (CLineMgr::Get_Instance()->Collision_Line(m_tInfo, &fY))
+    // 한 번에 큰 변화 대신 작은 단계로 나누어 처리
+    for (int i = 0; i < nSteps; ++i)
     {
-        if (m_tInfo.fY + m_tInfo.fCY * 0.5f >= fY)
+        // 점진적으로 속도 증가
+        m_fFallSpeed += fStepSize;
+
+        if (m_fFallSpeed > MAX_FALL_SPEED)
+            m_fFallSpeed = MAX_FALL_SPEED;
+
+        // 점진적으로 위치 변경
+        float fMoveStep = m_fFallSpeed / nSteps;
+        m_tInfo.fY += fMoveStep;
+
+        // 매 단계마다 충돌 검사
+        float fY = 0.f;
+        if (CLineMgr::Get_Instance()->Collision_Line(m_tInfo, &fY))
         {
-            m_tInfo.fY = fY - m_tInfo.fCY * 0.5f;
-            m_fFallSpeed = 0.f;
+            float fCollisionMargin = (m_eMonID == MON_MEKAKOOPA) ? 2.0f : 0.5f;
+            if (m_tInfo.fY + m_tInfo.fCY * 0.5f >= fY - fCollisionMargin)
+            {
+                m_tInfo.fY = fY - m_tInfo.fCY * 0.5f - 1.0f;  // 약간의 추가 마진
+                m_fFallSpeed = 0.f;
+
+                // 충돌 발생하면 루프 종료
+                break;
+            }
         }
     }
 }
@@ -485,18 +626,42 @@ void CMonster::Render(HDC hDC)
     m_fScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
 
     HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_pFrameKey);
+    if (m_eMonID == MON_MEKAKOOPA)
+    {
+        // 메카쿠파 원본 크기
+        const int srcWidth = 32;
+        const int srcHeight = 24;
 
-    GdiTransparentBlt(hDC,
-        (int)(m_tInfo.fX - m_tInfo.fCX * 0.5f - m_fScrollX),
-        (int)(m_tInfo.fY - m_tInfo.fCY * 0.5f - m_fScrollY),
-        (int)m_tInfo.fCX,
-        (int)m_tInfo.fCY,
-        hMemDC,
-        m_tFrame.iStart * TILECX,
-        m_tFrame.iMotion * TILECX,
-        (int)(m_tInfo.fCX / SCALE_FACTOR),
-        (int)(m_tInfo.fCY / SCALE_FACTOR),
-        RGB(0, 255, 0));
+        // 출력 크기는 정확히 96x72 (3배)
+        const int drawWidth = 96;
+        const int drawHeight = 72;
+
+        GdiTransparentBlt(hDC,
+            (int)(m_tInfo.fX - drawWidth * 0.5f - m_fScrollX),  // 중앙 기준 출력 위치 X
+            (int)(m_tInfo.fY - drawHeight * 0.5f - m_fScrollY), // 중앙 기준 출력 위치 Y
+            drawWidth,  // 출력 너비
+            drawHeight, // 출력 높이
+            hMemDC,
+            m_tFrame.iStart * srcWidth,    // 소스 X 오프셋
+            m_tFrame.iMotion * srcHeight,  // 소스 Y 오프셋
+            srcWidth,  // 소스 너비
+            srcHeight, // 소스 높이
+            RGB(0, 255, 0));
+    }
+    else
+    {
+        GdiTransparentBlt(hDC,
+            (int)(m_tInfo.fX - m_tInfo.fCX * 0.5f - m_fScrollX),
+            (int)(m_tInfo.fY - m_tInfo.fCY * 0.5f - m_fScrollY),
+            (int)m_tInfo.fCX,
+            (int)m_tInfo.fCY,
+            hMemDC,
+            m_tFrame.iStart * TILECX,
+            m_tFrame.iMotion * TILECX,
+            (int)(m_tInfo.fCX / SCALE_FACTOR),
+            (int)(m_tInfo.fCY / SCALE_FACTOR),
+            RGB(0, 255, 0));
+    }
 }
 
 void CMonster::Release()
@@ -518,8 +683,12 @@ void CMonster::On_Collision(EOBJECTID _id)
         {
             if (pMonster == this || pMonster->Get_Dead())
                 continue;
-
+            
             CMonster* pOtherMonster = static_cast<CMonster*>(pMonster);
+            if ((pOtherMonster->Get_MonsterID() == MON_MEKAKOOPA) && pOtherMonster->Is_Descending())
+            {
+                break;
+            }
 
             // Check_Rect를 사용하여 충돌 확인
             float fWidth = 0.f, fHeight = 0.f;
@@ -626,6 +795,46 @@ void CMonster::Set_State(MONSTER_STATE _eState)
         }
     }
 
+    // 메카쿠파 상태 변경 시 특별 처리
+    if (m_eMonID == MON_MEKAKOOPA)
+    {
+        switch (_eState)
+        {
+        case MONSTER_IDLE:
+            m_tInfo.fCX = 96.f;
+            m_tInfo.fCY = 72.f;
+            m_fSpeed = 2.f;
+            m_bMove = true;
+            break;
+
+        case MONSTER_SHELL_IDLE:
+            m_tInfo.fCX = 96.f;
+            m_tInfo.fCY = 72.f;
+            m_fSpeed = 0.f;
+            m_dwTime = GetTickCount();
+            break;
+
+        case MONSTER_SHELL_MOVE:
+            // 크기 유지하면서 속도만 변경
+            m_tInfo.fCX = 96.f;
+            m_tInfo.fCY = 72.f;
+            m_fSpeed = 6.f; // 메카쿠파 껍질 이동 속도
+            m_bMove = true;
+            break;
+
+        case MONSTER_STOMPED:
+            m_bDead = true;
+            m_dwDeadTime = GetTickCount();
+            break;
+
+        case MONSTER_DEAD:
+            m_dwDeadTime = GetTickCount();
+            m_fSpeed = 0.f;
+            m_bMove = false;
+            break;
+        }
+    }
+
     switch (_eState)
     {
     case MONSTER_SHELL_IDLE:
@@ -689,6 +898,28 @@ void CMonster::On_Stomped()
     dwLastStompTime = GetTickCount();
 
     CSoundMgr::Get_Instance()->PlaySoundW(L"stomp.wav", SOUND_EFFECT, 0.1f);
+
+    // 메카쿠파 처리
+    if (m_eMonID == MON_MEKAKOOPA)
+    {
+        // 현재 상태가 IDLE이면 SHELL_IDLE로 변경
+        if (m_eState == MONSTER_IDLE)
+        {
+            Set_State(MONSTER_SHELL_IDLE);
+
+            // 바닥 위치 계산
+            float fY = 0.f;
+            if (CLineMgr::Get_Instance()->Collision_Line(m_tInfo, &fY))
+            {
+                // 바닥에 정확히 붙이기 (크기는 Set_State에서 이미 조정됨)
+                m_tInfo.fY = fY - m_tInfo.fCY * 0.5f;
+                m_fFallSpeed = 0.f;  // 중력 초기화
+            }
+            return;
+        }
+    }
+
+    // 쿠파 처리
     if (Is_Koopa())
     {
         switch (m_eState)
@@ -757,14 +988,10 @@ void CMonster::On_Stomped()
             return;
         }
     }
-    if (m_eMonID == MON_MEKAKOOPA)
-    {
-        Set_State(MONSTER_SHELL_IDLE);
-        return;
-    }
 
     Set_State(MONSTER_STOMPED);
 }
+
 void CMonster::Release_From_Holder()
 {
     if (!m_pHolder)
@@ -783,7 +1010,23 @@ void CMonster::Release_From_Holder()
         else
             m_tInfo.fX -= fThrowDistance;
 
-        On_Kicked(pPlayer->Get_Dir());
+        // 메카쿠파는 위로 던지기 동작 추가
+        if (m_eMonID == MON_MEKAKOOPA)
+        {
+            // 위로 던지기
+            Set_State(MONSTER_SHELL_MOVE);
+            m_fSpeed = 4.f;
+            m_eDir = pPlayer->Get_Dir();
+            m_bUpThrown = true;
+            m_bDescending = false;  // 처음엔 올라가야 하므로 하강 모드 false
+            m_fFallSpeed = -12.f;   // 초기 점프 속도
+            CSoundMgr::Get_Instance()->PlaySoundW(L"meka_throw.wav", SOUND_EFFECT, 0.5f);
+        }
+        else
+        {
+            // 일반 쿠파는 그냥 차기
+            On_Kicked(pPlayer->Get_Dir());
+        }
     }
 }
 

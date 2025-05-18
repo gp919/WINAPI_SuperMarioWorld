@@ -265,7 +265,14 @@ void CPlayer::On_Collision(EOBJECTID _id)
 			break;
 		}
 
+		// 메카쿠파가 하강 중이면 충돌 무시
+		if (pMonster->Get_MonsterID() == MON_MEKAKOOPA && pMonster->Is_Descending())
+		{
+			break;
+		}
+
 		MONSTER_STATE monsterState = pMonster->Get_State();
+		MONSTERID monsterID = pMonster->Get_MonsterID();
 
 		// 움직이는 껍질과의 충돌은 무시
 		if (monsterState == MONSTER_SHELL_MOVE)
