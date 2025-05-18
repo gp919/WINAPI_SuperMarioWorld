@@ -117,6 +117,7 @@ void CPlayer::Late_Update()
 
 	On_Collision(OBJ_TILE);
 	On_Collision(OBJ_MONSTER);
+	On_Collision(OBJ_BOWSER);
 	On_Collision(OBJ_ITEM);
 	float fX(0);
 	float fY(0);

@@ -47,7 +47,7 @@
 #define			DEAD		1
 
 enum SCENEID { SC_LOGO, SC_MENU, SC_EDIT, SC_WORLD, SC_STAGE_ONE, SC_STAGE_TWO, SC_STAGE_FINAL, SC_BOSS, SC_END };
-enum EOBJECTID { OBJ_PLAYER, OBJ_MONSTER, OBJ_TILE, OBJ_ITEM, OBJ_EFFECT, OBJ_BULLET, OBJ_BOWSER, OBJ_END};
+enum EOBJECTID { OBJ_PLAYER, OBJ_MONSTER, OBJ_TILE, OBJ_ITEM, OBJ_EFFECT, OBJ_BULLET, OBJ_BOWSER, OBJ_PIPE, OBJ_END};
 enum OBJECTDIR {
 	DIR_LEFT, DIR_RIGHT, DIR_UP, DIR_DOWN, DIR_END
 };
@@ -165,4 +165,10 @@ extern HWND g_hWnd;
 extern int g_iHeight; 
 extern int g_iMaxHeight;
 
-
+struct POINTF
+{
+	float x;
+	float y;
+	POINTF() : x(0.f), y(0.f) {}
+	POINTF(float _x, float _y) : x(_x), y(_y) {}
+};

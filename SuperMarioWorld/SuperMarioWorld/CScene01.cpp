@@ -22,16 +22,17 @@ void CScene01::Initialize()
 
 	CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
 	CScrollMgr::Get_Instance()->Set_ScrollY(0.f);
-	CScrollMgr::Get_Instance()->Set_Size(5120.f * SCALE_FACTOR, 432.f * SCALE_FACTOR);
+	CScrollMgr::Get_Instance()->Set_Size(5120.f * SCALE_FACTOR, 960.f * SCALE_FACTOR);
 	CSceneMgr::Get_Instance()->Load_Data(); // 먼저 데이터 불러오기
 	
 	// 그 후 플레이어 생성 (타일 바닥 위)
-	CObject* pPlayer = new CPlayer;
+	pPlayer = new CPlayer;
 	
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
 
 	pPlayer->Update();
 	pPlayer->Late_Update();
+
 
 	// 스크롤 위치 보정
 	CScrollMgr::Get_Instance()->Set_ScrollX(pPlayer->Get_Info()->fX - WINCX * 0.42f);
@@ -41,6 +42,35 @@ void CScene01::Initialize()
 
 int CScene01::Update()
 {
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_DOWN))
+	{
+		float fx = pPlayer->Get_Info()->fX;
+		float fy = pPlayer->Get_Info()->fY;
+
+		if (fx >= 3872 * 3.f && fx <= 3904 * 3.f &&
+			fy >= 1000.f && fy <= 1100.f)
+		{
+			pPlayer->Set_PosY((480 - 352) * 3.f);
+			pPlayer->Offset();
+			CSoundMgr::Get_Instance()->PlaySoundW(L"pipe.wav", SOUND_EFFECT, 0.1f);
+		}
+	}
+
+	// 파이프 B: 지하 → 지상
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_UP))
+	{
+		float fx = pPlayer->Get_Info()->fX;
+		float fy = pPlayer->Get_Info()->fY;
+
+		if (fx >= 4576 * 3.f - 10.f && fx <= 4576 * 3.f + 10.f &&
+			fy >= 1776.f && fy <= 1872.f)
+		{
+			pPlayer->Set_PosX((4048 - 4576) * 3.f);
+			pPlayer->Set_PosY((336 - 624) * 3.f);
+			pPlayer->Offset();
+			CSoundMgr::Get_Instance()->PlaySoundW(L"pipe.wav", SOUND_EFFECT, 0.1f);
+		}
+	}
 
 	if (m_bLogo)
 	{
@@ -56,6 +86,25 @@ int CScene01::Update()
 		}
 		return NOEVENT; // 로고 표시 중에는 다른 업데이트 중단
 	}
+
+	const auto& pipeList = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PIPE);
+	for (auto& pipeObj : pipeList)
+	{
+		CPipe* pPipe = dynamic_cast<CPipe*>(pipeObj);
+		if (!pPipe) continue;
+
+		if (pPipe->Is_Player_Enterable(pPlayer))
+		{
+			const POINTF& dest = pPipe->Get_DestPos();
+			//pPlayer->Set_Pos(dest.x, dest.y);
+
+			// 옵션: 관 사운드나 효과 넣기
+			CSoundMgr::Get_Instance()->PlaySoundW(L"pipe.wav", SOUND_EFFECT, 0.1f);
+
+			break;
+		}
+	}
+
 
 	// 페이드인 체크
 	if (m_bFadeIn)
@@ -165,12 +214,17 @@ void CScene01::Render(HDC hDC)
 	int srcW = WINCX / SCALE_FACTOR;
 	int srcH = WINCY / SCALE_FACTOR;
 
+	// BMP 범위를 벗어나지 않도록 보정
+	const int maxBmpH = 864;
+	if (srcY + srcH > maxBmpH)
+		srcY = maxBmpH - srcH;
+
 	GdiTransparentBlt(
 		hDC,
-		0, 0,              // 화면 좌측 상단에 출력
-		WINCX, WINCY,      // 확대된 출력 크기
+		0, 0,
+		WINCX, WINCY,
 		hMemDC,
-		srcX, srcY,        // 이미지의 잘라낼 시작 위치
+		srcX, srcY,
 		srcW, srcH,
 		RGB(0, 255, 0));
 

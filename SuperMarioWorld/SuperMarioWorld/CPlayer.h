@@ -33,13 +33,14 @@ public:
 	};
 
 	MARIOSTATE Get_Mario() { return m_eMarioState; };
+	void Offset();
 
 private:
 	void Key_Input();
 	void Change_State();
 	void Update_Gravity();
 	void Update_Speed();
-	void Offset();
+	
 	void Update_Hold(bool);
 	void Change_Mario(MARIOSTATE);
 

@@ -16,13 +16,7 @@ enum BOWSER_STATE
     BOWSER_END
 };
 
-struct POINTF
-{
-    float x;
-    float y;
-    POINTF() : x(0.f), y(0.f) {}
-    POINTF(float _x, float _y) : x(_x), y(_y) {}
-};
+
 
 class CBowser : public CObject
 {
@@ -93,6 +87,6 @@ private:
     void Pattern_DeadFlyAway();
     void Pattern_PeachHelp();
 
-    void Spawn_Mechakoopa(float fx);
+    void Spawn_Mechakoopa();
     void Spawn_Fire(float fx);
 };

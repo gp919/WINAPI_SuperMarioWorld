@@ -94,6 +94,9 @@
     <Filter Include="10. Bowser">
       <UniqueIdentifier>{11106325-7bd6-4bd7-af16-d565b3a79be1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Object\CPipe">
+      <UniqueIdentifier>{ceb99e9c-7d32-4f9d-966d-bcde1baaa220}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -204,6 +207,9 @@
     <ClInclude Include="CBowser.h">
       <Filter>10. Bowser</Filter>
     </ClInclude>
+    <ClInclude Include="CPipe.h">
+      <Filter>02. Object\CPipe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -301,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="CBowser.cpp">
       <Filter>10. Bowser</Filter>
+    </ClCompile>
+    <ClCompile Include="CPipe.cpp">
+      <Filter>02. Object\CPipe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

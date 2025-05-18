@@ -448,7 +448,7 @@ void CBowser::Pattern_HideDrop()
         m_bDropStarted = true;
 
         // 바우저 현재 방향 기준으로 떨어뜨리기
-        Spawn_Mechakoopa(0.f); // 매개변수는 무시됨(내부에서 방향 기준으로 계산)
+        Spawn_Mechakoopa(); // 매개변수는 무시됨(내부에서 방향 기준으로 계산)
     }
 
     // 모션 애니메이션 특별 처리 - HIDE_DROP 상태일 때 프레임 처리
@@ -534,7 +534,7 @@ void CBowser::Pattern_PeachHelp()
     }
 }
 
-void CBowser::Spawn_Mechakoopa(float fx)
+void CBowser::Spawn_Mechakoopa()
 {
     const auto& Objlist = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER);
     if (!Objlist.empty()) return;
@@ -564,7 +564,7 @@ void CBowser::Spawn_Mechakoopa(float fx)
 
 
     // 초기 낙하 속도 매우 작게 설정 (자연스러운 낙하를 위해)
-    pMekaKoopa->Set_FallSpeed(0.5f);
+    pMekaKoopa->Set_FallSpeed(5.f);
     pMekaKoopa->Set_Jump(true);
 
     // OBJ_MONSTER에 추가

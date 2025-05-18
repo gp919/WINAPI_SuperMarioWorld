@@ -8,7 +8,9 @@
 #include "CPlayer.h"
 #include "CUiMgr.h"
 #include "CObject.h"
+#include "CPipe.h"
 
+class CPlayer;
 class CScene01 : public CScene
 {
 public:
@@ -29,6 +31,8 @@ public:
 
 	void Set_Pipe(bool _pipe) { m_bPipe = _pipe; };
 
+	bool Is_Player_Enterable(CObject* pPlayer);
+
 private:
 	float		m_fScrollX PURE;
 	float		m_fScrollY PURE;
@@ -38,6 +42,8 @@ private:
 	float		m_fGridY PURE;
 
 	bool		m_bPipe = false;
+
+	CPlayer* pPlayer;
 
 	
 

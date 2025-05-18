@@ -146,6 +146,7 @@
     <ClInclude Include="CLogo.h" />
     <ClInclude Include="CMenu.h" />
     <ClInclude Include="CMonster.h" />
+    <ClInclude Include="CPipe.h" />
     <ClInclude Include="CScene01.h" />
     <ClInclude Include="CSceneFinal.h" />
     <ClInclude Include="CScrollMgr.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="CLogo.cpp" />
     <ClCompile Include="CMenu.cpp" />
     <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="CPipe.cpp" />
     <ClCompile Include="CScene01.cpp" />
     <ClCompile Include="CSceneFinal.cpp" />
     <ClCompile Include="CScrollMgr.cpp" />
