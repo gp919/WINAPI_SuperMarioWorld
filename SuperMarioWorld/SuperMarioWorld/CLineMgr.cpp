@@ -16,14 +16,12 @@ CLineMgr::~CLineMgr()
 
 bool CLineMgr::Collision_Line(INFO _info, float* pY)
 {
-
-
 	if (m_Linelist.empty())
 		return false;
-	
-	float fLineY;
 
-	
+	float fBestY = 99999.f;
+	bool bHit = false;
+
 	for (auto& pLine : m_Linelist)
 	{
 		const LINE* tInfo = pLine->Get_Line();
@@ -31,29 +29,35 @@ bool CLineMgr::Collision_Line(INFO _info, float* pY)
 		float fLy = tInfo->tLPoint.fY;
 		float fRx = tInfo->tRPoint.fX;
 		float fRy = tInfo->tRPoint.fY;
-		if(fLx != fRx)
+
+		if (fLx == fRx) continue;
+
+		float slope = (fRy - fLy) / (fRx - fLx);
+		float fx_contact = (slope >= 0.f) ? (_info.fX + _info.fCX * 0.5f) : (_info.fX - _info.fCX * 0.5f);
+
+		if (fx_contact >= fLx && fx_contact <= fRx)
 		{
+			float fLineY = slope * (fx_contact - fLx) + fLy;
+			float fBottom = _info.fY + _info.fCY * 0.5f;
 
-			float slope = (fRy - fLy) / (fRx - fLx);
-			float fx_contact = (slope >= 0.f) ? (_info.fX + _info.fCX * 0.5f) : (_info.fX - _info.fCX * 0.5f);
-			// X 범위 내 확인
-			if (fx_contact >= fLx && fx_contact <= fRx)
+			// 아래쪽에서 올라오는 경우도 포함해서 더 관대하게 처리
+			if ((fBottom >= fLineY && fBottom - fLineY <= 30.f))
 			{
-				float fLineY = slope * (fx_contact - fLx) + fLy;
-				float fBottom = _info.fY + _info.fCY * 0.5f;
-				float fMargin = 0.f;
-				/*if (_info.iType == ITEM_MUSH || _info.iType == ITEM_LEV)	fMargin = 28.f;*/
-				// 마진 수정
-				if (fabsf(fBottom - fLineY) < 20.f + fMargin)
+				if (fLineY < fBestY)
 				{
-
-					*pY = fLineY;
-					return true;
+					fBestY = fLineY;
+					bHit = true;
 				}
-
 			}
 		}
 	}
+
+	if (bHit)
+	{
+		*pY = fBestY;
+		return true;
+	}
+
 	return false;
 }
 

@@ -12,6 +12,7 @@ enum BOWSER_STATE
     BOWSER_DEAD_FLYAWAY,      // 사망 시 우상단 날아감
     BOWSER_IDLE,              // 기본 대기 애니메이션
     BOWSER_HIT,               // 메카쿠파에 맞았을 때 연출
+    BOWSER_PEACH_HELP,
     BOWSER_END
 };
 
@@ -46,6 +47,9 @@ private:
     bool m_bReturningCenter;
     BOWSER_STATE m_eState;
 
+    DWORD m_dwPeachHelpStart;
+    bool m_bItemDropped;
+
     POINTF m_tSpawnPos;
 
     float m_fSwingTime;
@@ -75,6 +79,10 @@ private:
     bool m_bPhasePending;     // 페이즈 전환 보류 상태
     bool m_bHurry = false;
 
+    bool m_bPatternReady;        // 이동 후 패턴 실행 준비됨
+    bool m_bMovingForPattern;    // 패턴 실행을 위한 이동 중
+    int  m_iPendingPattern;      // 다음 실행할 패턴 번호
+
     static const std::map<BOWSER_STATE, FRAME> m_mapBowserFrame;
 
     void Pattern_Descend();
@@ -83,6 +91,7 @@ private:
     void Pattern_HideDrop();
     void Pattern_FireDrop();
     void Pattern_DeadFlyAway();
+    void Pattern_PeachHelp();
 
     void Spawn_Mechakoopa(float fx);
     void Spawn_Fire(float fx);

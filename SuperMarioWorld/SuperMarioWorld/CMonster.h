@@ -58,6 +58,7 @@ public:
     void Set_UpThrown(bool _bUpThrown) { m_bUpThrown = _bUpThrown; }
     void Set_Descending(bool _bDescending) { m_bDescending = _bDescending; }
     void Set_FallSpeed(float _fSpeed) { m_fFallSpeed = _fSpeed; }
+    void Set_Jump(bool _jump) { m_bJump = _jump; };
 
 private:
     void Update_AI();

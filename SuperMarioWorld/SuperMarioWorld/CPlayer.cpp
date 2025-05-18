@@ -224,6 +224,7 @@ void CPlayer::On_Collision(EOBJECTID _id)
 			m_fJumpTime = 0.f;
 			m_eCurState = IDLE;
 			m_tInfo.fY = pTarget->Get_Rect()->top - m_tInfo.fCY * 0.5f;
+			return;
 		}
 		else if (pTarget && Get_Col() == COL_TOP)
 		{
@@ -245,6 +246,7 @@ void CPlayer::On_Collision(EOBJECTID _id)
 	break;
 
 	// 2. ∏ÛΩ∫≈Õ
+	case OBJ_BOWSER:
 	case OBJ_MONSTER:
 	{
 		pTarget = CCollisionMgr::Collision_RectEx(

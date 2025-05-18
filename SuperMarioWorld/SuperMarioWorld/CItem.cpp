@@ -272,18 +272,22 @@ void CItem::Line_Collision()
 
 void CItem::Update_Gravitiy()
 {
-	// y = y0 + vt
-	m_tInfo.fY += m_fJumpSpeed * m_fJumpTime;
-	// v = v0 + at
-	if (m_fJumpSpeed >= 24.0f)
-		m_fJumpSpeed = 24.0f;
+	float fGravity = (m_tInfo.iType == ITEM_MUSH) ? GRAVITY * 2.5f : GRAVITY;
+
+	// 속도 증가
+	m_fJumpSpeed += fGravity * m_fJumpTime;
+
+	// 최대 낙하속도 제한
+	float fMaxFallSpeed = (m_tInfo.iType == ITEM_MUSH) ? 30.0f : 24.0f;
+	if (m_fJumpSpeed >= fMaxFallSpeed)
+		m_fJumpSpeed = fMaxFallSpeed;
 	else if (m_fJumpSpeed <= -2.f)
 		m_fJumpSpeed = -2.f;
-	else
-	{
-		m_fJumpSpeed += GRAVITY * m_fJumpTime;
-	}
-	// t++
+
+	// 실제 Y 위치 적용 !!!
+	m_tInfo.fY += m_fJumpSpeed;
+
+	// 시간 증가
 	m_fJumpTime += 0.1f;
 }
 

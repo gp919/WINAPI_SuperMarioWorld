@@ -34,10 +34,11 @@ public:
 		m_iPopFrame = 0;
 		m_fStartY = m_tInfo.fY;
 	}
-
+public:
+	bool m_bPopUp = false;     // 등장 중
 private:
 	bool m_bMove;
-	bool m_bPopUp = false;     // 등장 중
+	
 	int  m_iPopFrame = 0;     // 몇 프레임 올랐는지
 	float m_fStartY;          // 시작 위치 기억
 

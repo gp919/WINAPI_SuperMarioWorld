@@ -16,7 +16,8 @@ const map<BOWSER_STATE, FRAME> CBowser::m_mapBowserFrame = {
     { BOWSER_FIRE_DROP_HIDE,  { 0, 3, 2, 300, 0 } },
     { BOWSER_DEAD_FLYAWAY,    { 0, 3, 3, 100, 0 } },
     { BOWSER_HIT,             { 0, 3, 5, 120, 0 } },
-    { BOWSER_DESCEND,         { 0, 3, 0, 150, 0 } }
+    { BOWSER_DESCEND,         { 0, 3, 0, 150, 0 } },
+    { BOWSER_PEACH_HELP,      { 0, 3, 4, 400, 0 } }, // 5행: 피치 공주 등장 모션
 };
 
 CBowser::CBowser()
@@ -32,7 +33,7 @@ CBowser::CBowser()
     m_tFrame = m_mapBowserFrame.at(BOWSER_DESCEND);
     m_tFrame.dwTime = GetTickCount();
     m_tInfo.fY = -64.f;
-    m_tSpawnPos = { 384.f * SCALE_FACTOR, 320.f * SCALE_FACTOR };
+    m_tSpawnPos = { 384.f * SCALE_FACTOR, 320.f * SCALE_FACTOR - 96.f };
 }
 
 
@@ -45,10 +46,26 @@ void CBowser::Initialize()
     m_tFrame.dwTime = GetTickCount();
     m_dwLastPatternTime = GetTickCount();
     m_iPhase = 0;
+
+    m_bPatternReady = false;
+    m_bMovingForPattern = false;
+    m_iPendingPattern = -1;
+
+    m_bItemDropped = false;
+    m_dwPeachHelpStart = 0;
 }
 
 int CBowser::Update()
 {
+
+    if (m_bDead)
+    {
+        CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+        CSoundMgr::Get_Instance()->PlaySoundW(L"Boss Death.wav", SOUND_EFFECT, 0.5f);
+        CObjectMgr::Get_Instance()->Delete_Object(OBJ_MONSTER);
+        return DEAD;
+    }
+
     if (m_iPhase >= 2)
     {
         if (!m_bHurry)
@@ -57,14 +74,9 @@ int CBowser::Update()
             CSoundMgr::Get_Instance()->PlayBGM(L"55. Bowser's Last Attack.mp3", 0.5f);
             m_bHurry = true;
         }
-        
+
     }
-    if (m_bDead)
-    {
-        CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
-        CSoundMgr::Get_Instance()->PlaySoundW(L"Boss Death.wav", SOUND_EFFECT, 0.5f);
-        return DEAD;
-    }
+
 
     Update_State();
     // 숨는 모션(HIDE_DROP)에 대한 특별 처리
@@ -162,126 +174,158 @@ void CBowser::Set_State(BOWSER_STATE eNewState)
     case BOWSER_FIRE_DROP_HIDE:  m_bHideStarted = false; m_dwFireDropStartTime = GetTickCount(); break;
     case BOWSER_DEAD_FLYAWAY:    m_fDeadSpeedY = -5.f; break;
     case BOWSER_HIT:             m_dwLastPatternTime = GetTickCount(); break;
+    case BOWSER_PEACH_HELP:
+        m_tFrame.iMotion = 4;
+        m_dwPeachHelpStart = GetTickCount(); // 등장 타이머 시작
+        break;
     default: break;
     }
 }
 
 void CBowser::Update_State()
 {
-    // 파이널씬 경계
-    const float fLeftBound = 256.f * SCALE_FACTOR + m_tInfo.fCX * 0.5f;
-    const float fRightBound = 512.f * SCALE_FACTOR - m_tInfo.fCX * 0.5f;
-    const float fTopBound = 224.f * SCALE_FACTOR + m_tInfo.fCY * 0.5f;
-    // 바닥 경계 조정
-    const float fBottomBound = (432.f - 16.f) * SCALE_FACTOR - m_tInfo.fCY * 0.5f;
+    // 바운더리 제한
+    const float fLeft = 256.f * SCALE_FACTOR + m_tInfo.fCX * 0.5f;
+    const float fRight = 512.f * SCALE_FACTOR - m_tInfo.fCX * 0.5f;
+    const float fTop = 224.f * SCALE_FACTOR + m_tInfo.fCY * 0.5f;
+    const float fBottom = (432.f - 16.f) * SCALE_FACTOR - m_tInfo.fCY * 0.5f;
 
-    // 경계 체크 및 제한
-    if (m_tInfo.fX < fLeftBound)
-        m_tInfo.fX = fLeftBound;
-    else if (m_tInfo.fX > fRightBound)
-        m_tInfo.fX = fRightBound;
+    if (m_tInfo.fX < fLeft)         m_tInfo.fX = fLeft;
+    else if (m_tInfo.fX > fRight)   m_tInfo.fX = fRight;
 
-    if (m_tInfo.fY < fTopBound)
-        m_tInfo.fY = fTopBound;
-    else if (m_tInfo.fY > fBottomBound && m_eState != BOWSER_DESCEND)
-        m_tInfo.fY = fBottomBound;
+    if (m_tInfo.fY < fTop)          m_tInfo.fY = fTop;
+    else if (m_tInfo.fY > fBottom && m_eState != BOWSER_DESCEND)
+        m_tInfo.fY = fBottom;
 
-    // 맞은 상태에서 3초 후 페이즈 전환 체크
-    if (m_bPhasePending && m_eState == BOWSER_HIT)
+    // 페이즈 업 대기 중이면 HIT 상태 유지
+    if (m_bPhasePending)
     {
-        if (GetTickCount() - m_dwHitTime > 3000)  // 3초 후 페이즈 업
+        if (m_eState != BOWSER_HIT)
+            Set_State(BOWSER_HIT);
+
+        if (GetTickCount() - m_dwHitTime > 3000)
         {
             m_bPhasePending = false;
             ++m_iPhase;
 
             if (m_iPhase >= 3)
             {
-                Set_State(BOWSER_DEAD_FLYAWAY);
                 m_bDead = true;
+                Set_State(BOWSER_DEAD_FLYAWAY);
             }
             else
             {
-                Set_State(BOWSER_IDLE);  // 맞은 후 IDLE로 돌아감
+                Set_State(BOWSER_IDLE);
             }
         }
+        return; // HIT 중에는 다른 상태 처리 안 함
     }
 
-    if (m_eState == BOWSER_IDLE)
+    // 현재 상태별 패턴 처리
+    switch (m_eState)
     {
-        DWORD dwNow = GetTickCount();
+    case BOWSER_DESCEND:         Pattern_Descend(); break;
+    case BOWSER_SWING:           Pattern_Swing(); break;
+    case BOWSER_STOMP:           Pattern_Stomp(); break;
+    case BOWSER_HIDE_DROP:       Pattern_HideDrop(); break;
+    case BOWSER_FIRE_DROP_HIDE:  Pattern_FireDrop(); break;
+    case BOWSER_DEAD_FLYAWAY:    Pattern_DeadFlyAway(); break;
+    case BOWSER_PEACH_HELP:      Pattern_PeachHelp(); break;
+
+    case BOWSER_IDLE:
+    {
+        DWORD now = GetTickCount();
         if (!m_bWaitingForNextPattern)
         {
             m_bWaitingForNextPattern = true;
-            m_dwLastPatternTime = dwNow;
+            m_dwLastPatternTime = now;
         }
-        else if (dwNow - m_dwLastPatternTime > 1000)
+        else
         {
-            Execute_Random_Pattern();
-            m_bWaitingForNextPattern = false;
+            DWORD dwDelay = (m_iPhase >= 3) ? 700 : 1500;
+            if (now - m_dwLastPatternTime > dwDelay)
+            {
+                m_bWaitingForNextPattern = false;
+
+                if (m_iPhase >= 2 && rand() % 4 == 0)
+                {
+                    Set_State(BOWSER_PEACH_HELP);
+                }
+                else
+                {
+                    Execute_Random_Pattern(); // 드롭, 스윙, 스톰프 중 하나
+                }
+            }
         }
     }
-    else
-    {
-        switch (m_eState)
-        {
-        case BOWSER_DESCEND:         Pattern_Descend(); break;
-        case BOWSER_SWING:           Pattern_Swing(); break;
-        case BOWSER_STOMP:           Pattern_Stomp(); break;
-        case BOWSER_HIDE_DROP:       Pattern_HideDrop(); break;
-        case BOWSER_FIRE_DROP_HIDE:  Pattern_FireDrop(); break;
-        case BOWSER_DEAD_FLYAWAY:    Pattern_DeadFlyAway(); break;
-        default: break;
-        }
+    break;
     }
 
-    // 자연스러운 좌우 이동 및 중앙 복귀 처리
-    if (m_bReturningCenter || m_bMovingSide)
+    // 패턴 실행 전 이동 중인 경우
+    if (m_bMovingForPattern)
     {
+        const float fBaseY = m_tSpawnPos.y;
+
         float dx = m_fTargetX - m_tInfo.fX;
-        if (fabs(dx) < 2.f * SCALE_FACTOR)
+        float dy = fBaseY - m_tInfo.fY;
+
+        // X, Y 둘 다 보정
+        if (fabs(dx) < 16.f && fabs(dy) < 16.f)
         {
             m_tInfo.fX = m_fTargetX;
-            m_bReturningCenter = false;
-            m_bMovingSide = false;
+            m_tInfo.fY = fBaseY;
+            m_bMovingForPattern = false;
+            m_bPatternReady = true;
         }
         else
         {
             m_tInfo.fX += dx * 0.1f;
+            m_tInfo.fY += dy * 0.1f;
         }
+    }
+    // 이동 완료 후 실제 패턴 진입
+    else if (m_bPatternReady)
+    {
+        m_bPatternReady = false;
 
-        // 이동 후 경계 체크
-        if (m_tInfo.fX < fLeftBound)
-            m_tInfo.fX = fLeftBound;
-        else if (m_tInfo.fX > fRightBound)
-            m_tInfo.fX = fRightBound;
+        switch (m_iPendingPattern)
+        {
+        case 0: Set_State(BOWSER_HIDE_DROP); break;
+        case 1: Set_State(BOWSER_STOMP); break;
+        case 2: Set_State(BOWSER_SWING); break;
+        }
     }
 }
 
 void CBowser::Execute_Random_Pattern()
 {
-    int pattern = rand() % 5;
-    // 파이널씬 경계
-    const float fLeftBound = 256.f * SCALE_FACTOR + m_tInfo.fCX * 0.5f + 50.f;
-    const float fRightBound = 512.f * SCALE_FACTOR - m_tInfo.fCX * 0.5f - 50.f;
+    // 위치 랜덤 선택: 0=왼쪽, 1=중앙, 2=오른쪽
+    int pos = rand() % 3;
+    const float fLeftBound = 256.f * SCALE_FACTOR + m_tInfo.fCX * 0.5f;
+    const float fRightBound = 512.f * SCALE_FACTOR - m_tInfo.fCX * 0.5f;
+    const float fCenter = m_tSpawnPos.x;
 
-    switch (pattern)
+    switch (pos)
     {
-    case 0: Set_State(BOWSER_SWING); break;
-    case 1: Set_State(BOWSER_STOMP); break;
-    case 2: Set_State(BOWSER_HIDE_DROP); break;
-    case 3:
-        m_fTargetX = m_tSpawnPos.x;
-        m_bReturningCenter = true;
-        break;
-    case 4:
-        // 좌우 이동 범위 제한
-        if (rand() % 2 == 0)
-            m_fTargetX = max(m_tSpawnPos.x - 100.f * SCALE_FACTOR, fLeftBound);
-        else
-            m_fTargetX = min(m_tSpawnPos.x + 100.f * SCALE_FACTOR, fRightBound);
-        m_bMovingSide = true;
+    case 0: m_fTargetX = fLeftBound; break;
+    case 1: m_fTargetX = fCenter; break;
+    case 2: m_fTargetX = fRightBound; break;
+    }
+    bool bMekakoopaExists = !CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER).empty();
+    // 3. 드롭 패턴 제외한 랜덤 선택
+    while (true)
+    {
+        int pattern = rand() % 3; // 0 = DROP, 1 = STOMP, 2 = SWING
+        if (pattern == 0 && bMekakoopaExists)
+            continue;
+
+        m_iPendingPattern = pattern;
         break;
     }
+
+    // 이동 상태 설정
+    m_bMovingForPattern = true;
+    m_bPatternReady = false;
 }
 
 void CBowser::On_Hit()
@@ -347,6 +391,7 @@ void CBowser::Pattern_Stomp()
             m_bStompStarted = true;
             m_fStompRecoverSpeed = -1.0f * SCALE_FACTOR;
             m_tFrame.iStart = 3; // 충돌 시 마지막 프레임
+            CSoundMgr::Get_Instance()->PlaySoundW(L"slam.wav", SOUND_EFFECT, 0.5f);
         }
     }
     // 복귀(상승) 단계
@@ -395,6 +440,9 @@ void CBowser::Pattern_Stomp()
 
 void CBowser::Pattern_HideDrop()
 {
+    
+    
+
     if (!m_bDropStarted)
     {
         m_bDropStarted = true;
@@ -440,6 +488,7 @@ void CBowser::Pattern_HideDrop()
 
 void CBowser::Pattern_FireDrop()
 {
+
     if (!m_bHideStarted)
     {
         m_tFrame = m_mapBowserFrame.at(BOWSER_FIRE_DROP_HIDE);
@@ -460,8 +509,36 @@ void CBowser::Pattern_DeadFlyAway()
     m_fDeadSpeedY += 0.2f * SCALE_FACTOR;
 }
 
+void CBowser::Pattern_PeachHelp()
+{
+    DWORD now = GetTickCount();
+
+    // 아이템 드롭 전 대기
+    if (!m_bItemDropped && now > m_dwPeachHelpStart + 800)
+    {
+        m_bItemDropped = true;
+
+        // 버섯 아이템 생성 (CItem(float x, float y, ITEMID id) 사용)
+        CItem* pItem = new CItem(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * 0.5f, ITEM_MUSH);
+        pItem->Initialize();
+        pItem->m_bPopUp = true;
+        CObjectMgr::Get_Instance()->Add_Object(OBJ_ITEM, pItem);
+        CSoundMgr::Get_Instance()->PlaySoundW(L"item_spawn.wav", SOUND_EFFECT, 0.5f);
+    }
+
+    // 일정 시간 후 IDLE 상태로 전환
+    if (now > m_dwPeachHelpStart + 1600)
+    {
+        m_bItemDropped = false;
+        Set_State(BOWSER_IDLE);
+    }
+}
+
 void CBowser::Spawn_Mechakoopa(float fx)
 {
+    const auto& Objlist = CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER);
+    if (!Objlist.empty()) return;
+
     // MekaKoopa 생성
     CMonster* pMekaKoopa = new CMonster();
 
@@ -473,9 +550,10 @@ void CBowser::Spawn_Mechakoopa(float fx)
         fSpawnX = m_tInfo.fX + 80.f; // 바우저 오른쪽에 생성
 
     // 위치와 크기 설정
-    pMekaKoopa->Get_Info()->fX = fSpawnX;
-    pMekaKoopa->Get_Info()->fY = 64.f * SCALE_FACTOR;  // 화면 상단으로 수정
+    float fSpawnY = m_tInfo.fY - m_tInfo.fCY * 0.5f - 64.f;
 
+    pMekaKoopa->Get_Info()->fX = fSpawnX;
+    pMekaKoopa->Get_Info()->fY = fSpawnY;
     pMekaKoopa->Get_Info()->iType = MON_MEKAKOOPA;
     pMekaKoopa->Get_Info()->fCX = 96.f;
     pMekaKoopa->Get_Info()->fCY = 72.f;
@@ -487,6 +565,7 @@ void CBowser::Spawn_Mechakoopa(float fx)
 
     // 초기 낙하 속도 매우 작게 설정 (자연스러운 낙하를 위해)
     pMekaKoopa->Set_FallSpeed(0.5f);
+    pMekaKoopa->Set_Jump(true);
 
     // OBJ_MONSTER에 추가
     CObjectMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pMekaKoopa);
