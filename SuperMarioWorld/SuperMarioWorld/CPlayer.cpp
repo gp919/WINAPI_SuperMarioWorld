@@ -94,8 +94,8 @@ void CPlayer::Late_Update()
 	if (m_tInfo.fY > 1700.f * SCALE_FACTOR)
 	{
 		// 리스폰 처리
-		m_tInfo.fX = 264.f;
-		m_tInfo.fY = 1152.f - (SMALLY * SCALE_FACTOR * 0.5f);
+		m_tInfo.fX = CSceneMgr::Get_Instance()->Get_CurrentScene()->Get_Spawn().first;
+		m_tInfo.fY = CSceneMgr::Get_Instance()->Get_CurrentScene()->Get_Spawn().second;
 		m_fJumpSpeed = 0.f;
 		m_fJumpTime = 0.f;
 		m_bJump = false;
@@ -103,6 +103,11 @@ void CPlayer::Late_Update()
 		m_bDead = false;
 		m_eCurState = IDLE;
 		m_ePreState = END;
+
+		// 스크롤 위치 보정
+		CScrollMgr::Get_Instance()->Set_ScrollX(this->Get_Info()->fX - WINCX * 0.42f);
+		CScrollMgr::Get_Instance()->Set_ScrollY(this->Get_Info()->fY - WINCY * 0.5f);
+		CScrollMgr::Get_Instance()->Scroll_Lock();
 
 		// 충돌박스도 다시 맞춰줘야 함
 		CObject::Update_Rect();
@@ -713,12 +718,21 @@ void CPlayer::Offset()
 		CScrollMgr::Get_Instance()->Set_ScrollX(fDelta);
 	}
 
-	// Y축: 플레이어를 화면 중앙에 고정
+	// Y축: 플레이어를 화면 중앙에 고정하되, CSceneFinal인 경우 라인 영역으로 제한
 	float fTargetScrollY = m_tInfo.fY - WINCY * 0.5f;
-	float fCurrentScrollY = CScrollMgr::Get_Instance()->Get_ScrollY();
-	float fDeltaY = fTargetScrollY - fCurrentScrollY;
-	//ScrollMgr::Get_Instance()->Set_ScrollY(fDeltaY);
 
+	if (dynamic_cast<CSceneFinal*>(CSceneMgr::Get_Instance()->Get_CurrentScene()))
+	{
+		const float fMinY = 224.f * SCALE_FACTOR;
+		const float fMaxY = 448.f * SCALE_FACTOR - WINCY;
+
+		// clamp
+		fTargetScrollY = clamp(fTargetScrollY, fMinY, fMaxY);
+	}
+
+	CScrollMgr::Get_Instance()->Set_ScrollY(fTargetScrollY);
+
+	// 최종 스크롤 락
 	CScrollMgr::Get_Instance()->Scroll_Lock();
 }
 

@@ -18,6 +18,7 @@ public:
 	virtual void Release()PURE;
 	
 	virtual pair<float, float> Get_MapSize()PURE;
+	virtual pair<float, float> Get_Spawn()PURE;
 
 
 

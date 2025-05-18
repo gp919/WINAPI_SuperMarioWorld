@@ -9,6 +9,7 @@
 #include "CMenu.h"
 #include "CLogo.h"
 #include "CWorld.h"
+#include "CSceneFinal.h"
 
 
 

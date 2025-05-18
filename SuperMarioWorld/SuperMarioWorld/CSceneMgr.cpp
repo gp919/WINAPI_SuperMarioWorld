@@ -218,7 +218,7 @@ void CSceneMgr::Change_Scene(SCENEID eID)
      //   m_pCurrentScene = new CScene02;
         break;
     case SC_STAGE_FINAL:
-     //   m_pCurrentScene = new CSceneFinal;
+         m_pCurrentScene = new CSceneFinal;
         break;
     case SC_BOSS:
      //   m_pCurrentScene = new CBossStage;

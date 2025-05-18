@@ -21,6 +21,7 @@ public:
 	 void Render(HDC)override;
 	 void Release()override;
 	 pair<float, float> Get_MapSize() { return { 256.f, 224.f }; };
+	 pair<float, float> Get_Spawn() { return { 0.f, 0.f }; }
 	 
 };
 

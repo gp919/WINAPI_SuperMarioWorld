@@ -27,11 +27,11 @@ void CScene01::Initialize()
 	
 	// 그 후 플레이어 생성 (타일 바닥 위)
 	CObject* pPlayer = new CPlayer;
-	pPlayer->Initialize();  // 명시적으로 초기화
-	pPlayer->Update();
-	pPlayer->Late_Update();
 	
 	CObjectMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
+
+	pPlayer->Update();
+	pPlayer->Late_Update();
 
 	// 스크롤 위치 보정
 	CScrollMgr::Get_Instance()->Set_ScrollX(pPlayer->Get_Info()->fX - WINCX * 0.42f);

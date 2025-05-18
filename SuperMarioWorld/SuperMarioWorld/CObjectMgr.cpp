@@ -84,6 +84,7 @@ void CObjectMgr::Release()
 {
 	for (UINT i = 0; i < OBJ_END; ++i)
 	{
+		if (i == OBJ_PLAYER) continue;
 		for_each(m_listObject[i].begin(), m_listObject[i].end(), Safe_Delete<CObject*>);
 			m_listObject[i].clear();
 	}

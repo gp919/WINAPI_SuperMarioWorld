@@ -146,6 +146,7 @@
     <ClInclude Include="CMenu.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CScene01.h" />
+    <ClInclude Include="CSceneFinal.h" />
     <ClInclude Include="CScrollMgr.h" />
     <ClInclude Include="CSoundMgr.h" />
     <ClInclude Include="CTile.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="CMenu.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CScene01.cpp" />
+    <ClCompile Include="CSceneFinal.cpp" />
     <ClCompile Include="CScrollMgr.cpp" />
     <ClCompile Include="CSoundMgr.cpp" />
     <ClCompile Include="CTile.cpp" />

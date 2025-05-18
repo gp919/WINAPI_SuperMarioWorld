@@ -88,6 +88,9 @@
     <Filter Include="02. Object\Bullet">
       <UniqueIdentifier>{e436d49d-27dc-4534-a4c9-48b2d28b51c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\Final">
+      <UniqueIdentifier>{fa3cd7cb-239f-4b60-9f6b-a13ada01febb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -192,6 +195,9 @@
     <ClInclude Include="CBullet.h">
       <Filter>02. Object\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneFinal.h">
+      <Filter>01. Scene\Final</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -283,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="CBullet.cpp">
       <Filter>02. Object\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneFinal.cpp">
+      <Filter>01. Scene\Final</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

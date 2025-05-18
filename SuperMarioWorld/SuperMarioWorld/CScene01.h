@@ -22,6 +22,10 @@ public:
 	void Render(HDC)override;
 	void Release()override;
 	pair<float, float> Get_MapSize() { return { 5120.f, 640.f }; };
+	pair<float, float> Get_Spawn()
+	{
+		return { 64.f * SCALE_FACTOR, 352.f * SCALE_FACTOR };
+	};
 
 	void Set_Pipe(bool _pipe) { m_bPipe = _pipe; };
 

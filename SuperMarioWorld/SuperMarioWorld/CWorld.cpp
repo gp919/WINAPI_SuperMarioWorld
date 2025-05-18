@@ -94,7 +94,7 @@ int CWorld::Update()
 			break;
 		// 스테이지final
 		case 3:
-			CSceneMgr::Get_Instance()->Change_Scene(SC_BOSS);
+			CSceneMgr::Get_Instance()->Change_Scene(SC_STAGE_FINAL);
 			break;
 		}
 		return DEAD;

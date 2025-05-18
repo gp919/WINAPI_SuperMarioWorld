@@ -17,6 +17,7 @@ public:
 	void Render(HDC)override;
 	void Release()override;
 	pair<float, float> Get_MapSize() { return { 5120.f, 432.f }; };
+	pair<float, float> Get_Spawn() { return { 0.f, 0.f }; }
 
 private:
 	float		m_fScrollX PURE;

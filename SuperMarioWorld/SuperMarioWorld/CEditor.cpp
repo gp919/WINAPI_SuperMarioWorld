@@ -605,9 +605,6 @@ void CEditor::Screen_To_World(float screenX, float screenY, float* worldX, float
     // 상대 -> 절대 좌표
     *worldX = (screenX + m_fScrollX);
     *worldY = (screenY + m_fScrollY);
-
-
-
 }
 
 // editor 에서 렌더링시 필요한가?
