@@ -4,6 +4,7 @@
 #include "CSoundMgr.h"
 #include "CObjectMgr.h"
 #include "CPlayer.h"
+#include "CBowser.h"
 
 class CPlayer;
 

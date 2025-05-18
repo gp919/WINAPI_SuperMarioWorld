@@ -71,6 +71,11 @@ void CMainGame::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Monty_Mole_R.bmp", L"Mole_RIGHT");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Piranha.bmp", L"Piranha");
 
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Bowser_L.bmp", L"Bowser_LEFT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/Bowser_R.bmp", L"Bowser_RIGHT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/MekaKoopa_L.bmp", L"MekaKoopa_LEFT");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Monsters/MekaKoopa_R.bmp", L"MekaKoopa_RIGHT");
+
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Resource/Death_Star.bmp", L"Death_Star");
 	
 	CLineMgr::Get_Instance()->Initialize();

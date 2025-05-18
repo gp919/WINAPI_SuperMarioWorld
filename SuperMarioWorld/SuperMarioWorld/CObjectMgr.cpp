@@ -66,6 +66,9 @@ void CObjectMgr::Render(HDC hDC)
 	for (auto& obj : m_listObject[OBJ_MONSTER])
 		obj->Render(hDC);
 
+	for (auto& obj : m_listObject[OBJ_BOWSER])
+		obj->Render(hDC);
+
 	for (auto& obj : m_listObject[OBJ_ITEM])
 		obj->Render(hDC);
 

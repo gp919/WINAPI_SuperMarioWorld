@@ -91,6 +91,9 @@
     <Filter Include="01. Scene\Final">
       <UniqueIdentifier>{fa3cd7cb-239f-4b60-9f6b-a13ada01febb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="10. Bowser">
+      <UniqueIdentifier>{11106325-7bd6-4bd7-af16-d565b3a79be1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -198,6 +201,9 @@
     <ClInclude Include="CSceneFinal.h">
       <Filter>01. Scene\Final</Filter>
     </ClInclude>
+    <ClInclude Include="CBowser.h">
+      <Filter>10. Bowser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SuperMarioWorld.cpp">
@@ -292,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="CSceneFinal.cpp">
       <Filter>01. Scene\Final</Filter>
+    </ClCompile>
+    <ClCompile Include="CBowser.cpp">
+      <Filter>10. Bowser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -26,18 +26,18 @@ void CSceneFinal::Initialize()
     CLineMgr::Get_Instance()->Add_Line({ 512 * SCALE_FACTOR,224 * SCALE_FACTOR }, { 512 * SCALE_FACTOR,448 * SCALE_FACTOR });
     // 하단
     CLineMgr::Get_Instance()->Add_Line({ 256 * SCALE_FACTOR,448 * SCALE_FACTOR }, { 512 * SCALE_FACTOR,448 * SCALE_FACTOR });
+    CLineMgr::Get_Instance()->Add_Line({ 256 * SCALE_FACTOR,432 * SCALE_FACTOR }, { 512 * SCALE_FACTOR,432 * SCALE_FACTOR });
     // 하단 라인 위에 타일 : Render X
     
-    
-   /* CTile* pTile;
-    for (int i = 0; i < 16; ++i)
+    CTile* pTile;
+    for (int i = 0; i < 18; ++i)
     {
         float fX = (256.f + i * 16.f) * SCALE_FACTOR;
-        float fY = 416.f * SCALE_FACTOR;
+        float fY = 416.f * SCALE_FACTOR + 48.f;
 
-        CTile* pTile = new CTile(fX, fY, TILE_EMPTY);
+        CTile* pTile = new CTile(fX, fY, TILE_HIDDEN);
         CObjectMgr::Get_Instance()->Add_Object(OBJ_TILE, pTile);
-    }*/
+    }
     
 	
    /* pPlayer = dynamic_cast <CPlayer*>(CObjectMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER).front());
@@ -60,6 +60,15 @@ void CSceneFinal::Initialize()
     m_fScrollY = clamp(m_fScrollY, minY, maxY);
     CScrollMgr::Get_Instance()->Set_ScrollX(m_fScrollX);
     CScrollMgr::Get_Instance()->Set_ScrollY(m_fScrollY);
+
+
+    // 쿠파 배치 좌표 (대략적으로 중앙 상단에 등장)
+    float fBowserX = 384.f * SCALE_FACTOR;
+    float fBowserY = 320.f * SCALE_FACTOR;
+    CBowser* pBowser = new CBowser;
+    pBowser->Set_PosX(fBowserX);  // 등장 위치
+    pBowser->Set_PosY(fBowserY);
+    CObjectMgr::Get_Instance()->Add_Object(OBJ_BOWSER, pBowser);
 
 
 }

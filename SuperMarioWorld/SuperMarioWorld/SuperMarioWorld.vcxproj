@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBowser.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CEditor.h" />
     <ClInclude Include="CEffect.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBowser.cpp" />
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CEditor.cpp" />
     <ClCompile Include="CEffect.cpp" />

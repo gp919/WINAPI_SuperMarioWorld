@@ -43,6 +43,12 @@ const map<pair<MONSTERID, MONSTER_STATE>, FRAME> CMonster::m_mapFrame = {
     {{MON_PIRANHA, MONSTER_DOWN},   {0, 1, 0, 300, 0}},
     {{MON_PIRANHA, MONSTER_HIDDEN}, {0, 0, 0, 0, 0}}, // 정지 이미지 재사용
     {{MON_REDKOOPA, MONSTER_DEAD}, {0, 0, 1, 0, 0}},
+
+    // MekaKoopa
+    {{MON_MEKAKOOPA, MONSTER_IDLE}, {0, 3, 0, 100, 0}},
+    {{MON_MEKAKOOPA, MONSTER_SHELL_IDLE}, {0, 0, 1, 0, 0}},
+    {{MON_MEKAKOOPA, MONSTER_SHELL_MOVE}, {0, 2, 1, 133, 0}},
+    {{MON_MEKAKOOPA, MONSTER_DEAD}, {0, 5, 2, 66, 0}},
 };
 
 // Static 데이터 - 방향별 이미지 키
@@ -61,7 +67,10 @@ const map<pair<MONSTERID, OBJECTDIR>, const TCHAR*> CMonster::m_mapImage = {
     {{MON_MOLE, DIR_RIGHT}, L"Mole_RIGHT"},
     // Piranha (방향 구분 없음)
     {{MON_PIRANHA, DIR_LEFT}, L"Piranha"},
-    {{MON_PIRANHA, DIR_RIGHT}, L"Piranha"}
+    {{MON_PIRANHA, DIR_RIGHT}, L"Piranha"},
+    // Meka Koopa
+    {{MON_MEKAKOOPA, DIR_LEFT }, L"MekaKoopa_LEFT" },
+    {{MON_MEKAKOOPA, DIR_RIGHT}, L"MekaKoopa_RIGHT"}
 };
 
 CMonster::CMonster()
@@ -116,6 +125,7 @@ void CMonster::Initialize()
             m_tInfo.fCX = TILECX * SCALE_FACTOR;
             m_tInfo.fCY = TILECX * SCALE_FACTOR;  // 미니쿠파 크기
             break;
+        
         default:
             // 일반 크기
             switch (m_eMonID)
@@ -124,6 +134,10 @@ void CMonster::Initialize()
             case MON_REDKOOPA:
                 m_tInfo.fCX = TILECX * SCALE_FACTOR;
                 m_tInfo.fCY = TILECY * SCALE_FACTOR * 2.f;
+                break;
+            case MON_MEKAKOOPA:
+                m_tInfo.fCX = TILECX * SCALE_FACTOR * 2.f;
+                m_tInfo.fCY = TILECY * SCALE_FACTOR * 1.5f;
                 break;
             default:
                 m_tInfo.fCX = TILECX * SCALE_FACTOR;
@@ -161,6 +175,9 @@ void CMonster::Initialize()
             m_tInfo.fCX = TILECX * SCALE_FACTOR;
             m_tInfo.fCY = TILECY * SCALE_FACTOR * 2.f;
             break;
+        case MON_MEKAKOOPA:
+            m_tInfo.fCX = TILECX * SCALE_FACTOR * 2.f;
+            m_tInfo.fCY = TILECY * SCALE_FACTOR * 1.5f;
         default:
             m_tInfo.fCX = TILECX * SCALE_FACTOR;
             m_tInfo.fCY = TILECY * SCALE_FACTOR;
@@ -739,6 +756,11 @@ void CMonster::On_Stomped()
             Set_State(MONSTER_STOMPED);
             return;
         }
+    }
+    if (m_eMonID == MON_MEKAKOOPA)
+    {
+        Set_State(MONSTER_SHELL_IDLE);
+        return;
     }
 
     Set_State(MONSTER_STOMPED);
