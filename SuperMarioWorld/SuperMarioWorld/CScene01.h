@@ -23,7 +23,7 @@ public:
 	void Late_Update()override;
 	void Render(HDC)override;
 	void Release()override;
-	pair<float, float> Get_MapSize() { return { 5120.f, 640.f }; };
+	pair<float, float> Get_MapSize() { return { 5120.f, 1120.f }; };
 	pair<float, float> Get_Spawn()
 	{
 		return { 64.f * SCALE_FACTOR, 352.f * SCALE_FACTOR };
@@ -42,7 +42,10 @@ private:
 	float		m_fGridY PURE;
 
 	bool		m_bPipe = false;
-
+	bool m_bPipeScrolling = false;
+	DWORD m_dwPipeScrollStart = 0;
+	float m_fTargetScrollY = 0.f;
+	float m_fRestoreScrollY = 0.f;
 	CPlayer* pPlayer;
 
 	

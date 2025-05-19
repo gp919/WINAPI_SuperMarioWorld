@@ -1,7 +1,38 @@
-﻿  CScrollMgr.cpp
+﻿  CPlayer.cpp
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CObject.h(74,20): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CPlayer.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(48,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CPlayer.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(49,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CPlayer.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CPlayer.h(55,28): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CPlayer.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CPlayer.cpp(700,8): warning C4101: 'fAccel' :참조되지 않은 지역 변수입니다.
+  (소스 파일 '/CPlayer.cpp'을(를) 컴파일하는 중)
+  
+  CScene01.cpp
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CObject.h(74,20): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CScene01.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(48,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CScene01.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CUiMgr.h(49,42): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CScene01.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CPlayer.h(55,28): warning C4244: '초기화 중': 'float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CScene01.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\SuperMarioWorld\CScene01.cpp(125,22): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/CScene01.cpp'을(를) 컴파일하는 중)
+  
   코드를 생성하고 있습니다.
-  4 of 1610 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  2 of 1615 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   SuperMarioWorld.vcxproj -> C:\Users\nern2\WINAPI_SuperMarioWorld\SuperMarioWorld\Release\SuperMarioWorld.exe

@@ -67,6 +67,8 @@ void CSceneFinal::Initialize()
 
     m_fScrollX = pPlayer->Get_Info()->fX - WINCX * 0.42f;
     m_fScrollY = pPlayer->Get_Info()->fY - WINCY * 0.5f;
+    CScrollMgr::Get_Instance()->Set_Size(768.f * SCALE_FACTOR, 448.f * SCALE_FACTOR);  // 보스 배경 높이에 맞게
+
     const float minX = 256.f * SCALE_FACTOR;
     const float maxX = 512.f * SCALE_FACTOR - WINCX;
     const float minY = 224.f * SCALE_FACTOR;

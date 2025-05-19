@@ -88,10 +88,12 @@ void CPlayer::Late_Update()
 	Change_State();
 	CObject::Move_Frame();
 	CObject::Update_Rect();
-	Offset();
+	if (!m_bForceScroll)
+		Offset();
+
 		
 
-	if (m_tInfo.fY > 1700.f * SCALE_FACTOR)
+	if (m_tInfo.fY > 2100.f * SCALE_FACTOR)
 	{
 		// 리스폰 처리
 		m_tInfo.fX = CSceneMgr::Get_Instance()->Get_CurrentScene()->Get_Spawn().first;
@@ -157,7 +159,8 @@ void CPlayer::Late_Update()
 
 		}
 	}
-	
+
+	m_bForceScroll = false;
 }
 
 void CPlayer::Render(HDC hDC)
@@ -707,16 +710,20 @@ void CPlayer::Update_Speed()
 
 void CPlayer::Offset()
 {
+	if (m_bForceScroll) {
+		return;
+	}
 	const float fFocusX = WINCX * 0.42f;
 	const float fOffsetBoxHalf = 24.f;
 
 	fOffsetBoxLeft = fFocusX - fOffsetBoxHalf;
 	fOffsetBoxRight = fFocusX + fOffsetBoxHalf;
 
-	// X축: 오프셋 박스를 벗어나면 스크롤 이동
+	// 스크린 좌표로 변환
 	float fPlayerScreenX, fPlayerScreenY;
 	CScrollMgr::Get_Instance()->World_To_Screen(m_tInfo.fX, m_tInfo.fY, &fPlayerScreenX, &fPlayerScreenY);
 
+	// X축 오프셋 박스 벗어났을 때만 스크롤 이동
 	if (fPlayerScreenX < fOffsetBoxLeft)
 	{
 		float fDelta = fOffsetBoxLeft - fPlayerScreenX;
@@ -728,21 +735,23 @@ void CPlayer::Offset()
 		CScrollMgr::Get_Instance()->Set_ScrollX(fDelta);
 	}
 
-	// Y축: 플레이어를 화면 중앙에 고정하되, CSceneFinal인 경우 라인 영역으로 제한
-	float fTargetScrollY = m_tInfo.fY - WINCY * 0.5f;
+	// Y축 오프셋 영역 (매우 큼)
+	const float fOffsetBoxYHalf = 300.f;
+	float fScreenCenterY = WINCY * 0.5f;
+	float fOffsetTop = fScreenCenterY - fOffsetBoxYHalf;
+	float fOffsetBottom = fScreenCenterY + fOffsetBoxYHalf;
 
-	if (dynamic_cast<CSceneFinal*>(CSceneMgr::Get_Instance()->Get_CurrentScene()))
+	if (fPlayerScreenY < fOffsetTop)
 	{
-		const float fMinY = 224.f * SCALE_FACTOR;
-		const float fMaxY = 448.f * SCALE_FACTOR - WINCY;
-
-		// clamp
-		fTargetScrollY = clamp(fTargetScrollY, fMinY, fMaxY);
+		float fDeltaY = fOffsetTop - fPlayerScreenY;
+		CScrollMgr::Get_Instance()->Set_AbsScrollY(CScrollMgr::Get_Instance()->Get_ScrollY() - fDeltaY);
+	}
+	else if (fPlayerScreenY > fOffsetBottom)
+	{
+		float fDeltaY = fPlayerScreenY - fOffsetBottom;
+		CScrollMgr::Get_Instance()->Set_AbsScrollY(CScrollMgr::Get_Instance()->Get_ScrollY() + fDeltaY);
 	}
 
-	CScrollMgr::Get_Instance()->Set_ScrollY(fTargetScrollY);
-
-	// 최종 스크롤 락
 	CScrollMgr::Get_Instance()->Scroll_Lock();
 }
 

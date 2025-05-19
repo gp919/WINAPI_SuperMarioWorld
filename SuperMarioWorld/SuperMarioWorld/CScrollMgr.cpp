@@ -17,6 +17,9 @@ void CScrollMgr::Scroll_Lock()
     float maxX = m_fStageCX * SCALE_FACTOR - WINCX;
     float maxY = (432.f * SCALE_FACTOR) - WINCY; // 여기가 너무 작으면 바닥이 안 보임
 
+   //float maxX = m_fStageCX - WINCX;
+    // maxY = m_fStageCY * SCALE_FACTOR - WINCY;
+
     m_fScrollX = clamp(m_fScrollX, 0.f, maxX);
     m_fScrollY = clamp(m_fScrollY, 0.f, maxY); // ← 이 부분을 이미지 높이에 맞춰 조정
 

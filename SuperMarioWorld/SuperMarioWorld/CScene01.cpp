@@ -22,7 +22,7 @@ void CScene01::Initialize()
 
 	CScrollMgr::Get_Instance()->Set_ScrollX(0.f);
 	CScrollMgr::Get_Instance()->Set_ScrollY(0.f);
-	CScrollMgr::Get_Instance()->Set_Size(5120.f * SCALE_FACTOR, 960.f * SCALE_FACTOR);
+	CScrollMgr::Get_Instance()->Set_Size(5120.f * SCALE_FACTOR, 1120.f * SCALE_FACTOR);
 	CSceneMgr::Get_Instance()->Load_Data(); // 먼저 데이터 불러오기
 	
 	// 그 후 플레이어 생성 (타일 바닥 위)
@@ -36,7 +36,7 @@ void CScene01::Initialize()
 
 	// 스크롤 위치 보정
 	CScrollMgr::Get_Instance()->Set_ScrollX(pPlayer->Get_Info()->fX - WINCX * 0.42f);
-	CScrollMgr::Get_Instance()->Set_ScrollY(pPlayer->Get_Info()->fY - WINCY * 0.5f);
+	CScrollMgr::Get_Instance()->Set_ScrollY(pPlayer->Get_Info()->fY - WINCY * 0.7f);
 	CScrollMgr::Get_Instance()->Scroll_Lock();
 }
 
@@ -50,9 +50,11 @@ int CScene01::Update()
 		if (fx >= 3872 * 3.f && fx <= 3904 * 3.f &&
 			fy >= 1000.f && fy <= 1100.f)
 		{
-			pPlayer->Set_PosY((480 - 352) * 3.f);
-			pPlayer->Offset();
-			CSoundMgr::Get_Instance()->PlaySoundW(L"pipe.wav", SOUND_EFFECT, 0.1f);
+			pPlayer->Set_PosY(1488.f);
+
+			CScrollMgr::Get_Instance()->Set_AbsScrollY(pPlayer->Get_Info()->fY - WINCY * 0.5f);
+			CScrollMgr::Get_Instance()->Scroll_Lock();
+			pPlayer->Set_ForceScroll(true);
 		}
 	}
 
@@ -67,7 +69,7 @@ int CScene01::Update()
 		{
 			pPlayer->Set_PosX((4048 - 4576) * 3.f);
 			pPlayer->Set_PosY((336 - 624) * 3.f);
-			pPlayer->Offset();
+			pPlayer->Set_ForceScroll(true);
 			CSoundMgr::Get_Instance()->PlaySoundW(L"pipe.wav", SOUND_EFFECT, 0.1f);
 		}
 	}
@@ -153,6 +155,7 @@ void CScene01::Late_Update()
 
 void CScene01::Render(HDC hDC)
 {
+
 	// 로고 표시
 	if (m_bLogo)
 	{
@@ -215,9 +218,17 @@ void CScene01::Render(HDC hDC)
 	int srcH = WINCY / SCALE_FACTOR;
 
 	// BMP 범위를 벗어나지 않도록 보정
-	const int maxBmpH = 864;
-	if (srcY + srcH > maxBmpH)
-		srcY = maxBmpH - srcH;
+	const int maxBmpH = 1120;
+	srcY = static_cast<int>(CScrollMgr::Get_Instance()->Get_ScrollY() / SCALE_FACTOR);
+	srcH = WINCY / SCALE_FACTOR;
+
+	// clamp 사용해서 srcY만 안전하게 제한
+	srcY = clamp(srcY, 0, maxBmpH - srcH);
+
+	wchar_t szLog[256];
+	swprintf(szLog, 256, L"[RENDER] ScrollY=%.2f srcY=%d srcH=%d\n",
+		CScrollMgr::Get_Instance()->Get_ScrollY(), srcY, srcH);
+	OutputDebugStringW(szLog);
 
 	GdiTransparentBlt(
 		hDC,
